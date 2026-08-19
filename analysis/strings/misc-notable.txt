@@ -1,0 +1,152 @@
+# URLs, version strings, DLL/EXE names, Wallpaper Engine references
+# total matches: 160 (incl. duplicates) | unique: 148
+# column 1: encoding (A=ASCII, U=UTF-16LE)  column 2: file offset  column 3: string
+
+A 0x0042b0b0  MF.dll
+A 0x0042b0c0  MFPlat.DLL
+A 0x00435230  pdh.dll
+A 0x00472488  wallpaper64
+A 0x00472520  [steamusers]
+A 0x00472658  apputil32.exe
+A 0x004726b8  steamlanguage
+A 0x00472728  wallpaper32.exe
+A 0x00472738  wallpaper64.exe
+A 0x00472958  openWallpaper
+A 0x004729c0  Wallpaper Pop-out
+A 0x00472ac0  closeWallpaper
+A 0x00472b00  nextWallpaper
+A 0x00472b30  revealWallpaper
+A 0x00472b50  getWallpaper
+A 0x00472d58  -nowallpapers
+A 0x00473310  http://
+A 0x00473318  https://
+A 0x00473340  C++/WinRT version:2.0.250303.5
+A 0x004733f8  wallpaperconfigscreensaver
+A 0x00473418  sameaswallpaper
+A 0x00473428  overridewallpaper
+A 0x00473480  nextwallpaper
+A 0x00473500  ApplyRefreshWallpaperConfig
+A 0x00473570   -steamlanguage 
+A 0x004736c0  wallpaperconfig
+A 0x00473730  selectedwallpapers
+A 0x00473768  installer.exe
+A 0x004738d8  bin/wallpaperui.exe
+A 0x00473990  wallpaperconfigrecent
+A 0x00473a48  core_tray_recent_wallpapers_clear
+A 0x00473a70  core_tray_recent_wallpapers
+A 0x00473a90  core_tray_next_wallpaper
+A 0x00473b18  Microsoft/Windows/Themes/WallpaperEngineOverride.jpg
+A 0x00473b50  Microsoft/Windows/Themes/WallpaperEngineLockOverride.jpg
+A 0x00473bb8  " -setwallpaperstyle 22
+A 0x00473bd0   -setwallpaper "
+A 0x00473c08  wallpaperconfigvdesktop
+A 0x00473ce8  wallpapers
+A 0x00473d50  browsewallpapers
+A 0x00473eb8  core_balloon_wallpaper_file_missing
+A 0x00473fe0  WPEhandlerBrowseWallpapers
+A 0x00474000  -window browsewallpapers
+A 0x00474098  -op steamscreenshot
+A 0x00474110  wallpaper
+A 0x00474a18  Software\Microsoft\Windows\CurrentVersion\Explorer\Wallpapers
+A 0x00475a10  wallpaperconfigvd
+A 0x00475a68  wallpaper_engine
+A 0x00475a88  steamapps
+A 0x00477220  wallpaperui.exe
+A 0x004855d0  DirectX compiler cannot be found, d3dcompiler_47.dll is missing.
+A 0x004887a8  bin/edgewallpaper64.exe
+A 0x00488850  bin/webwallpaper64.exe
+A 0x00489b28  loadwallpaper
+A 0x00491130  resourcecompiler64.exe
+A 0x0049c5e4  wallpaper64.pdb
+A 0x004d8c98  KERNEL32.dll
+A 0x004d941e  USER32.dll
+A 0x004d94f2  GDI32.dll
+A 0x004d9570  SHELL32.dll
+A 0x004d95f8  ole32.dll
+A 0x004d96f6  ADVAPI32.dll
+A 0x004d9718  d3d11.dll
+A 0x004d9754  dwmapi.dll
+A 0x004d9782  WINMM.dll
+A 0x004d97d2  WTSAPI32.dll
+A 0x004d97e0  SHLWAPI.dll
+A 0x004d9830  MFReadWrite.dll
+A 0x004d9fa0  DWrite.dll
+A 0x004df630  .?AV<lambda_1>@?1??Init@WallpaperManager@@QEAAX_N@Z@
+A 0x004df680  .?AV<lambda_2>@?1??Init@WallpaperManager@@QEAAX_N@Z@
+A 0x004df6d0  .?AV?$_Binder@U_Unforced@std@@P8WallpaperManager@@EAAXXZPEAV3@@std@@
+A 0x004dfe30  .?AV<lambda_3>@?1??StartVideoWithNewPlayer@VideoWallpaper@@AEAAXPEB_W@Z@
+A 0x004dfe90  .?AV<lambda_4>@?1??StartVideoWithNewPlayer@VideoWallpaper@@AEAAXPEB_W@Z@
+A 0x004dfef0  .?AV<lambda_1>@?1??StartVideoWithNewPlayer@VideoWallpaper@@AEAAXPEB_W@Z@
+A 0x004dff50  .?AV<lambda_2>@?1??StartVideoWithNewPlayer@VideoWallpaper@@AEAAXPEB_W@Z@
+A 0x004dffb0  .?AV<lambda_5>@?1??StartVideoWithNewPlayer@VideoWallpaper@@AEAAXPEB_W@Z@
+A 0x004e0010  .?AV<lambda_1>@?1??LoadSceneAndProperties@SceneWallpaper@@QEAAXPEBD@Z@
+A 0x004e0070  .?AV?$_Binder@U_Unforced@std@@P8CEFWallpaper@@EAAXAEBUEvent@MediaIntegration@@@ZPEAV3@AEBU?$_Ph@$00@2@@std@@
+A 0x004e00f0  .?AV?$_Binder@U_Unforced@std@@P8CEFWallpaper@@EAAXAEBUInterProcessMessage@@@ZPEAV3@AEBU?$_Ph@$00@2@@std@@
+A 0x00516a6c  <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3"><trustInfo xmlns="urn:schemas-microsoft-com:asm.v3"><security><requestedPrivi...
+A 0x0051a0f4  www.digicert.com1!0
+A 0x0051a477  http://ocsp.digicert.com0A
+A 0x0051a49c  5http://cacerts.digicert.com/DigiCertTrustedRootG4.crt0C
+A 0x0051a4e4  2http://crl3.digicert.com/DigiCertTrustedRootG4.crl0
+A 0x0051ab9d  http://www.digicert.com/CPS0
+A 0x0051abf2  Mhttp://crl3.digicert.com/DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0S
+A 0x0051ac47  Mhttp://crl4.digicert.com/DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0
+A 0x0051acb6  http://ocsp.digicert.com0\
+A 0x0051acdb  Phttp://cacerts.digicert.com/DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt0
+A 0x0051b719  http://ocsp.digicert.com0]
+A 0x0051b73e  Qhttp://cacerts.digicert.com/DigiCertTrustedG4TimeStampingRSA4096SHA2562025CA1.crt0_
+A 0x0051b7a2  Nhttp://crl3.digicert.com/DigiCertTrustedG4TimeStampingRSA4096SHA2562025CA1.crl0 
+A 0x0051be76  2http://crl3.digicert.com/DigiCertTrustedRootG4.crl0 
+A 0x0051c13e  www.digicert.com1$0"
+A 0x0051c4a5  http://ocsp.digicert.com0C
+A 0x0051c4ca  7http://cacerts.digicert.com/DigiCertAssuredIDRootCA.crt0E
+A 0x0051c514  4http://crl3.digicert.com/DigiCertAssuredIDRootCA.crl0
+U 0x0042d4c8  mscoree.dll
+U 0x00435236  lKERNEL32.DLL
+U 0x0047109e  ePsapi.dll
+U 0x004710d0  kernel32.dll
+U 0x00471438  vhook.dll
+U 0x004714c6  help.wallpaperengine.io/crash
+U 0x00471530  Razer Synapse has crashed Wallpaper Engine.
+U 0x0047158a  The Razer Chroma plugin will be disabled to fix this crash. You can re-enable it in the Wallpaper Engine plugin settings.
+U 0x00471680  Software\WallpaperEngine\
+U 0x004716e0  PRECISION X hacked and crashed Wallpaper Engine. Update PRECISION X or disable its overlay hack.
+U 0x00471860  Your Nvidia graphics drivers have crashed Wallpaper Engine. Try reinstalling the NEWEST Nvidia drivers or install OLDER, STABLE drivers. This type of crash can also be the result of a broken graphi...
+U 0x00471a40  Rivatuner Statistics Server hacked and crashed Wallpaper Engine. Exclude Wallpaper Engine in RivaTuner to stop it from crashing it.
+U 0x00471b70  The MSI Gaming App hacked and crashed Wallpaper Engine. Update it or disable its overlay hack.
+U 0x00471c50  RadeonPro hacked and crashed Wallpaper Engine. Update it or disable its overlay hack.
+U 0x00471d30  BitDefender hacked and possibly crashed Wallpaper Engine through its 'Advanced Threat Defense'. Try excluding Wallpaper Engine there or disabling it.
+U 0x00471e60  Wallpaper Engine crashed in the Windows System.
+U 0x00471ee0  Your audio driver crashed Wallpaper Engine. Try setting 'Other application playing audio' to 'keep running' in the Wallpaper Engine settings.
+U 0x00472000  overlay.x86.dll
+U 0x00472020  overlay.x64.dll
+U 0x00472040  LIKELY SOLUTION: Disable Discord overlay for Wallpaper Engine.
+U 0x004721b0  Wallpaper Engine was likely crashed by the following application. Try closing or updating this application:
+U 0x00472290  Wallpaper Engine was likely crashed by another application (
+U 0x00472320  Wallpaper Engine has crashed.
+U 0x00472438  steammdmp64.dll
+U 0x004724b8  DBGHELP.DLL
+U 0x004724e8  Software\Valve\Steam\Users
+U 0x004726e8  cxWallpaperEngineGlobalMutex
+U 0x00472746  eKristjanSkutta.WallpaperEngine
+U 0x00472c00  wallpaper64.exe -control aws
+U 0x00473ab0  uxtheme.dll
+U 0x00473b90  winrtutil64.exe
+U 0x004746f0  WallpaperEngineParent
+U 0x00476680  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\DirectXMathMatrix.inl
+U 0x004768a0  d3dcompiler_47.dll
+U 0x004768e8  cloneextensions64.dll
+U 0x00476df0  WPEVideoWallpaper
+U 0x00476f6e  1resourceutil64.dll
+U 0x00485290  mediaextensions64.dll
+U 0x004852d8  scenescript64.dll
+U 0x00485f18  mfplat.dll
+U 0x00487370  D:\dev\we\windows\src\wallpaper\src\wallpaper\videowallpaper.cpp
+U 0x004873f8  WallpaperEngineWallpaper
+U 0x00487440  mfreadwrite.dll
+U 0x00487f50  WPELiveWallpaper
+U 0x00488ae0  WPEOverlappedWallpaper
+U 0x004894b0  WPEImageWallpaper
+U 0x0051653c  core_tray_change_wallpaper
+U 0x005165f2  core_tray_create_wallpaper
+U 0x005167d8  2.8.0.42
+U 0x00516900  Wallpaper Engine

@@ -1,0 +1,29 @@
+[+] d3d11.dll @ 0x63a40000 size=0x1eb000
+[+] D3D11CreateDevice hooked for future calls
+[*] Scanning heap for ID3D11Device vtable references...
+[*] 827 RW ranges to scan
+[FOUND device?] obj @ 0x944278 vtable @ 0x63a41000
+[+] Hooked device vtable @ 0x63a41000 (Texture2D,Buffer,VS,PS)
+[FOUND device?] obj @ 0x944298 vtable @ 0x63a48088
+[+] Hooked device vtable @ 0x63a48088 (Texture2D,Buffer,VS,PS)
+[FOUND device?] obj @ 0x94429c vtable @ 0x63a480d0
+[+] Hooked device vtable @ 0x63a480d0 (Texture2D,Buffer,VS,PS)
+[FOUND device?] obj @ 0x9442ac vtable @ 0x63a44b4c
+[FOUND device?] obj @ 0x9442f0 vtable @ 0x63a480f8
+[*] Scan done. Found 5 candidate device vtables.
+[*] Late-attach setup complete.
+[CreateVertexShader #1] bytecodeLen=322571432
+[CreateVertexShader #2] bytecodeLen=131526588
+[CreateVertexShader #3] bytecodeLen=0
+[CreateVertexShader #4] bytecodeLen=70252732
+[CreateVertexShader #5] bytecodeLen=70252732
+[CreateVertexShader #6] bytecodeLen=1671885216
+[CreateVertexShader #7] bytecodeLen=1671885216
+[CreateVertexShader #8] bytecodeLen=324549032
+[CreateVertexShader #9] bytecodeLen=322075052
+[CreateVertexShader #10] bytecodeLen=0
+[CreateVertexShader #11] bytecodeLen=68942060
+[CreateVertexShader #12] bytecodeLen=68942060
+[CreateVertexShader #13] bytecodeLen=1671885216
+[CreateVertexShader #14] bytecodeLen=1671885216
+[CreateVertexShader #15] bytecodeLen=322571432

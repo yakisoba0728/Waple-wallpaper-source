@@ -1,0 +1,68 @@
+// Function: FUN_1403981d0
+// Addr: 1403981d0
+// Size: 25 bytes
+
+
+undefined8 * FUN_1403981d0(longlong *param_1)
+
+{
+  int iVar1;
+  longlong lVar2;
+  int *piVar3;
+  undefined8 *puVar4;
+  int *piVar5;
+  
+  piVar5 = (int *)*param_1;
+  do {
+    if (piVar5 != (int *)0x0) {
+code_r0x00014039829a:
+      puVar4 = &DAT_14045dde0;
+      if (0x4d < (uint)piVar5[6]) {
+        puVar4 = *(undefined8 **)(piVar5 + 4);
+      }
+      return puVar4;
+    }
+    if (param_1[-6] == 0) {
+      piVar5 = (int *)&DAT_14045dde0;
+      goto code_r0x00014039829a;
+    }
+    piVar3 = (int *)func_0x0001403b8200();
+    piVar5 = (int *)&DAT_14045dde0;
+    if (piVar3 != (int *)0x0) {
+      piVar5 = piVar3;
+    }
+    LOCK();
+    lVar2 = *param_1;
+    if (lVar2 == 0) {
+      *param_1 = (longlong)piVar5;
+    }
+    UNLOCK();
+    if (lVar2 == 0) goto code_r0x00014039829a;
+    if (((piVar5 != (int *)0x0) && (piVar5 != (int *)&DAT_14045dde0)) && (*piVar5 != 0)) {
+      LOCK();
+      iVar1 = *piVar5;
+      *piVar5 = *piVar5 + -1;
+      UNLOCK();
+      if (iVar1 == 1) {
+        *piVar5 = -0xdead;
+        lVar2 = *(longlong *)(piVar5 + 2);
+        if (lVar2 != 0) {
+          FUN_1403c32f0(lVar2);
+          func_0x0001402bf8e0(lVar2);
+          piVar5[2] = 0;
+          piVar5[3] = 0;
+        }
+        if (*(code **)(piVar5 + 10) != (code *)0x0) {
+          (**(code **)(piVar5 + 10))(*(undefined8 *)(piVar5 + 8));
+          piVar5[8] = 0;
+          piVar5[9] = 0;
+          piVar5[10] = 0;
+          piVar5[0xb] = 0;
+        }
+        func_0x0001402bf8e0(piVar5);
+      }
+    }
+    piVar5 = (int *)*param_1;
+  } while( true );
+}
+

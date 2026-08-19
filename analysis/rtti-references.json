@@ -1,0 +1,19 @@
+{
+  "SceneWallpaper": [],
+  "VideoWallpaper": [],
+  "CEFWallpaper": [],
+  "WallpaperManager": [],
+  "ReadTextureData": [],
+  "AudioProcessor": [],
+  "AudioEventHandler": [],
+  "ParticleVbo": [],
+  "MaterialSystem": [],
+  "LoadSceneAndProperties": [],
+  "Main_LoadScene": [],
+  "DWriteFontFileLoader": [
+    {
+      "file_off": 4823728,
+      "kind": "RVA4"
+    }
+  ]
+}

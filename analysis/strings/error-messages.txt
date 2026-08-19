@@ -1,0 +1,202 @@
+# Strings containing error / fail / invalid / missing / cannot / etc.
+# total matches: 199 (incl. duplicates) | unique: 198
+# column 1: encoding (A=ASCII, U=UTF-16LE)  column 2: file offset  column 3: string
+
+A 0x00429288  file too large
+A 0x00429298  filename too long
+A 0x00429348  invalid argument
+A 0x00429360  invalid seek
+A 0x00429370  io error
+A 0x00429490  no such device or address
+A 0x004294b0  no such device
+A 0x004294c0  no such file or directory
+A 0x004294e0  no such process
+A 0x004295e0  permission denied
+A 0x004295f8  protocol error
+A 0x00429678  result out of range
+A 0x004296a8  stream timeout
+A 0x004296c8  timed out
+A 0x00429740  value too large
+A 0x00429768  unknown error
+A 0x004518c0  invalid distance too far back
+A 0x004518e0  invalid distance code
+A 0x004518f8  invalid literal/length code
+A 0x00451950  invalid window size
+A 0x004519a0  invalid block type
+A 0x004519b8  invalid stored block lengths
+A 0x00451a00  invalid code lengths set
+A 0x00451a20  invalid bit length repeat
+A 0x00451a40  invalid code -- missing end-of-block
+A 0x00451a68  invalid literal/lengths set
+A 0x00451a88  invalid distances set
+A 0x0046f5b0  buffer verify error: clusters are not monotone.
+A 0x0046f5e0  buffer verify error: unsafe-to-break test failed.
+A 0x0046f618  buffer verify error: unsafe-to-concat test failed.
+A 0x0046f650  buffer verify error: text was: %s.
+A 0x004725b8  Failed reading user name, error: %i
+A 0x00472850  core_msgboxtitle_error
+A 0x004728e8  core_msgbox_aero_denied
+A 0x00472900  core_msgbox_aero_failure
+A 0x00472c80  Failed to terminate existing process without window. STARTING ANYWAY.
+A 0x00472d00  core_msgbox_init_secondinstance_failed
+A 0x00472dc8  unordered_map/set too long
+A 0x00472de8  invalid hash bucket count
+A 0x00472e68  iostream stream error
+A 0x00473108  vector too long
+A 0x00473130  system error
+A 0x00473268  invalid string position
+A 0x00473288  string too long
+A 0x00473818  Unable to create window
+A 0x00473e50  core_balloon_video_error
+A 0x00473e80  core_balloon_app_error
+A 0x00473e98  core_balloon_pkg_version_error
+A 0x00473eb8  core_balloon_wallpaper_file_missing
+A 0x00475748  No error.
+A 0x004757a8  Invalid value.
+A 0x004757b8  Missing a name for object member.
+A 0x004757e0  Missing a colon after a name of object member.
+A 0x00475810  Missing a comma or '}' after an object member.
+A 0x00475840  Missing a comma or ']' after an array element.
+A 0x004758a0  The surrogate pair in string is invalid.
+A 0x004758d0  Invalid escape character in string.
+A 0x004758f8  Missing a closing quotation mark in string.
+A 0x00475928  Invalid encoding in string.
+A 0x004759b0  Terminate parsing due to Handler error.
+A 0x004759d8  Unspecific syntax error.
+A 0x004759f8  Unknown error.
+A 0x00475a38  Config.json error: %s
+A 0x00476428  Cannot load plugin %s, %i.
+A 0x004765b0  Error loading library %S (%i).
+A 0x00476a38  fade error:
+A 0x00477150  deque<T> too long
+A 0x004771f0  Missing file. Try reinstalling to fix this!
+A 0x004772e0   (Windows error "
+A 0x00477300  Failed to create process: 
+A 0x00477390  in Json::Value::duplicateAndPrefixStringValue(): Failed to allocate string value buffer
+A 0x004773f0  in Json::Value::duplicateStringValue(): Failed to allocate string value buffer
+A 0x00478090  wuffs_aux::DecodeImage: unsupported image format
+A 0x004780c8  wuffs_aux::DecodeImage: unsupported metadata
+A 0x004780f8  wuffs_aux::DecodeImage: unsupported pixel blend
+A 0x00478128  wuffs_aux::DecodeImage: unsupported pixel format
+A 0x00478160  wuffs_aux::DecodeImage: buffer is too short
+A 0x00478238  wuffs_aux::DecodeImage: unsupported pixel configuration
+A 0x00478270  wuffs_aux::DecodeImage: out of memory
+A 0x00478368  #tga: unsupported TGA file
+A 0x00478678  #png: internal error: zlib decoder did not exhaust its input
+A 0x00478700  #png: unsupported PNG file
+A 0x00478720  #png: internal error: inconsistent I/O
+A 0x00478748  #png: internal error: inconsistent chunk type
+A 0x00478778  #png: internal error: inconsistent workbuf length
+A 0x004787b0  #png: missing palette
+A 0x004787e0  #png: unsupported CgBI extension
+A 0x00478808  #png: unsupported PNG compression method
+A 0x00478a90  #nie: unsupported NIE file
+A 0x00478eb0  #json: internal error: inconsistent I/O
+A 0x00479030  #json: unsupported number length
+A 0x00479058  #json: unsupported recursion depth
+A 0x00479258  #gif: internal error: inconsistent ri/wi
+A 0x00479318  #lzw: internal error: inconsistent I/O
+A 0x00479430  #deflate: internal error: inconsistent n_bits
+A 0x00479620  #deflate: internal error: inconsistent Huffman decoder state
+A 0x00479660  #deflate: internal error: inconsistent I/O
+A 0x00479690  #deflate: internal error: inconsistent distance
+A 0x00479718  #deflate: missing end-of-block code
+A 0x0047d930  #cbor: internal error: inconsistent I/O
+A 0x0047d958  #cbor: internal error: inconsistent token length
+A 0x0047ddf0  #cbor: unsupported recursion depth
+A 0x0047de30  #bzip2: unsupported block randomization
+A 0x0047de58  #bzip2: internal error: inconsistent Huffman decoder state
+A 0x0047e028  #bmp: unsupported BMP file
+A 0x004812b8  #base: unsupported pixel swizzler option
+A 0x004813e0  #base: disabled by previous error
+A 0x004817c8  #base: cannot return a suspension
+A 0x00481808  #base: bad argument (length too short)
+A 0x00481830  #base: unsupported option
+A 0x00483eb8  Syntax error: value, object or array expected.
+A 0x00483f60  Missing ':' after object member name
+A 0x00483fb8  Missing '}' or object member name
+A 0x00483fe0  Missing ',' or '}' in object declaration
+A 0x00484028  Missing ',' or ']' in array declaration
+A 0x00484340  failIfExtra
+A 0x00484448  Failed parsing locale: %s
+A 0x00484468  Failed loading locale: %s
+A 0x00484488  Failed parsing 
+A 0x00484498   with error: 
+A 0x004851f8  LZ4 error.
+A 0x00485278  Native image error.
+A 0x00485410  Unable to allocate %u bytes.
+A 0x00485490  Failed default format: channels %i, align %i, rate %i
+A 0x004855d0  DirectX compiler cannot be found, d3dcompiler_47.dll is missing.
+A 0x00485648  %s shader %s error:
+A 0x00485758  Shader data overflow %s
+A 0x004858d0  vector<bool> too long
+A 0x00485f30  core_msgbox_media_feature_pack_missing
+A 0x00486400  HLSL var error: %s
+A 0x00487038  invalid unordered_map<K, T> key
+A 0x00487058  invalid string_view position
+A 0x00487580  Failed creating video player (%s): %x
+A 0x004875e0  Failed resizing video in callback.
+A 0x00487608  Failed handling MF video event: %x (%u)
+A 0x00487638  Failed opening video (%s): %s, %x
+A 0x00487660  Failed resizing video (%s): %x
+A 0x00487f78  DXGI Init failed, retrying: %i
+A 0x004880d0  Failed copying gif file from %S to %S: %s.
+A 0x00488110  Failed copying gif template from %S to %S: %s.
+A 0x00488178  DXGI failed init: %x at %u.
+A 0x004893a8  Application shell execute failed with: %u
+A 0x00489490  Failed loading image: %s
+A 0x004895a8  D3D11_CREATE_DEVICE_VIDEO_SUPPORT failed.
+A 0x00489660  QDC failed: %i
+A 0x00489670  QDC GetDisplayConfigBufferSizes failed: %i
+A 0x004896d8  QDC path %i deviceName failed with %i
+A 0x00489700  QDC path %i sourceDeviceName failed with %i
+A 0x00489780  QDC path %i modeInfoIdx && sourceModeInfoIdx invalid (virtual mode %i)
+A 0x004897c8  QDC path %i targetInfo.modeInfoIdx invalid
+A 0x00489870  QDC path %i adapterName failed with %i
+A 0x00489920  QDC path %i sourceModeIndex %u invalid (virtual mode %i)
+A 0x00489978  Found missing monitors %s
+A 0x004899a0  QDC path %i failed to grab HMONITOR from rect ltrb %i, %i, %i, %i
+A 0x0048a348  Material %s error: %s
+A 0x0048a678  Invalid variant resolution: w=%u h=%u
+A 0x0048a6a0  Invalid texture resolution: w=%u h=%u d=%u
+A 0x0048cca8  list too long
+A 0x0048d3c0  Failed parsing %s with error: %s.
+A 0x0048f0a8  Invalid parent configuration.
+A 0x0048f558  Failed loading effect: %s
+A 0x004910a0  Failed opening: %s
+A 0x004910d0  VFS missing file: %s
+A 0x004910e8  Cannot open %s, version %i not supported.
+A 0x00491198  CreateProcess for compiler failed: %s (%s)
+A 0x004d8792  SetUnhandledExceptionFilter
+A 0x004d87c8  GetLastError
+A 0x004d87d8  SetLastError
+A 0x004d8a60  SetThreadErrorMode
+A 0x004d8bac  FatalAppExitA
+A 0x004d8daa  SendMessageTimeoutW
+A 0x004d8dea  InvalidateRect
+A 0x004d9aa6  RaiseException
+A 0x004d9c6a  UnhandledExceptionFilter
+A 0x004df168  .?AVexception@std@@
+A 0x004df1c0  .?AVruntime_error@std@@
+A 0x004df1e8  .?AVlength_error@std@@
+A 0x004df290  .?AVsystem_error@std@@
+A 0x004df2b8  .?AV_System_error@std@@
+A 0x004df308  .?AVfailure@ios_base@std@@
+A 0x004df338  .?AVbad_exception@std@@
+A 0x004dfc18  .?AVlogic_error@std@@
+A 0x004dfc40  .?AVfuture_error@std@@
+A 0x004dfc68  .?AVexception@stdext@@
+A 0x004e0198  .?AVinvalid_argument@std@@
+A 0x004e07f0  .?AVerror_category@std@@
+A 0x004e0820  .?AV_Generic_error_category@std@@
+A 0x004e0a88  .?AV_Iostream_error_category2@std@@
+A 0x004e0bd0  .?AV_ExceptionPtr_normal@?A0x6e02efe5@@
+A 0x004e0c10  .?AV?$_ExceptionPtr_static@Vbad_alloc@std@@@?A0x6e02efe5@@
+A 0x004e0c60  .?AV?$_ExceptionPtr_static@Vbad_exception@std@@@?A0x6e02efe5@@
+U 0x0042c560  Assertion failed: %Ts, file %Ts, line %d
+U 0x0042c610  Assertion failed!
+U 0x0042c706  failure, see the Visual C++ documentation on asserts
+U 0x004720c0  Module not found! If you have Windows N and you are trying to play a video, install the latest Media Feature Pack.
+U 0x00472364  Crash caused by: '%s'. Error code: 0x%08X.
+U 0x00475fd0  !HasParseError()
+U 0x00477320  Process Error

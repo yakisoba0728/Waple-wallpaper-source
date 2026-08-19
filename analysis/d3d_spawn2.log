@@ -1,0 +1,4 @@
+[+] d3d11.dll @ 0x7ffa8e7f0000
+[+] D3D11CreateDevice @ 0x7ffa8e873d60
+[*] Hook armed. Wallpaper Engine already has a device; for fresh capture, restart it.
+[*] To capture mid-run D3D activity, the wallpaper must create new resources (e.g. switch wallpaper).

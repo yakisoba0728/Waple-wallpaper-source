@@ -1,0 +1,610 @@
+openjdk version "21.0.12" 2026-07-21 LTS
+OpenJDK Runtime Environment Temurin-21.0.12+8 (build 21.0.12+8-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.12+8 (build 21.0.12+8-LTS, mixed mode)
+INFO  Using log config file: jar:file:/opt/ghidra_12.1.2_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /root/.config/ghidra/ghidra_12.1.2_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /root/.config/ghidra/ghidra_12.1.2_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (746 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Starting cache cleanup: /var/tmp/root-ghidra/fscache2 (FileCacheMaintenanceDaemon)  
+INFO  Finished cache cleanup, estimated storage used: 0 (FileCacheMaintenanceDaemon)  
+INFO  Headless startup complete (2802 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 59 extension points (20 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/BSim/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/Base/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating project: /work/ghidra_proj/we_analysis (HeadlessAnalyzer)  
+INFO  Creating project: /work/ghidra_proj/we_analysis (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /work/ghidra_proj/we_analysis (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///work/binaries/wallpaper64.exe (HeadlessAnalyzer)  
+INFO  Using Loader: Portable Executable (PE) (ProgramLoader)  
+INFO  Using Language/Compiler: x86:LE:64:default:windows (ProgramLoader)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib64] (ProgramLoader)  
+ERROR Invalid DebugDirectory (DebugDirectory)  
+INFO  TLS callbacks at 4219410042194b (TLSDirectory)  
+ERROR Invalid thunkPtr for 4d8720 (DelayImportDescriptor)  
+INFO  Additional info:
+There were too many messages to display.
+4007 messages have been truncated.
+
+Loading file:///work/binaries/wallpaper64.exe?MD5=263677f0891626089b3553dcf52018ac...
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140001226: Conflicting data exists at address 140001180 to 140001277
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400014e0: Conflicting data exists at address 1400014b6 to 140001559
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140002809: Conflicting data exists at address 1400027e2 to 140002879
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140002830: Conflicting data exists at address 1400027e2 to 140002879
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140002857: Conflicting data exists at address 1400027e2 to 140002879
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004379: Conflicting data exists at address 140004359 to 1400043f0
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004399: Conflicting data exists at address 140004359 to 1400043f0
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400044c3: Conflicting data exists at address 1400044bc to 14000454b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400044f9: Conflicting data exists at address 1400044bc to 14000454b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004519: Conflicting data exists at address 1400044bc to 14000454b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004539: Conflicting data exists at address 1400044bc to 14000454b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004769: Conflicting data exists at address 140004749 to 1400047ac
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004789: Conflicting data exists at address 140004749 to 1400047ac
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400047a9: Conflicting data exists at address 140004749 to 1400047ac
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400047e9: Conflicting data exists at address 1400047c9 to 140004852
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004809: Conflicting data exists at address 1400047c9 to 140004852
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004829: Conflicting data exists at address 1400047c9 to 140004852
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140004849: Conflicting data exists at address 1400047c9 to 140004852
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140005c47: Conflicting data exists at address 140005c05 to 140005ca4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140005c67: Conflicting data exists at address 140005c05 to 140005ca4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140005ef5: Conflicting data exists at address 140005ed0 to 140005f63
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000630d: Conflicting data exists at address 1400062ff to 140006384
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140006b10: Conflicting data exists at address 140006a94 to 140006b6b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140007b17: Conflicting data exists at address 140007afb to 140007b82
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140007b4b: Conflicting data exists at address 140007afb to 140007b82
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140007b51: Conflicting data exists at address 140007afb to 140007b82
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140007b76: Conflicting data exists at address 140007afb to 140007b82
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140007b81: Conflicting data exists at address 140007afb to 140007b82
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d14f: Conflicting data exists at address 14000d148 to 14000d14f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d3ec: Conflicting data exists at address 14000d39c to 14000d437
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d431: Conflicting data exists at address 14000d39c to 14000d437
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d60c: Conflicting data exists at address 14000d5c8 to 14000d663
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d651: Conflicting data exists at address 14000d5c8 to 14000d663
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d660: Conflicting data exists at address 14000d5c8 to 14000d663
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d6ca: Conflicting data exists at address 14000d6a2 to 14000d735
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d7c5: Conflicting data exists at address 14000d7c0 to 14000d7c7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000d7df: Conflicting data exists at address 14000d7d9 to 14000d7e0
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000da73: Conflicting data exists at address 14000da48 to 14000dab7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000daaf: Conflicting data exists at address 14000da48 to 14000dab7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000db57: Conflicting data exists at address 14000dac6 to 14000db5d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000dd4e: Conflicting data exists at address 14000dd10 to 14000ddab
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000de32: Conflicting data exists at address 14000de00 to 14000de7b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000e320: Conflicting data exists at address 14000e2f7 to 14000e33e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000e8f8: Conflicting data exists at address 14000e8e2 to 14000e909
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000e8ff: Conflicting data exists at address 14000e8e2 to 14000e909
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ea7c: Conflicting data exists at address 14000ea6d to 14000ead2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ea88: Conflicting data exists at address 14000ea6d to 14000ead2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ea8f: Conflicting data exists at address 14000ea6d to 14000ead2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000eabb: Conflicting data exists at address 14000ea6d to 14000ead2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ec0c: Conflicting data exists at address 14000ebfd to 14000ec62
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ec2e: Conflicting data exists at address 14000ebfd to 14000ec62
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ed3a: Conflicting data exists at address 14000eca3 to 14000ed3a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ee0a: Conflicting data exists at address 14000ed73 to 14000ee42
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ee1f: Conflicting data exists at address 14000ed73 to 14000ee42
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000f0b4: Conflicting data exists at address 14000f07b to 14000f10a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000f2cc: Conflicting data exists at address 14000f243 to 14000f302
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000f34b: Conflicting data exists at address 14000f30e to 14000f351
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000f855: Conflicting data exists at address 14000f824 to 14000f8b7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000f860: Conflicting data exists at address 14000f824 to 14000f8b7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000f874: Conflicting data exists at address 14000f824 to 14000f8b7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000f9de: Conflicting data exists at address 14000f9c2 to 14000fa59
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000f9e4: Conflicting data exists at address 14000f9c2 to 14000fa59
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ff7f: Conflicting data exists at address 14000ff43 to 14000ffda
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14000ff9f: Conflicting data exists at address 14000ff43 to 14000ffda
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140010123: Conflicting data exists at address 14001010c to 1400101f7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400101c4: Conflicting data exists at address 14001010c to 1400101f7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140010d25: Conflicting data exists at address 140010cae to 140010d39
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140011070: Conflicting data exists at address 140010fd5 to 1400110c8
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001109b: Conflicting data exists at address 140010fd5 to 1400110c8
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400110eb: Conflicting data exists at address 1400110e2 to 140011109
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400110f4: Conflicting data exists at address 1400110e2 to 140011109
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140011211: Conflicting data exists at address 140011170 to 140011221
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140011b65: Conflicting data exists at address 140011b15 to 140011bac
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140011c05: Conflicting data exists at address 140011bb5 to 140011c88
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140011f1c: Conflicting data exists at address 140011f04 to 140011fb7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140011f42: Conflicting data exists at address 140011f04 to 140011fb7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140011f4f: Conflicting data exists at address 140011f04 to 140011fb7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140011f8d: Conflicting data exists at address 140011f04 to 140011fb7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400120ad: Conflicting data exists at address 140012051 to 1400120e4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400120b3: Conflicting data exists at address 140012051 to 1400120e4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400120e1: Conflicting data exists at address 140012051 to 1400120e4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140012951: Conflicting data exists at address 14001293c to 1400129d3
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140012d28: Conflicting data exists at address 140012cd3 to 140012d7e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140012eff: Conflicting data exists at address 140012ee9 to 140012f00
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013061: Conflicting data exists at address 140013047 to 14001306e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400131c8: Conflicting data exists at address 140013165 to 1400131fc
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400131fc: Conflicting data exists at address 140013165 to 1400131fc
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400132dc: Conflicting data exists at address 140013270 to 14001335b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013311: Conflicting data exists at address 140013270 to 14001335b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001347e: Conflicting data exists at address 140013478 to 1400134cf
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013484: Conflicting data exists at address 140013478 to 1400134cf
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001381c: Conflicting data exists at address 1400137c0 to 140013857
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013936: Conflicting data exists at address 1400138cf to 140013956
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013b14: Conflicting data exists at address 140013ad3 to 140013b2a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013c2a: Conflicting data exists at address 140013bbd to 140013c50
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013c45: Conflicting data exists at address 140013bbd to 140013c50
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013c78: Conflicting data exists at address 140013c6a to 140013c79
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140013fa4: Conflicting data exists at address 140013f6e to 14001400d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001417a: Conflicting data exists at address 14001416c to 14001417b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140014289: Conflicting data exists at address 14001427e to 1400142ad
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400142a8: Conflicting data exists at address 14001427e to 1400142ad
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001436a: Conflicting data exists at address 140014321 to 140014370
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140014513: Conflicting data exists at address 1400144a2 to 140014551
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140014aa9: Conflicting data exists at address 140014a52 to 140014ac9
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140014c5c: Conflicting data exists at address 140014bda to 140014c79
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140014d6b: Conflicting data exists at address 140014d47 to 140014dde
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140014dd8: Conflicting data exists at address 140014d47 to 140014dde
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001509f: Conflicting data exists at address 14001500e to 1400150a5
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400150c5: Conflicting data exists at address 1400150af to 140015146
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001510a: Conflicting data exists at address 1400150af to 140015146
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001511a: Conflicting data exists at address 1400150af to 140015146
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001545e: Conflicting data exists at address 14001541f to 1400154be
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400156a2: Conflicting data exists at address 14001564b to 14001573e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001581f: Conflicting data exists at address 140015819 to 140015820
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140015bb4: Conflicting data exists at address 140015b39 to 140015bd8
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016124: Conflicting data exists at address 14001611e to 1400161c1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016199: Conflicting data exists at address 14001611e to 1400161c1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016292: Conflicting data exists at address 14001627f to 1400162b2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016298: Conflicting data exists at address 14001627f to 1400162b2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001629e: Conflicting data exists at address 14001627f to 1400162b2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400164c2: Conflicting data exists at address 1400164bc to 140016513
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400164c8: Conflicting data exists at address 1400164bc to 140016513
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400164ef: Conflicting data exists at address 1400164bc to 140016513
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016807: Conflicting data exists at address 1400167df to 140016832
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016929: Conflicting data exists at address 140016923 to 1400169ba
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001692f: Conflicting data exists at address 140016923 to 1400169ba
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016e46: Conflicting data exists at address 140016e40 to 140016e47
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016edc: Conflicting data exists at address 140016eb8 to 140016f43
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016f0c: Conflicting data exists at address 140016eb8 to 140016f43
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140016f79: Conflicting data exists at address 140016f59 to 140016ff0
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001715e: Conflicting data exists at address 1400170f1 to 1400171b2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400174cf: Conflicting data exists at address 140017465 to 140017552
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140017576: Conflicting data exists at address 140017570 to 140017577
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140017832: Conflicting data exists at address 1400177e4 to 14001788b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001785d: Conflicting data exists at address 1400177e4 to 14001788b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140017f05: Conflicting data exists at address 140017eb0 to 140017f43
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140017f27: Conflicting data exists at address 140017eb0 to 140017f43
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140017ff9: Conflicting data exists at address 140017fd3 to 14001805e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018209: Conflicting data exists at address 1400181ff to 140018286
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018212: Conflicting data exists at address 1400181ff to 140018286
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018323: Conflicting data exists at address 1400182ae to 140018341
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018796: Conflicting data exists at address 14001876e to 14001880d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018957: Conflicting data exists at address 140018942 to 1400189e1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001897f: Conflicting data exists at address 140018942 to 1400189e1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018af4: Conflicting data exists at address 140018aab to 140018b42
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018c51: Conflicting data exists at address 140018c30 to 140018d17
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018cda: Conflicting data exists at address 140018c30 to 140018d17
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140018f2d: Conflicting data exists at address 140018e54 to 140018f53
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001912e: Conflicting data exists at address 1400190ec to 14001918b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140019158: Conflicting data exists at address 1400190ec to 14001918b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140019340: Conflicting data exists at address 14001933b to 140019342
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140019f59: Conflicting data exists at address 140019f4a to 14001a04d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140019f66: Conflicting data exists at address 140019f4a to 14001a04d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140019fbc: Conflicting data exists at address 140019f4a to 14001a04d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001a1e8: Conflicting data exists at address 14001a18c to 14001a1f3
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001a4ea: Conflicting data exists at address 14001a4b0 to 14001a53b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001acd0: Conflicting data exists at address 14001acc6 to 14001ad5d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001b91b: Conflicting data exists at address 14001b8fe to 14001b9b1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001cc60: Conflicting data exists at address 14001cc50 to 14001ccdb
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001cc6b: Conflicting data exists at address 14001cc50 to 14001ccdb
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001cc8e: Conflicting data exists at address 14001cc50 to 14001ccdb
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001d106: Conflicting data exists at address 14001d0c4 to 14001d117
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001d21c: Conflicting data exists at address 14001d1d2 to 14001d255
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001d3b6: Conflicting data exists at address 14001d359 to 14001d414
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001e19a: Conflicting data exists at address 14001e189 to 14001e220
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001e577: Conflicting data exists at address 14001e56f to 14001e596
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14001f487: Conflicting data exists at address 14001f47f to 14001f516
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400219eb: Conflicting data exists at address 1400219e4 to 140021a77
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14002f7a0: Conflicting data exists at address 14002f773 to 14002f80e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14002f7ef: Conflicting data exists at address 14002f773 to 14002f80e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14002f94b: Conflicting data exists at address 14002f91c to 14002f95f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400300a6: Conflicting data exists at address 1400300a0 to 14003013b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400300ae: Conflicting data exists at address 1400300a0 to 14003013b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030106: Conflicting data exists at address 1400300a0 to 14003013b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400302bf: Conflicting data exists at address 14003027a to 14003030d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400302ce: Conflicting data exists at address 14003027a to 14003030d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003073a: Conflicting data exists at address 1400306d5 to 1400307c8
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003079a: Conflicting data exists at address 1400306d5 to 1400307c8
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400308bd: Conflicting data exists at address 14003081f to 1400308d6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030a40: Conflicting data exists at address 140030a08 to 140030a9b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030a82: Conflicting data exists at address 140030a08 to 140030a9b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030b28: Conflicting data exists at address 140030b10 to 140030b8f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030c93: Conflicting data exists at address 140030c5c to 140030ccb
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030cc6: Conflicting data exists at address 140030c5c to 140030ccb
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030d73: Conflicting data exists at address 140030d48 to 140030ddf
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030db8: Conflicting data exists at address 140030d48 to 140030ddf
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030dcf: Conflicting data exists at address 140030d48 to 140030ddf
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030ed1: Conflicting data exists at address 140030eb5 to 140030f68
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030f09: Conflicting data exists at address 140030eb5 to 140030f68
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140030f63: Conflicting data exists at address 140030eb5 to 140030f68
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400310cc: Conflicting data exists at address 140031063 to 1400310f6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400310e3: Conflicting data exists at address 140031063 to 1400310f6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031158: Conflicting data exists at address 140031113 to 1400311ce
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003116f: Conflicting data exists at address 140031113 to 1400311ce
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031189: Conflicting data exists at address 140031113 to 1400311ce
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031228: Conflicting data exists at address 1400311e7 to 14003122e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003142f: Conflicting data exists at address 1400313ad to 140031448
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400314da: Conflicting data exists at address 1400314d0 to 1400315bb
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400315a1: Conflicting data exists at address 1400314d0 to 1400315bb
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031605: Conflicting data exists at address 1400315fb to 14003169a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003163d: Conflicting data exists at address 1400315fb to 14003169a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031665: Conflicting data exists at address 1400315fb to 14003169a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031686: Conflicting data exists at address 1400315fb to 14003169a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400317f9: Conflicting data exists at address 1400317dd to 140031860
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031800: Conflicting data exists at address 1400317dd to 140031860
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003184e: Conflicting data exists at address 1400317dd to 140031860
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003188f: Conflicting data exists at address 140031884 to 14003196f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400318a9: Conflicting data exists at address 140031884 to 14003196f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031907: Conflicting data exists at address 140031884 to 14003196f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031948: Conflicting data exists at address 140031884 to 14003196f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031c76: Conflicting data exists at address 140031c32 to 140031cd1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031c90: Conflicting data exists at address 140031c32 to 140031cd1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031cca: Conflicting data exists at address 140031c32 to 140031cd1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031d01: Conflicting data exists at address 140031ce8 to 140031dd7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031d30: Conflicting data exists at address 140031ce8 to 140031dd7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031d4f: Conflicting data exists at address 140031ce8 to 140031dd7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031d65: Conflicting data exists at address 140031ce8 to 140031dd7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031dc6: Conflicting data exists at address 140031ce8 to 140031dd7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031ec1: Conflicting data exists at address 140031ea1 to 140031f40
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031f8b: Conflicting data exists at address 140031f85 to 140031fa6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140031f91: Conflicting data exists at address 140031f85 to 140031fa6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032134: Conflicting data exists at address 1400320f8 to 1400321c7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032183: Conflicting data exists at address 1400320f8 to 1400321c7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003219c: Conflicting data exists at address 1400320f8 to 1400321c7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032304: Conflicting data exists at address 1400322c8 to 140032397
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032353: Conflicting data exists at address 1400322c8 to 140032397
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003243a: Conflicting data exists at address 1400323fd to 14003243a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032516: Conflicting data exists at address 140032510 to 140032517
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032650: Conflicting data exists at address 140032645 to 140032650
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032a15: Conflicting data exists at address 140032a0b to 140032aca
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032b3a: Conflicting data exists at address 140032b30 to 140032bc7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032b72: Conflicting data exists at address 140032b30 to 140032bc7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032bab: Conflicting data exists at address 140032b30 to 140032bc7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140032bb8: Conflicting data exists at address 140032b30 to 140032bc7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140033076: Conflicting data exists at address 14003305f to 1400330ae
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400330f4: Conflicting data exists at address 1400330e7 to 1400330fe
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003331f: Conflicting data exists at address 140033319 to 1400333c0
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140033590: Conflicting data exists at address 140033555 to 1400335e4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400335ce: Conflicting data exists at address 140033555 to 1400335e4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140033943: Conflicting data exists at address 140033935 to 140033944
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140033acd: Conflicting data exists at address 140033a3e to 140033ad5
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140034722: Conflicting data exists at address 14003471a to 1400347bd
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140034749: Conflicting data exists at address 14003471a to 1400347bd
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140034910: Conflicting data exists at address 140034898 to 140034917
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400349e9: Conflicting data exists at address 14003499d to 140034a34
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400349f0: Conflicting data exists at address 14003499d to 140034a34
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140034cb0: Conflicting data exists at address 140034caa to 140034cb1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140034f41: Conflicting data exists at address 140034f3b to 140034f72
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140035001: Conflicting data exists at address 140034ff0 to 14003508f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140035280: Conflicting data exists at address 14003527a to 14003533d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140035286: Conflicting data exists at address 14003527a to 14003533d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400352a9: Conflicting data exists at address 14003527a to 14003533d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400352d6: Conflicting data exists at address 14003527a to 14003533d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400352dc: Conflicting data exists at address 14003527a to 14003533d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400352f6: Conflicting data exists at address 14003527a to 14003533d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140035571: Conflicting data exists at address 140035570 to 140035573
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140035599: Conflicting data exists at address 14003557e to 140035615
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400355db: Conflicting data exists at address 14003557e to 140035615
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400355e1: Conflicting data exists at address 14003557e to 140035615
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140035609: Conflicting data exists at address 14003557e to 140035615
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140035672: Conflicting data exists at address 14003566c to 140035747
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003568f: Conflicting data exists at address 14003566c to 140035747
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400356d1: Conflicting data exists at address 14003566c to 140035747
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400356d2: Conflicting data exists at address 14003566c to 140035747
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140035f84: Conflicting data exists at address 140035f56 to 140035fa5
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400362cb: Conflicting data exists at address 1400362c5 to 1400362e6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400362d8: Conflicting data exists at address 1400362c5 to 1400362e6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400365da: Conflicting data exists at address 1400365cd to 140036668
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140036908: Conflicting data exists at address 140036901 to 140036928
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400369f6: Conflicting data exists at address 1400369ef to 140036a86
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140036e2a: Conflicting data exists at address 140036e0e to 140036e65
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140036fb7: Conflicting data exists at address 140036f5e to 140036ff5
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400371a3: Conflicting data exists at address 140037178 to 140037217
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400371cc: Conflicting data exists at address 140037178 to 140037217
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400371d9: Conflicting data exists at address 140037178 to 140037217
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400374fa: Conflicting data exists at address 14003747d to 140037508
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400375f6: Conflicting data exists at address 1400375f0 to 140037617
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400380fe: Conflicting data exists at address 1400380ce to 140038121
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003827d: Conflicting data exists at address 140038277 to 14003831a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038283: Conflicting data exists at address 140038277 to 14003831a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003853b: Conflicting data exists at address 1400384b6 to 1400385ad
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038600: Conflicting data exists at address 1400385b0 to 14003860f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400387db: Conflicting data exists at address 1400387bd to 1400387ec
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400387e8: Conflicting data exists at address 1400387bd to 1400387ec
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038c2f: Conflicting data exists at address 140038bfb to 140038c9a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038cdf: Conflicting data exists at address 140038cb5 to 140038d4c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038d0e: Conflicting data exists at address 140038cb5 to 140038d4c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038e99: Conflicting data exists at address 140038e93 to 140038f1a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038ec5: Conflicting data exists at address 140038e93 to 140038f1a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038ee7: Conflicting data exists at address 140038e93 to 140038f1a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038f0f: Conflicting data exists at address 140038e93 to 140038f1a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140038fef: Conflicting data exists at address 140038fea to 140038ff1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140039004: Conflicting data exists at address 140038ffe to 14003906d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003917e: Conflicting data exists at address 140039105 to 1400391d4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400391a6: Conflicting data exists at address 140039105 to 1400391d4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400391c7: Conflicting data exists at address 140039105 to 1400391d4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400394e5: Conflicting data exists at address 1400394bc to 140039543
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140039507: Conflicting data exists at address 1400394bc to 140039543
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003952b: Conflicting data exists at address 1400394bc to 140039543
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003962a: Conflicting data exists at address 140039625 to 140039634
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003963f: Conflicting data exists at address 140039639 to 140039660
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140039a60: Conflicting data exists at address 1400399ef to 140039a74
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140039ac9: Conflicting data exists at address 140039aa0 to 140039b33
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140039acf: Conflicting data exists at address 140039aa0 to 140039b33
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140039b03: Conflicting data exists at address 140039aa0 to 140039b33
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140039d8c: Conflicting data exists at address 140039d6c to 140039d8d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140039dda: Conflicting data exists at address 140039db2 to 140039e01
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a063: Conflicting data exists at address 140039fd5 to 14003a0a4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a095: Conflicting data exists at address 140039fd5 to 14003a0a4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a0db: Conflicting data exists at address 14003a0b7 to 14003a106
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a1bf: Conflicting data exists at address 14003a1ba to 14003a1c9
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a1d4: Conflicting data exists at address 14003a1ce to 14003a23d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a36f: Conflicting data exists at address 14003a33e to 14003a3d1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a572: Conflicting data exists at address 14003a565 to 14003a5f4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a596: Conflicting data exists at address 14003a565 to 14003a5f4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a5c3: Conflicting data exists at address 14003a565 to 14003a5f4
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a6c7: Conflicting data exists at address 14003a689 to 14003a71c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a70a: Conflicting data exists at address 14003a689 to 14003a71c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a9ef: Conflicting data exists at address 14003a9e9 to 14003aa80
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003a9f5: Conflicting data exists at address 14003a9e9 to 14003aa80
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003aa33: Conflicting data exists at address 14003a9e9 to 14003aa80
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003ade4: Conflicting data exists at address 14003ad89 to 14003ae7c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003afe0: Conflicting data exists at address 14003afb1 to 14003b048
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003b00b: Conflicting data exists at address 14003afb1 to 14003b048
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003b471: Conflicting data exists at address 14003b42b to 14003b4d2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003ba5c: Conflicting data exists at address 14003b970 to 14003ba5f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003bc11: Conflicting data exists at address 14003bb98 to 14003bc23
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003c179: Conflicting data exists at address 14003c16c to 14003c1ff
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003c86a: Conflicting data exists at address 14003c83a to 14003c8cd
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003c87b: Conflicting data exists at address 14003c83a to 14003c8cd
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003c894: Conflicting data exists at address 14003c83a to 14003c8cd
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003d037: Conflicting data exists at address 14003d02f to 14003d0ba
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003d043: Conflicting data exists at address 14003d02f to 14003d0ba
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003d077: Conflicting data exists at address 14003d02f to 14003d0ba
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003d07f: Conflicting data exists at address 14003d02f to 14003d0ba
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003d084: Conflicting data exists at address 14003d02f to 14003d0ba
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003d4f1: Conflicting data exists at address 14003d4c3 to 14003d556
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003db08: Conflicting data exists at address 14003db02 to 14003db09
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003de8f: Conflicting data exists at address 14003de65 to 14003df34
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003deba: Conflicting data exists at address 14003de65 to 14003df34
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003decc: Conflicting data exists at address 14003de65 to 14003df34
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003df1d: Conflicting data exists at address 14003de65 to 14003df34
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e28c: Conflicting data exists at address 14003e26e to 14003e305
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e299: Conflicting data exists at address 14003e26e to 14003e305
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e2ce: Conflicting data exists at address 14003e26e to 14003e305
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e54a: Conflicting data exists at address 14003e504 to 14003e597
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e646: Conflicting data exists at address 14003e640 to 14003e667
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e6cc: Conflicting data exists at address 14003e67f to 14003e76e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e853: Conflicting data exists at address 14003e846 to 14003e8c5
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e885: Conflicting data exists at address 14003e846 to 14003e8c5
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e8a2: Conflicting data exists at address 14003e846 to 14003e8c5
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003e9cb: Conflicting data exists at address 14003e9bc to 14003e9cb
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003ed01: Conflicting data exists at address 14003ec6e to 14003ed0d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003ed09: Conflicting data exists at address 14003ec6e to 14003ed0d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003ef88: Conflicting data exists at address 14003ef2f to 14003efc6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003efab: Conflicting data exists at address 14003ef2f to 14003efc6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003f08f: Conflicting data exists at address 14003f051 to 14003f110
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003f0f3: Conflicting data exists at address 14003f051 to 14003f110
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003f10d: Conflicting data exists at address 14003f051 to 14003f110
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003f217: Conflicting data exists at address 14003f1ac to 14003f243
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003f7a2: Conflicting data exists at address 14003f721 to 14003f7a6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14003fa8a: Conflicting data exists at address 14003fa76 to 14003fab9
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140041a88: Conflicting data exists at address 140041a54 to 140041b37
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140041a8c: Conflicting data exists at address 140041a54 to 140041b37
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140041bf7: Conflicting data exists at address 140041b54 to 140041bff
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140042773: Conflicting data exists at address 140042766 to 1400427ed
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140042782: Conflicting data exists at address 140042766 to 1400427ed
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400427bc: Conflicting data exists at address 140042766 to 1400427ed
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140042a4b: Conflicting data exists at address 1400429c8 to 140042a5f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140042a52: Conflicting data exists at address 1400429c8 to 140042a5f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140042e0c: Conflicting data exists at address 140042df2 to 140042edf
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140044c5d: Conflicting data exists at address 140044c56 to 140044c8b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004507b: Conflicting data exists at address 140044fe9 to 140045084
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140045b1a: Conflicting data exists at address 140045aa8 to 140045b1f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140045c3c: Conflicting data exists at address 140045bfc to 140045c8f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140045c61: Conflicting data exists at address 140045bfc to 140045c8f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140046528: Conflicting data exists at address 1400464c0 to 140046557
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140046620: Conflicting data exists at address 1400465bf to 140046688
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004838a: Conflicting data exists at address 140048370 to 140048403
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400483be: Conflicting data exists at address 140048370 to 140048403
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004925c: Conflicting data exists at address 14004923d to 14004931a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400492d2: Conflicting data exists at address 14004923d to 14004931a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400492dc: Conflicting data exists at address 14004923d to 14004931a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004935f: Conflicting data exists at address 140049332 to 14004941f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004938a: Conflicting data exists at address 140049332 to 14004941f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004939c: Conflicting data exists at address 140049332 to 14004941f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400494e9: Conflicting data exists at address 1400494cd to 140049550
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004953e: Conflicting data exists at address 1400494cd to 140049550
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400495b7: Conflicting data exists at address 14004957f to 140049616
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004987e: Conflicting data exists at address 140049878 to 14004991b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004988a: Conflicting data exists at address 140049878 to 14004991b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140049b01: Conflicting data exists at address 140049adf to 140049b74
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140049b57: Conflicting data exists at address 140049adf to 140049b74
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140049eb7: Conflicting data exists at address 140049e89 to 140049eee
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140049ebc: Conflicting data exists at address 140049e89 to 140049eee
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004a03a: Conflicting data exists at address 14004a024 to 14004a10f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004a099: Conflicting data exists at address 14004a024 to 14004a10f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004a0bb: Conflicting data exists at address 14004a024 to 14004a10f
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004a438: Conflicting data exists at address 14004a423 to 14004a4a6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004a44b: Conflicting data exists at address 14004a423 to 14004a4a6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004a483: Conflicting data exists at address 14004a423 to 14004a4a6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004a49d: Conflicting data exists at address 14004a423 to 14004a4a6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004a61f: Conflicting data exists at address 14004a5a1 to 14004a638
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004ab7b: Conflicting data exists at address 14004ab3a to 14004ac09
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004abbb: Conflicting data exists at address 14004ab3a to 14004ac09
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004abf4: Conflicting data exists at address 14004ab3a to 14004ac09
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004ad6b: Conflicting data exists at address 14004ad65 to 14004ad86
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004ad71: Conflicting data exists at address 14004ad65 to 14004ad86
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004aea4: Conflicting data exists at address 14004ae94 to 14004aed7
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004b893: Conflicting data exists at address 14004b875 to 14004b91c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004b8a0: Conflicting data exists at address 14004b875 to 14004b91c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004bb17: Conflicting data exists at address 14004baf9 to 14004bb20
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004bb5b: Conflicting data exists at address 14004bb24 to 14004bc13
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004bb9f: Conflicting data exists at address 14004bb24 to 14004bc13
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004bbf6: Conflicting data exists at address 14004bb24 to 14004bc13
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004bc13: Conflicting data exists at address 14004bb24 to 14004bc13
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004bcbd: Conflicting data exists at address 14004bcb8 to 14004bd57
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004bcd0: Conflicting data exists at address 14004bcb8 to 14004bd57
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004bcd6: Conflicting data exists at address 14004bcb8 to 14004bd57
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004c246: Conflicting data exists at address 14004c220 to 14004c2ef
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004c298: Conflicting data exists at address 14004c220 to 14004c2ef
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004c2db: Conflicting data exists at address 14004c220 to 14004c2ef
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004c2e8: Conflicting data exists at address 14004c220 to 14004c2ef
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004c56a: Conflicting data exists at address 14004c562 to 14004c5cd
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004c7cf: Conflicting data exists at address 14004c7c9 to 14004c7d8
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004c7d5: Conflicting data exists at address 14004c7c9 to 14004c7d8
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004cefe: Conflicting data exists at address 14004ce91 to 14004cf1c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004d584: Conflicting data exists at address 14004d549 to 14004d5dc
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004d5c5: Conflicting data exists at address 14004d549 to 14004d5dc
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004d841: Conflicting data exists at address 14004d83b to 14004d872
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004ef62: Conflicting data exists at address 14004ef5c to 14004ef67
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f1ca: Conflicting data exists at address 14004f18c to 14004f223
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f2d4: Conflicting data exists at address 14004f2ce to 14004f2d5
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f5ac: Conflicting data exists at address 14004f55f to 14004f5f6
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f6d4: Conflicting data exists at address 14004f6b0 to 14004f7b3
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f6fa: Conflicting data exists at address 14004f6b0 to 14004f7b3
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f707: Conflicting data exists at address 14004f6b0 to 14004f7b3
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f73f: Conflicting data exists at address 14004f6b0 to 14004f7b3
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f78c: Conflicting data exists at address 14004f6b0 to 14004f7b3
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f8b4: Conflicting data exists at address 14004f890 to 14004f993
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f8da: Conflicting data exists at address 14004f890 to 14004f993
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f8e7: Conflicting data exists at address 14004f890 to 14004f993
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f906: Conflicting data exists at address 14004f890 to 14004f993
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f926: Conflicting data exists at address 14004f890 to 14004f993
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004f9a6: Conflicting data exists at address 14004f99c to 14004fa27
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004fa0a: Conflicting data exists at address 14004f99c to 14004fa27
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14004fc3c: Conflicting data exists at address 14004fb66 to 14004fc5d
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050115: Conflicting data exists at address 1400500e3 to 1400501d2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050132: Conflicting data exists at address 1400500e3 to 1400501d2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050171: Conflicting data exists at address 1400500e3 to 1400501d2
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050218: Conflicting data exists at address 140050213 to 14005023e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050227: Conflicting data exists at address 140050213 to 14005023e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005022d: Conflicting data exists at address 140050213 to 14005023e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005034b: Conflicting data exists at address 1400502f2 to 1400503e1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050375: Conflicting data exists at address 1400502f2 to 1400503e1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050392: Conflicting data exists at address 1400502f2 to 1400503e1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400503d1: Conflicting data exists at address 1400502f2 to 1400503e1
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050478: Conflicting data exists at address 140050473 to 14005049e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050487: Conflicting data exists at address 140050473 to 14005049e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005048d: Conflicting data exists at address 140050473 to 14005049e
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400505ab: Conflicting data exists at address 140050552 to 140050641
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400505f6: Conflicting data exists at address 140050552 to 140050641
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400507e9: Conflicting data exists at address 140050778 to 140050817
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005080f: Conflicting data exists at address 140050778 to 140050817
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050861: Conflicting data exists at address 140050853 to 140050922
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005088c: Conflicting data exists at address 140050853 to 140050922
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400509e0: Conflicting data exists at address 1400509d7 to 140050a46
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400509e6: Conflicting data exists at address 1400509d7 to 140050a46
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400509ec: Conflicting data exists at address 1400509d7 to 140050a46
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050a29: Conflicting data exists at address 1400509d7 to 140050a46
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140050cd0: Conflicting data exists at address 140050c81 to 140050d16
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140051a2a: Conflicting data exists at address 140051a0e to 140051a35
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140052fb0: Conflicting data exists at address 140052f60 to 140052fff
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140052fcc: Conflicting data exists at address 140052f60 to 140052fff
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140053105: Conflicting data exists at address 1400530ff to 14005310a
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005313e: Conflicting data exists at address 14005310b to 140053178
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140053295: Conflicting data exists at address 14005328f to 140053326
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005329b: Conflicting data exists at address 14005328f to 140053326
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400532c3: Conflicting data exists at address 14005328f to 140053326
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140053304: Conflicting data exists at address 14005328f to 140053326
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140053392: Conflicting data exists at address 140053328 to 1400533c3
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400534c8: Conflicting data exists at address 1400534c2 to 1400534c9
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140053662: Conflicting data exists at address 14005365c to 140053663
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140053f7b: Conflicting data exists at address 140053f43 to 140053f92
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400543db: Conflicting data exists at address 1400543af to 140054442
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400544fd: Conflicting data exists at address 14005448e to 140054525
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140054504: Conflicting data exists at address 14005448e to 140054525
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140054598: Conflicting data exists at address 14005458e to 140054625
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400545d4: Conflicting data exists at address 14005458e to 140054625
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140054fb4: Conflicting data exists at address 140054f79 to 14005506c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005504e: Conflicting data exists at address 140054f79 to 14005506c
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140056115: Conflicting data exists at address 140056104 to 14005619b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 14005613e: Conflicting data exists at address 140056104 to 14005619b
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140056805: Conflicting data exists at address 1400567a2 to 140056839
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400569af: Conflicting data exists at address 1400569a8 to 140056a47
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 1400569ca: Conflicting data exists at address 1400569a8 to 140056a47
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140056a0e: Conflicting data exists at address 1400569a8 to 140056a47
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140056b18: Conflicting data exists at address 140056ae9 to 140056b38
+[wallpaper64.exe]: failed to create PEx64_UnwindInfo at 140056b91: Conflicting data exists at address 140056b62 to 140056bf1
+ (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///work/binaries/wallpaper64.exe (HeadlessAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___raise_securityfailure' specified in file: /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___report_rangecheckfailure' specified in file: /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+INFO  Skipping PDB processing: missing PDB information in program metadata (PdbUniversalAnalyzer)  
+INFO  Packed database cache: /var/tmp/root-ghidra/packed-db-cache (PackedDatabaseCache)  
+ERROR Couldn't create IPToStateMapEntry data @ 1404c3e60. IPToStateMapEntry data type at 1404c3e60 doesn't refer to a valid location for the IP. (CreateEHFuncInfoBackgroundCmd)  
+ERROR Invalid PNG data at 1400b76f5 (PngDataType)  
+WARN  Decompiling 14008e850: Unable to read bytes at ram:1521212d0 (DecompileCallback)  
+INFO  Unprocessed TypeDescriptor: void (__cdecl *)(void) (TypeDescriptorModel)  
+INFO  Unprocessed TypeDescriptor: void (__cdecl *)(void) (TypeDescriptorModel)  
+WARN  Decompiling 14023db9c: Unable to read bytes at ram:20ccccd9c (DecompileCallback)  
+WARN  Decompiling 140248a78: Unable to read bytes at ram:20ccccd9c (DecompileCallback)  
+WARN  Decompiling 140248a78, pcode error at 1400000d0: Unable to resolve constructor at 1400000d0 (DecompileCallback)  
+INFO  Applied data type archive: windows_vs12_64 (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.693 secs
+    Apply Data Archives                        0.100 secs
+    Call Convention ID                         0.054 secs
+    Call-Fixup Installer                       0.117 secs
+    Create Address Tables                      0.584 secs
+    Create Address Tables - One Time           0.671 secs
+    Create Function                            0.925 secs
+    Data Reference                             1.458 secs
+    Decompiler Switch Analysis                67.522 secs
+    Demangler Microsoft                        0.024 secs
+    Disassemble                                6.416 secs
+    Disassemble Entry Points                   0.002 secs
+    Embedded Media                             0.091 secs
+    External Entry References                  0.000 secs
+    Function ID                                2.286 secs
+    Function Start Search                      0.175 secs
+    Non-Returning Functions - Discovered       5.001 secs
+    Non-Returning Functions - Known            0.036 secs
+    PDB Universal                              0.001 secs
+    Reference                                  0.771 secs
+    Scalar Operand References                  3.546 secs
+    Shared Return Calls                        0.600 secs
+    Stack                                     17.962 secs
+    Subroutine References                      0.579 secs
+    Subroutine References - One Time           0.003 secs
+    Windows x86 PE Exception Handling          1.190 secs
+    Windows x86 PE RTTI Analyzer               0.211 secs
+    Windows x86 Thread Environment Block (TEB) Analyzer     0.019 secs
+    WindowsResourceReference                   2.285 secs
+    x86 Constant Reference Analyzer           15.056 secs
+-----------------------------------------------------
+     Total Time   128 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///work/binaries/wallpaper64.exe (HeadlessAnalyzer)  
+INFO  /wallpaper64.exe: file created (root) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /wallpaper64.exe (we_analysis:/wallpaper64.exe) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

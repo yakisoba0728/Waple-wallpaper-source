@@ -1,0 +1,28 @@
+[+] d3d11.dll @ 0x7ffa8e7f0000
+[+] D3D11CreateDevice @ 0x7ffa8e873d60
+[*] Hook armed. Wallpaper Engine already has a device; for fresh capture, restart it.
+[*] To capture mid-run D3D activity, the wallpaper must create new resources (e.g. switch wallpaper).
+
+[D3D11CreateDevice] flags=0x1 nlevels=4
+  requested feature levels: 11_1, 11_0, 10_1, 10_0
+
+[D3D11CreateDevice] flags=0x1 nlevels=4
+  requested feature levels: 11_1, 11_0, 10_1, 10_0
+  -> HRESULT=0x0
+[vtable setup err] Error: access violation accessing 0x0 stack: Error: access violation accessing 0x0
+    at onLeave (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:47)
+
+[D3D11CreateDevice] flags=0x81 nlevels=1
+  requested feature levels: 11_0
+  -> HRESULT=0x0
+[vtable setup err] Error: access violation accessing 0x0 stack: Error: access violation accessing 0x0
+    at onLeave (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:47)
+
+[D3D11CreateDevice] flags=0x81 nlevels=1
+  requested feature levels: 11_0
+  -> HRESULT=0x0
+[vtable setup err] Error: access violation accessing 0x0 stack: Error: access violation accessing 0x0
+    at onLeave (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:45)
+  -> HRESULT=0x0
+[vtable setup err] Error: access violation accessing 0x0 stack: Error: access violation accessing 0x0
+    at onLeave (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:45)

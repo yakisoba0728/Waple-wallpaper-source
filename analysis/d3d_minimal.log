@@ -1,0 +1,2 @@
+[+] d3d11 @ 0x63a40000 (x86)
+[+] D3D11CreateDevice hooked. Switch wallpaper to trigger new device.

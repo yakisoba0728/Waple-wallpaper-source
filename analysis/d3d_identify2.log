@@ -1,0 +1,70 @@
+[+] d3d11 @ 0x63a40000
+[*] Scanned 729 RW ranges, found 2677 candidate pointers
+[*] 140 unique vtables
+[*] Best device candidate: vt@0x63a45104 with 50 consecutive d3d11 slots
+
+=== DEVICE vtable @ 0x63a45104 (disasm each slot) ===
+  [0] +0x2c340  mov edi, edi | push ebp | mov ebp, esp
+  [1] +0x2c9c0  mov edi, edi | push ebp | mov ebp, esp
+  [2] +0x32680  mov edi, edi | push ebp | mov ebp, esp
+  [3] +0xba940  mov edi, edi | push ebp | mov ebp, esp
+  [4] +0xbb270  mov edi, edi | push ebp | mov ebp, esp
+  [5] +0xbeae0  mov edi, edi | push ebp | mov ebp, esp
+  [6] +0xbec10  mov edi, edi | push ebp | mov ebp, esp
+  [7] +0xb7f40  mov edi, edi | push ebp | mov ebp, esp
+  [8] +0x2f940  mov edi, edi | push ebp | mov ebp, esp
+  [9] +0x3e300  mov edi, edi | push ebp | mov ebp, esp
+  [10] +0x3f4a0  mov edi, edi | push ebp | mov ebp, esp
+  [11] +0xeb7e0  mov edi, edi | push ebp | mov ebp, esp
+  [12] +0x9d890  mov al, 1 | ret  | int3 
+  [13] +0xbd340  sub dword ptr [esp + 4], 0x24 | jmp 0x63a6c340 | int3 
+  [14] +0xb7fd0  sub dword ptr [esp + 4], 0x24 | jmp 0x63a6c9c0 | int3 
+  [15] +0xbdbc0  sub dword ptr [esp + 4], 0x24 | jmp 0x63a72680 | int3 
+  [16] +0xbeb20  sub dword ptr [esp + 4], 0x24 | jmp 0x63afeae0 | int3 
+  [17] +0xbec50  sub dword ptr [esp + 4], 0x24 | jmp 0x63afec10 | int3 
+  [18] +0xbb2b0  sub dword ptr [esp + 4], 0x24 | jmp 0x63afb270 | int3 
+  [19] +0xbb1d0  sub dword ptr [esp + 4], 0x10 | jmp 0x63a80220 | int3 
+  [20] +0xba970  sub dword ptr [esp + 4], 0x10 | jmp 0x63ad9760 | int3 
+  [21] +0x42360  mov edi, edi | push ebp | mov ebp, esp
+  [22] +0x407f0  mov edi, edi | push ebp | mov ebp, esp
+  [23] +0xbd320  sub dword ptr [esp + 4], 0x14 | jmp 0x63a6c340 | int3 
+  [24] +0xb7fb0  sub dword ptr [esp + 4], 0x14 | jmp 0x63a6c9c0 | int3 
+  [25] +0xbdba0  sub dword ptr [esp + 4], 0x14 | jmp 0x63a72680 | int3 
+  [26] +0xbeb00  sub dword ptr [esp + 4], 0x14 | jmp 0x63afeae0 | int3 
+  [27] +0xbec30  sub dword ptr [esp + 4], 0x14 | jmp 0x63afec10 | int3 
+  [28] +0xbb290  sub dword ptr [esp + 4], 0x14 | jmp 0x63afb270 | int3 
+  [29] +0x40220  mov edi, edi | push ebp | mov ebp, esp
+  [30] +0x99760  mov edi, edi | push ebp | mov ebp, esp
+  [31] +0x3f5e0  mov edi, edi | push ebp | mov ebp, esp
+  [32] +0x92d50  mov edi, edi | push ebp | mov ebp, esp
+  [33] +0xeba10  mov edi, edi | push ebp | mov ebp, esp
+  [34] +0xeb740  mov edi, edi | push ebp | mov ebp, esp
+  [35] +0xeb460  mov edi, edi | push ebp | mov ebp, esp
+  [36] +0xeb410  mov edi, edi | push ebp | mov ebp, esp
+  [37] +0xbd330  sub dword ptr [esp + 4], 0x20 | jmp 0x63a6c340 | int3 
+  [38] +0xb7fc0  sub dword ptr [esp + 4], 0x20 | jmp 0x63a6c9c0 | int3 
+  [39] +0xbdbb0  sub dword ptr [esp + 4], 0x20 | jmp 0x63a72680 | int3 
+
+=== Probing slots 3-18 (count calls over ~10s) ===
+  [probe err 12] Error: unable to intercept function at 63ADD890; please file a bug
+[*] Probes armed. Waiting 12s for render activity...
+
+=== Call counts per slot (3-18) ===
+  [3] calls=0
+  [4] calls=0
+  [5] calls=0
+  [6] calls=0
+  [7] calls=0
+  [8] calls=2300
+  [9] calls=0
+  [10] calls=0
+  [11] calls=0
+  [12] calls=0
+  [13] calls=0
+  [14] calls=0
+  [15] calls=0
+  [16] calls=0
+  [17] calls=0
+  [18] calls=0
+
+[*] Done. High-count slots are likely Set*/Draw; zero-count are Create*.

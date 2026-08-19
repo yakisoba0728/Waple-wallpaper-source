@@ -1,0 +1,18 @@
+# D3D11/DXGI/DWrite API names and shader-model targets
+# total matches: 14 (incl. duplicates) | unique: 14
+# column 1: encoding (A=ASCII, U=UTF-16LE)  column 2: file offset  column 3: string
+
+A 0x0042bce8  `virtual displacement map'
+A 0x0043a198  glyph-to-script-map
+A 0x004741a0  map/set too long
+A 0x00476f60  --disable-d3d11
+A 0x00487f78  DXGI Init failed, retrying: %i
+A 0x00487fb8  DXGI device lost in WM_SIZE.
+A 0x00488040  DXGI device lost in render loop.
+A 0x00488160  DXGI begin recovery.
+A 0x00488178  DXGI failed init: %x at %u.
+A 0x004881b0  DXGI finish recovery: %d.
+A 0x0048f150  getParent
+A 0x004d92b4  GetParent
+A 0x004d9718  d3d11.dll
+A 0x004d9fa0  DWrite.dll

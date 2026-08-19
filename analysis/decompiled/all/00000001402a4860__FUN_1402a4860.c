@@ -1,0 +1,117 @@
+// Function: FUN_1402a4860
+// Addr: 1402a4860
+// Size: 234 bytes
+
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_1402a4860(longlong param_1,undefined8 param_2,char param_3)
+
+{
+  char cVar1;
+  byte bVar2;
+  undefined4 uVar3;
+  undefined4 uVar4;
+  undefined4 uVar5;
+  undefined4 uVar6;
+  undefined4 uVar7;
+  undefined4 uVar8;
+  undefined4 uVar9;
+  undefined4 *puVar10;
+  longlong lVar11;
+  undefined8 uVar12;
+  longlong lVar13;
+  undefined *puVar14;
+  undefined4 local_68;
+  undefined4 uStack_64;
+  undefined4 uStack_60;
+  undefined1 local_48 [48];
+  
+  puVar10 = (undefined4 *)FUN_140291b90(local_48);
+  uVar3 = puVar10[1];
+  uVar4 = puVar10[2];
+  uVar5 = puVar10[3];
+  uVar12 = *(undefined8 *)(puVar10 + 4);
+  uVar6 = puVar10[7];
+  uVar7 = puVar10[8];
+  uVar8 = puVar10[9];
+  uVar9 = puVar10[10];
+  uStack_60 = (undefined4)*(undefined8 *)(puVar10 + 6);
+  *(undefined4 *)(param_1 + 0x48) = *puVar10;
+  *(undefined4 *)(param_1 + 0x4c) = uVar3;
+  *(undefined4 *)(param_1 + 0x50) = uVar4;
+  *(undefined4 *)(param_1 + 0x54) = uVar5;
+  local_68 = (undefined4)uVar12;
+  uStack_64 = (undefined4)((ulonglong)uVar12 >> 0x20);
+  *(undefined4 *)(param_1 + 0x58) = local_68;
+  *(undefined4 *)(param_1 + 0x5c) = uStack_64;
+  *(undefined4 *)(param_1 + 0x60) = uStack_60;
+  *(undefined4 *)(param_1 + 100) = uVar6;
+  *(undefined4 *)(param_1 + 100) = uVar6;
+  *(undefined4 *)(param_1 + 0x68) = uVar7;
+  *(undefined4 *)(param_1 + 0x6c) = uVar8;
+  *(undefined4 *)(param_1 + 0x70) = uVar9;
+  lVar11 = FUN_1402caa90();
+  *(undefined8 *)(param_1 + 0x10) = 0;
+  *(undefined8 *)(param_1 + 0x20) = 0;
+  *(undefined8 *)(param_1 + 0x28) = 0;
+  *(undefined8 *)(param_1 + 0x30) = 0;
+  uVar12 = FUN_140013890(*(undefined8 *)(lVar11 + 0x38),param_1 + 0x48);
+  *(undefined8 *)(param_1 + 0x10) = uVar12;
+  lVar13 = 0x68;
+  if (*(char *)(param_1 + 0x44) == '\0') {
+    lVar13 = 0x70;
+  }
+  uVar12 = FUN_1402a7ec0(*(undefined8 *)(lVar13 + lVar11));
+  *(undefined8 *)(param_1 + 0x20) = uVar12;
+  puVar14 = &DAT_140474608;
+  if (*(byte *)(lVar11 + 0x56) < 5) {
+    puVar14 = *(undefined **)(lVar11 + 0x88);
+  }
+  uVar12 = FUN_1402a7ec0(puVar14);
+  *(undefined8 *)(param_1 + 0x28) = uVar12;
+  puVar14 = &DAT_14042c038;
+  if (*(byte *)(lVar11 + 0x57) < 5) {
+    puVar14 = *(undefined **)(lVar11 + 0x90);
+  }
+  uVar12 = FUN_1402a7ec0(puVar14);
+  *(undefined8 *)(param_1 + 0x30) = uVar12;
+  *(undefined2 *)(param_1 + 0x18) = **(undefined2 **)(lVar11 + 0x78);
+  *(undefined2 *)(param_1 + 0x1a) = **(undefined2 **)(lVar11 + 0x80);
+  cVar1 = *(char *)(param_1 + 0x44);
+  bVar2 = *(byte *)((0x51 - (ulonglong)(cVar1 != '\0')) + lVar11);
+  *(int *)(param_1 + 0x38) = (int)(char)bVar2;
+  if (0x7e < bVar2) {
+    *(undefined4 *)(param_1 + 0x38) = 0;
+  }
+  if ((((cVar1 == '\0') && ((uint)(int)*(char *)(lVar11 + 0x53) < 3)) &&
+      ((uint)(int)*(char *)(lVar11 + 0x52) < 2)) && ((uint)(int)*(char *)(lVar11 + 0x56) < 5)) {
+    *(undefined4 *)(param_1 + 0x3c) =
+         *(undefined4 *)
+          (&UNK_14042c040 +
+          (uint)(((int)*(char *)(lVar11 + 0x56) +
+                 ((int)*(char *)(lVar11 + 0x52) + *(char *)(lVar11 + 0x53) * 2) * 5) * 4));
+code_r0x0001402a49b9:
+    if ((((uint)(int)*(char *)(lVar11 + 0x55) < 3) && ((uint)(int)*(char *)(lVar11 + 0x54) < 2)) &&
+       ((uint)(int)*(char *)(lVar11 + 0x57) < 5)) {
+      puVar10 = (undefined4 *)
+                (&UNK_14042c040 +
+                (uint)(((int)*(char *)(lVar11 + 0x57) +
+                       ((int)*(char *)(lVar11 + 0x54) + *(char *)(lVar11 + 0x55) * 2) * 5) * 4));
+      goto code_r0x0001402a49eb;
+    }
+  }
+  else {
+    *(undefined4 *)(param_1 + 0x3c) = _UNK_14042c030;
+    if (cVar1 == '\0') goto code_r0x0001402a49b9;
+  }
+  puVar10 = (undefined4 *)&UNK_14042c030;
+code_r0x0001402a49eb:
+  *(undefined4 *)(param_1 + 0x40) = *puVar10;
+  if (param_3 != '\0') {
+    *(undefined4 *)(param_1 + 0x3c) = 0x76782b24;
+    *(undefined4 *)(param_1 + 0x40) = 0x76782b24;
+  }
+  return;
+}
+

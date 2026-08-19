@@ -1,0 +1,4 @@
+[+] d3d11 @ 0x63a40000
+[*] 0 unique vtables
+TypeError: cannot read property 'vt' of null
+    at <eval> (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\identify_device_vtable.js:79)

@@ -1,0 +1,24 @@
+// Function: FUN_1404d2fac
+// Addr: 1404d2fac
+// Size: 1 bytes
+
+
+/* WARNING: Control flow encountered bad instruction data */
+
+void FUN_1404d2fac(undefined8 param_1,char param_2,undefined8 param_3,char *param_4)
+
+{
+  char *pcVar1;
+  char in_AL;
+  undefined7 in_register_00000001;
+  char unaff_SPL;
+  
+  *param_4 = *param_4 + unaff_SPL;
+  *(char *)CONCAT71(in_register_00000001,in_AL) =
+       *(char *)CONCAT71(in_register_00000001,in_AL) + in_AL;
+  pcVar1 = (char *)(CONCAT71(in_register_00000001,in_AL) + -0x5fffc071);
+  *pcVar1 = *pcVar1 + param_2;
+                    /* WARNING: Bad instruction - Truncating control flow here */
+  halt_baddata();
+}
+

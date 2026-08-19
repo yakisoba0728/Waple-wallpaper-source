@@ -1,0 +1,2069 @@
+{
+  "binary": "Z:\\SteamLibrary\\steamapps\\common\\wallpaper_engine\\wallpaper64.exe",
+  "file_size": 5360112,
+  "dos_header": {
+    "e_magic": "MZ",
+    "e_lfanew": 64
+  },
+  "pe_signature": "PE\\x00\\x00",
+  "coff_header": {
+    "machine": 34404,
+    "machine_name": "AMD64",
+    "number_of_sections": 8,
+    "time_date_stamp": 1782743820,
+    "number_of_symbols": 0,
+    "size_of_optional_header": 240,
+    "characteristics": 34
+  },
+  "optional_header": {
+    "magic": "PE32+",
+    "linker_version": "14.51",
+    "size_of_code": 16970,
+    "size_of_initialized_data": 4020,
+    "size_of_uninitialized_data": 268435456,
+    "address_of_entry_point_rva": 10423,
+    "base_of_code": 16,
+    "base_of_data": null,
+    "image_base": 5368709120,
+    "section_alignment": 4096,
+    "file_alignment": 512,
+    "os_version": "0.6",
+    "image_version": "0.0",
+    "subsystem_version": "0.0",
+    "win32_version_value": 393216,
+    "size_of_image": 5394432,
+    "size_of_headers": 1024,
+    "check_sum": 5413905,
+    "subsystem": 2,
+    "subsystem_name": "WINDOWS_GUI",
+    "dll_characteristics": 33120,
+    "dll_characteristic_names": [
+      "HIGH_ENTROPY_VA",
+      "DYNAMIC_BASE/ASLR",
+      "NX_COMPAT/DEP",
+      "TERMINAL_SERVER_AWARE"
+    ],
+    "stack_reserve": 1048576,
+    "stack_commit": 4096,
+    "heap_reserve": 1048576,
+    "heap_commit": 4096,
+    "loader_flags": 0,
+    "number_of_rva_and_sizes": 16
+  },
+  "sections": [
+    {
+      "name": ".text",
+      "virtual_size": 4344076,
+      "virtual_addr": 4096,
+      "raw_size": 4344320,
+      "raw_ptr": 1024,
+      "relocs_ptr": 0,
+      "lines_ptr": 0,
+      "num_relocs": 0,
+      "num_lines": 0,
+      "characteristics": 1610612768
+    },
+    {
+      "name": ".rdata",
+      "virtual_size": 741804,
+      "virtual_addr": 4349952,
+      "raw_size": 741888,
+      "raw_ptr": 4345344,
+      "relocs_ptr": 0,
+      "lines_ptr": 0,
+      "num_relocs": 0,
+      "num_lines": 0,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".data",
+      "virtual_size": 56764,
+      "virtual_addr": 5095424,
+      "raw_size": 31744,
+      "raw_ptr": 5087232,
+      "relocs_ptr": 0,
+      "lines_ptr": 0,
+      "num_relocs": 0,
+      "num_lines": 0,
+      "characteristics": 3221225536
+    },
+    {
+      "name": ".pdata",
+      "virtual_size": 177504,
+      "virtual_addr": 5152768,
+      "raw_size": 177664,
+      "raw_ptr": 5118976,
+      "relocs_ptr": 0,
+      "lines_ptr": 0,
+      "num_relocs": 0,
+      "num_lines": 0,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".fptable",
+      "virtual_size": 256,
+      "virtual_addr": 5332992,
+      "raw_size": 512,
+      "raw_ptr": 5296640,
+      "relocs_ptr": 0,
+      "lines_ptr": 0,
+      "num_relocs": 0,
+      "num_lines": 0,
+      "characteristics": 3221225536
+    },
+    {
+      "name": "_RDATA",
+      "virtual_size": 48,
+      "virtual_addr": 5337088,
+      "raw_size": 512,
+      "raw_ptr": 5297152,
+      "relocs_ptr": 0,
+      "lines_ptr": 0,
+      "num_relocs": 0,
+      "num_lines": 0,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".rsrc",
+      "virtual_size": 39352,
+      "virtual_addr": 5341184,
+      "raw_size": 39424,
+      "raw_ptr": 5297664,
+      "relocs_ptr": 0,
+      "lines_ptr": 0,
+      "num_relocs": 0,
+      "num_lines": 0,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".reloc",
+      "virtual_size": 11820,
+      "virtual_addr": 5382144,
+      "raw_size": 12288,
+      "raw_ptr": 5337088,
+      "relocs_ptr": 0,
+      "lines_ptr": 0,
+      "num_relocs": 0,
+      "num_lines": 0,
+      "characteristics": 1107296320
+    }
+  ],
+  "data_directories": {
+    "EXPORT": [
+      5082144,
+      80
+    ],
+    "IMPORT": [
+      5082224,
+      280
+    ],
+    "RESOURCE": [
+      5341184,
+      39352
+    ],
+    "EXCEPTION": [
+      5152768,
+      177504
+    ],
+    "SECURITY": [
+      5349376,
+      10736
+    ],
+    "BASERELOC": [
+      5382144,
+      11820
+    ],
+    "DEBUG": [
+      4816232,
+      84
+    ],
+    "ARCH": [
+      0,
+      0
+    ],
+    "GLOBALPTR": [
+      0,
+      0
+    ],
+    "TLS": [
+      4816768,
+      40
+    ],
+    "LOAD_CONFIG": [
+      4416688,
+      320
+    ],
+    "BOUND_IMPORT": [
+      0,
+      0
+    ],
+    "IAT": [
+      4349952,
+      2776
+    ],
+    "DELAY_IMPORT": [
+      5081008,
+      128
+    ],
+    "CLR": [
+      0,
+      0
+    ],
+    "RESERVED": [
+      0,
+      0
+    ]
+  },
+  "imports": [
+    {
+      "dll": "KERNEL32.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 1193,
+          "name": "ReadFile"
+        },
+        {
+          "kind": "name",
+          "hint": 1021,
+          "name": "LocalAlloc"
+        },
+        {
+          "kind": "name",
+          "hint": 248,
+          "name": "CreateNamedPipeW"
+        },
+        {
+          "kind": "name",
+          "hint": 1026,
+          "name": "LocalFree"
+        },
+        {
+          "kind": "name",
+          "hint": 138,
+          "name": "CancelSynchronousIo"
+        },
+        {
+          "kind": "name",
+          "hint": 771,
+          "name": "GetStdHandle"
+        },
+        {
+          "kind": "name",
+          "hint": 634,
+          "name": "GetFileType"
+        },
+        {
+          "kind": "name",
+          "hint": 1427,
+          "name": "SetStdHandle"
+        },
+        {
+          "kind": "name",
+          "hint": 40,
+          "name": "AttachConsole"
+        },
+        {
+          "kind": "name",
+          "hint": 22,
+          "name": "AllocConsole"
+        },
+        {
+          "kind": "name",
+          "hint": 1631,
+          "name": "WriteConsoleW"
+        },
+        {
+          "kind": "name",
+          "hint": 465,
+          "name": "FreeConsole"
+        },
+        {
+          "kind": "name",
+          "hint": 258,
+          "name": "CreateProcessW"
+        },
+        {
+          "kind": "name",
+          "hint": 1496,
+          "name": "TerminateProcess"
+        },
+        {
+          "kind": "name",
+          "hint": 1573,
+          "name": "WaitForSingleObject"
+        },
+        {
+          "kind": "name",
+          "hint": 464,
+          "name": "FormatMessageW"
+        },
+        {
+          "kind": "name",
+          "hint": 1418,
+          "name": "SetProcessInformation"
+        },
+        {
+          "kind": "name",
+          "hint": 1480,
+          "name": "Sleep"
+        },
+        {
+          "kind": "name",
+          "hint": 944,
+          "name": "IsDebuggerPresent"
+        },
+        {
+          "kind": "name",
+          "hint": 293,
+          "name": "DebugBreak"
+        },
+        {
+          "kind": "name",
+          "hint": 848,
+          "name": "GetVersion"
+        },
+        {
+          "kind": "name",
+          "hint": 1632,
+          "name": "WriteFile"
+        },
+        {
+          "kind": "name",
+          "hint": 789,
+          "name": "GetSystemPowerStatus"
+        },
+        {
+          "kind": "name",
+          "hint": 861,
+          "name": "GetWindowsDirectoryW"
+        },
+        {
+          "kind": "name",
+          "hint": 656,
+          "name": "GetLocaleInfoEx"
+        },
+        {
+          "kind": "name",
+          "hint": 654,
+          "name": "GetLocalTime"
+        },
+        {
+          "kind": "name",
+          "hint": 1439,
+          "name": "SetThreadErrorMode"
+        },
+        {
+          "kind": "name",
+          "hint": 1154,
+          "name": "QueryPerformanceFrequency"
+        },
+        {
+          "kind": "name",
+          "hint": 1258,
+          "name": "ReleaseSRWLockExclusive"
+        },
+        {
+          "kind": "name",
+          "hint": 0,
+          "name": "AcquireSRWLockExclusive"
+        },
+        {
+          "kind": "name",
+          "hint": 1581,
+          "name": "WakeAllConditionVariable"
+        },
+        {
+          "kind": "name",
+          "hint": 1482,
+          "name": "SleepConditionVariableSRW"
+        },
+        {
+          "kind": "name",
+          "hint": 769,
+          "name": "GetStartupInfoW"
+        },
+        {
+          "kind": "name",
+          "hint": 794,
+          "name": "GetSystemTimeAsFileTime"
+        },
+        {
+          "kind": "name",
+          "hint": 922,
+          "name": "InitializeSListHead"
+        },
+        {
+          "kind": "name",
+          "hint": 180,
+          "name": "ConnectNamedPipe"
+        },
+        {
+          "kind": "name",
+          "hint": 742,
+          "name": "GetProcessId"
+        },
+        {
+          "kind": "name",
+          "hint": 615,
+          "name": "GetExitCodeProcess"
+        },
+        {
+          "kind": "name",
+          "hint": 1247,
+          "name": "RegisterWaitForSingleObject"
+        },
+        {
+          "kind": "name",
+          "hint": 1541,
+          "name": "UnregisterWaitEx"
+        },
+        {
+          "kind": "name",
+          "hint": 397,
+          "name": "FatalAppExitA"
+        },
+        {
+          "kind": "name",
+          "hint": 850,
+          "name": "GetVersionExW"
+        },
+        {
+          "kind": "name",
+          "hint": 1372,
+          "name": "SetEvent"
+        },
+        {
+          "kind": "name",
+          "hint": 217,
+          "name": "CreateEventW"
+        },
+        {
+          "kind": "name",
+          "hint": 868,
+          "name": "GlobalAlloc"
+        },
+        {
+          "kind": "name",
+          "hint": 879,
+          "name": "GlobalLock"
+        },
+        {
+          "kind": "name",
+          "hint": 886,
+          "name": "GlobalUnlock"
+        },
+        {
+          "kind": "name",
+          "hint": 875,
+          "name": "GlobalFree"
+        },
+        {
+          "kind": "name",
+          "hint": 816,
+          "name": "GetThreadId"
+        },
+        {
+          "kind": "name",
+          "hint": 1119,
+          "name": "Process32FirstW"
+        },
+        {
+          "kind": "name",
+          "hint": 1121,
+          "name": "Process32NextW"
+        },
+        {
+          "kind": "name",
+          "hint": 1287,
+          "name": "ResumeThread"
+        },
+        {
+          "kind": "name",
+          "hint": 1146,
+          "name": "QueryFullProcessImageNameW"
+        },
+        {
+          "kind": "name",
+          "hint": 570,
+          "name": "GetCurrentDirectoryW"
+        },
+        {
+          "kind": "name",
+          "hint": 157,
+          "name": "CloseHandle"
+        },
+        {
+          "kind": "name",
+          "hint": 917,
+          "name": "InitializeCriticalSection"
+        },
+        {
+          "kind": "name",
+          "hint": 631,
+          "name": "GetFileSize"
+        },
+        {
+          "kind": "name",
+          "hint": 223,
+          "name": "CreateFileMappingA"
+        },
+        {
+          "kind": "name",
+          "hint": 1534,
+          "name": "UnmapViewOfFile"
+        },
+        {
+          "kind": "name",
+          "hint": 1042,
+          "name": "MapViewOfFile"
+        },
+        {
+          "kind": "name",
+          "hint": 222,
+          "name": "CreateFileA"
+        },
+        {
+          "kind": "name",
+          "hint": 1302,
+          "name": "RtlUnwind"
+        },
+        {
+          "kind": "name",
+          "hint": 1013,
+          "name": "LoadLibraryExA"
+        },
+        {
+          "kind": "name",
+          "hint": 788,
+          "name": "GetSystemInfo"
+        },
+        {
+          "kind": "name",
+          "hint": 633,
+          "name": "GetFileTime"
+        },
+        {
+          "kind": "name",
+          "hint": 1366,
+          "name": "SetEndOfFile"
+        },
+        {
+          "kind": "name",
+          "hint": 898,
+          "name": "HeapQueryInformation"
+        },
+        {
+          "kind": "name",
+          "hint": 901,
+          "name": "HeapSize"
+        },
+        {
+          "kind": "name",
+          "hint": 740,
+          "name": "GetProcessHeap"
+        },
+        {
+          "kind": "name",
+          "hint": 1370,
+          "name": "SetEnvironmentVariableW"
+        },
+        {
+          "kind": "name",
+          "hint": 467,
+          "name": "FreeEnvironmentStringsW"
+        },
+        {
+          "kind": "name",
+          "hint": 610,
+          "name": "GetEnvironmentStringsW"
+        },
+        {
+          "kind": "name",
+          "hint": 512,
+          "name": "GetCommandLineW"
+        },
+        {
+          "kind": "name",
+          "hint": 511,
+          "name": "GetCommandLineA"
+        },
+        {
+          "kind": "name",
+          "hint": 710,
+          "name": "GetOEMCP"
+        },
+        {
+          "kind": "name",
+          "hint": 475,
+          "name": "GetACP"
+        },
+        {
+          "kind": "name",
+          "hint": 958,
+          "name": "IsValidCodePage"
+        },
+        {
+          "kind": "name",
+          "hint": 835,
+          "name": "GetTimeZoneInformation"
+        },
+        {
+          "kind": "name",
+          "hint": 1190,
+          "name": "ReadConsoleW"
+        },
+        {
+          "kind": "name",
+          "hint": 632,
+          "name": "GetFileSizeEx"
+        },
+        {
+          "kind": "name",
+          "hint": 677,
+          "name": "GetModuleHandleW"
+        },
+        {
+          "kind": "name",
+          "hint": 549,
+          "name": "GetConsoleMode"
+        },
+        {
+          "kind": "name",
+          "hint": 578,
+          "name": "GetCurrentProcessId"
+        },
+        {
+          "kind": "name",
+          "hint": 456,
+          "name": "FlushFileBuffers"
+        },
+        {
+          "kind": "name",
+          "hint": 1099,
+          "name": "OutputDebugStringW"
+        },
+        {
+          "kind": "name",
+          "hint": 899,
+          "name": "HeapReAlloc"
+        },
+        {
+          "kind": "name",
+          "hint": 379,
+          "name": "EnumSystemLocalesW"
+        },
+        {
+          "kind": "name",
+          "hint": 841,
+          "name": "GetUserDefaultLCID"
+        },
+        {
+          "kind": "name",
+          "hint": 960,
+          "name": "IsValidLocale"
+        },
+        {
+          "kind": "name",
+          "hint": 657,
+          "name": "GetLocaleInfoW"
+        },
+        {
+          "kind": "name",
+          "hint": 996,
+          "name": "LCMapStringW"
+        },
+        {
+          "kind": "name",
+          "hint": 179,
+          "name": "CompareStringW"
+        },
+        {
+          "kind": "name",
+          "hint": 833,
+          "name": "GetTimeFormatW"
+        },
+        {
+          "kind": "name",
+          "hint": 588,
+          "name": "GetDateFormatW"
+        },
+        {
+          "kind": "name",
+          "hint": 1562,
+          "name": "VirtualProtect"
+        },
+        {
+          "kind": "name",
+          "hint": 892,
+          "name": "HeapAlloc"
+        },
+        {
+          "kind": "name",
+          "hint": 896,
+          "name": "HeapFree"
+        },
+        {
+          "kind": "name",
+          "hint": 390,
+          "name": "ExitProcess"
+        },
+        {
+          "kind": "name",
+          "hint": 1531,
+          "name": "UnhandledExceptionFilter"
+        },
+        {
+          "kind": "name",
+          "hint": 1304,
+          "name": "RtlVirtualUnwind"
+        },
+        {
+          "kind": "name",
+          "hint": 1289,
+          "name": "RtlCaptureContext"
+        },
+        {
+          "kind": "name",
+          "hint": 676,
+          "name": "GetModuleHandleExW"
+        },
+        {
+          "kind": "name",
+          "hint": 469,
+          "name": "FreeLibraryAndExitThread"
+        },
+        {
+          "kind": "name",
+          "hint": 391,
+          "name": "ExitThread"
+        },
+        {
+          "kind": "name",
+          "hint": 271,
+          "name": "CreateThread"
+        },
+        {
+          "kind": "name",
+          "hint": 952,
+          "name": "IsProcessorFeaturePresent"
+        },
+        {
+          "kind": "name",
+          "hint": 602,
+          "name": "GetDriveTypeW"
+        },
+        {
+          "kind": "name",
+          "hint": 451,
+          "name": "FlsFree"
+        },
+        {
+          "kind": "name",
+          "hint": 454,
+          "name": "FlsSetValue"
+        },
+        {
+          "kind": "name",
+          "hint": 452,
+          "name": "FlsGetValue"
+        },
+        {
+          "kind": "name",
+          "hint": 450,
+          "name": "FlsAlloc"
+        },
+        {
+          "kind": "name",
+          "hint": 1303,
+          "name": "RtlUnwindEx"
+        },
+        {
+          "kind": "name",
+          "hint": 1297,
+          "name": "RtlLookupFunctionEntry"
+        },
+        {
+          "kind": "name",
+          "hint": 490,
+          "name": "GetCPInfo"
+        },
+        {
+          "kind": "name",
+          "hint": 177,
+          "name": "CompareStringEx"
+        },
+        {
+          "kind": "name",
+          "hint": 995,
+          "name": "LCMapStringEx"
+        },
+        {
+          "kind": "name",
+          "hint": 296,
+          "name": "DecodePointer"
+        },
+        {
+          "kind": "name",
+          "hint": 339,
+          "name": "EncodePointer"
+        },
+        {
+          "kind": "name",
+          "hint": 303,
+          "name": "DeleteCriticalSection"
+        },
+        {
+          "kind": "name",
+          "hint": 919,
+          "name": "InitializeCriticalSectionEx"
+        },
+        {
+          "kind": "name",
+          "hint": 1008,
+          "name": "LeaveCriticalSection"
+        },
+        {
+          "kind": "name",
+          "hint": 343,
+          "name": "EnterCriticalSection"
+        },
+        {
+          "kind": "name",
+          "hint": 1176,
+          "name": "RaiseException"
+        },
+        {
+          "kind": "name",
+          "hint": 1299,
+          "name": "RtlPcToFileHeader"
+        },
+        {
+          "kind": "name",
+          "hint": 776,
+          "name": "GetStringTypeW"
+        },
+        {
+          "kind": "name",
+          "hint": 795,
+          "name": "GetSystemTimePreciseAsFileTime"
+        },
+        {
+          "kind": "name",
+          "hint": 662,
+          "name": "GetLogicalProcessorInformationEx"
+        },
+        {
+          "kind": "name",
+          "hint": 616,
+          "name": "GetExitCodeThread"
+        },
+        {
+          "kind": "name",
+          "hint": 1574,
+          "name": "WaitForSingleObjectEx"
+        },
+        {
+          "kind": "name",
+          "hint": 1582,
+          "name": "WakeConditionVariable"
+        },
+        {
+          "kind": "name",
+          "hint": 1522,
+          "name": "TryAcquireSRWLockExclusive"
+        },
+        {
+          "kind": "name",
+          "hint": 269,
+          "name": "CreateSymbolicLinkW"
+        },
+        {
+          "kind": "name",
+          "hint": 627,
+          "name": "GetFileInformationByHandleEx"
+        },
+        {
+          "kind": "name",
+          "hint": 234,
+          "name": "CreateHardLinkW"
+        },
+        {
+          "kind": "name",
+          "hint": 191,
+          "name": "CopyFile2"
+        },
+        {
+          "kind": "name",
+          "hint": 321,
+          "name": "DeviceIoControl"
+        },
+        {
+          "kind": "name",
+          "hint": 37,
+          "name": "AreFileApisANSI"
+        },
+        {
+          "kind": "name",
+          "hint": 220,
+          "name": "CreateFile2"
+        },
+        {
+          "kind": "name",
+          "hint": 1612,
+          "name": "WideCharToMultiByte"
+        },
+        {
+          "kind": "name",
+          "hint": 1388,
+          "name": "SetFileTime"
+        },
+        {
+          "kind": "name",
+          "hint": 1382,
+          "name": "SetFileInformationByHandle"
+        },
+        {
+          "kind": "name",
+          "hint": 645,
+          "name": "GetFullPathNameW"
+        },
+        {
+          "kind": "name",
+          "hint": 636,
+          "name": "GetFinalPathNameByHandleW"
+        },
+        {
+          "kind": "name",
+          "hint": 626,
+          "name": "GetFileInformationByHandle"
+        },
+        {
+          "kind": "name",
+          "hint": 621,
+          "name": "GetFileAttributesExW"
+        },
+        {
+          "kind": "name",
+          "hint": 624,
+          "name": "GetFileAttributesW"
+        },
+        {
+          "kind": "name",
+          "hint": 436,
+          "name": "FindNextFileW"
+        },
+        {
+          "kind": "name",
+          "hint": 419,
+          "name": "FindFirstFileExW"
+        },
+        {
+          "kind": "name",
+          "hint": 1153,
+          "name": "QueryPerformanceCounter"
+        },
+        {
+          "kind": "name",
+          "hint": 9,
+          "name": "AddDllDirectory"
+        },
+        {
+          "kind": "name",
+          "hint": 1410,
+          "name": "SetPriorityClass"
+        },
+        {
+          "kind": "name",
+          "hint": 1120,
+          "name": "Process32Next"
+        },
+        {
+          "kind": "name",
+          "hint": 1087,
+          "name": "OpenProcess"
+        },
+        {
+          "kind": "name",
+          "hint": 1118,
+          "name": "Process32First"
+        },
+        {
+          "kind": "name",
+          "hint": 280,
+          "name": "CreateToolhelp32Snapshot"
+        },
+        {
+          "kind": "name",
+          "hint": 1254,
+          "name": "ReleaseMutex"
+        },
+        {
+          "kind": "name",
+          "hint": 246,
+          "name": "CreateMutexW"
+        },
+        {
+          "kind": "name",
+          "hint": 1400,
+          "name": "SetLastError"
+        },
+        {
+          "kind": "name",
+          "hint": 653,
+          "name": "GetLastError"
+        },
+        {
+          "kind": "name",
+          "hint": 1359,
+          "name": "SetCurrentDirectoryW"
+        },
+        {
+          "kind": "name",
+          "hint": 1385,
+          "name": "SetFilePointerEx"
+        },
+        {
+          "kind": "name",
+          "hint": 1464,
+          "name": "SetUnhandledExceptionFilter"
+        },
+        {
+          "kind": "name",
+          "hint": 424,
+          "name": "FindFirstFileW"
+        },
+        {
+          "kind": "name",
+          "hint": 413,
+          "name": "FindClose"
+        },
+        {
+          "kind": "name",
+          "hint": 212,
+          "name": "CreateDirectoryW"
+        },
+        {
+          "kind": "name",
+          "hint": 463,
+          "name": "FormatMessageA"
+        },
+        {
+          "kind": "name",
+          "hint": 1551,
+          "name": "VerSetConditionMask"
+        },
+        {
+          "kind": "name",
+          "hint": 1555,
+          "name": "VerifyVersionInfoW"
+        },
+        {
+          "kind": "name",
+          "hint": 582,
+          "name": "GetCurrentThreadId"
+        },
+        {
+          "kind": "name",
+          "hint": 230,
+          "name": "CreateFileW"
+        },
+        {
+          "kind": "name",
+          "hint": 1014,
+          "name": "LoadLibraryExW"
+        },
+        {
+          "kind": "name",
+          "hint": 1564,
+          "name": "VirtualQuery"
+        },
+        {
+          "kind": "name",
+          "hint": 666,
+          "name": "GetLongPathNameW"
+        },
+        {
+          "kind": "name",
+          "hint": 673,
+          "name": "GetModuleFileNameW"
+        },
+        {
+          "kind": "name",
+          "hint": 468,
+          "name": "FreeLibrary"
+        },
+        {
+          "kind": "name",
+          "hint": 733,
+          "name": "GetProcAddress"
+        },
+        {
+          "kind": "name",
+          "hint": 1015,
+          "name": "LoadLibraryW"
+        },
+        {
+          "kind": "name",
+          "hint": 577,
+          "name": "GetCurrentProcess"
+        },
+        {
+          "kind": "name",
+          "hint": 1059,
+          "name": "MultiByteToWideChar"
+        },
+        {
+          "kind": "name",
+          "hint": 553,
+          "name": "GetConsoleOutputCP"
+        }
+      ],
+      "descriptor_file_offset": 5077616,
+      "name_rva": 5086872
+    },
+    {
+      "dll": "USER32.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 978,
+          "name": "TranslateMessage"
+        },
+        {
+          "kind": "name",
+          "hint": 193,
+          "name": "DispatchMessageW"
+        },
+        {
+          "kind": "name",
+          "hint": 615,
+          "name": "LoadCursorW"
+        },
+        {
+          "kind": "name",
+          "hint": 122,
+          "name": "CreateWindowExW"
+        },
+        {
+          "kind": "name",
+          "hint": 403,
+          "name": "GetMessageW"
+        },
+        {
+          "kind": "name",
+          "hint": 989,
+          "name": "UnregisterClassW"
+        },
+        {
+          "kind": "name",
+          "hint": 962,
+          "name": "SystemParametersInfoW"
+        },
+        {
+          "kind": "name",
+          "hint": 812,
+          "name": "SendMessageTimeoutW"
+        },
+        {
+          "kind": "name",
+          "hint": 283,
+          "name": "FindWindowW"
+        },
+        {
+          "kind": "name",
+          "hint": 751,
+          "name": "RegisterClassW"
+        },
+        {
+          "kind": "name",
+          "hint": 185,
+          "name": "DestroyWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 171,
+          "name": "DefWindowProcW"
+        },
+        {
+          "kind": "name",
+          "hint": 902,
+          "name": "SetTimer"
+        },
+        {
+          "kind": "name",
+          "hint": 875,
+          "name": "SetProcessDefaultLayout"
+        },
+        {
+          "kind": "name",
+          "hint": 665,
+          "name": "MessageBoxW"
+        },
+        {
+          "kind": "name",
+          "hint": 1039,
+          "name": "wsprintfW"
+        },
+        {
+          "kind": "name",
+          "hint": 607,
+          "name": "KillTimer"
+        },
+        {
+          "kind": "name",
+          "hint": 854,
+          "name": "SetLayeredWindowAttributes"
+        },
+        {
+          "kind": "name",
+          "hint": 518,
+          "name": "GetWindowThreadProcessId"
+        },
+        {
+          "kind": "name",
+          "hint": 668,
+          "name": "MonitorFromPoint"
+        },
+        {
+          "kind": "name",
+          "hint": 261,
+          "name": "EnumDisplayMonitors"
+        },
+        {
+          "kind": "name",
+          "hint": 260,
+          "name": "EnumDisplayDevicesW"
+        },
+        {
+          "kind": "name",
+          "hint": 194,
+          "name": "DisplayConfigGetDeviceInfo"
+        },
+        {
+          "kind": "name",
+          "hint": 712,
+          "name": "QueryDisplayConfig"
+        },
+        {
+          "kind": "name",
+          "hint": 340,
+          "name": "GetDisplayConfigBufferSizes"
+        },
+        {
+          "kind": "name",
+          "hint": 405,
+          "name": "GetMonitorInfoW"
+        },
+        {
+          "kind": "name",
+          "hint": 871,
+          "name": "SetParent"
+        },
+        {
+          "kind": "name",
+          "hint": 930,
+          "name": "SetWindowsHookExW"
+        },
+        {
+          "kind": "name",
+          "hint": 32,
+          "name": "CallNextHookEx"
+        },
+        {
+          "kind": "name",
+          "hint": 508,
+          "name": "GetWindowPlacement"
+        },
+        {
+          "kind": "name",
+          "hint": 4,
+          "name": "AdjustWindowRectEx"
+        },
+        {
+          "kind": "name",
+          "hint": 703,
+          "name": "PostThreadMessageW"
+        },
+        {
+          "kind": "name",
+          "hint": 798,
+          "name": "ScreenToClient"
+        },
+        {
+          "kind": "name",
+          "hint": 1032,
+          "name": "WindowFromPoint"
+        },
+        {
+          "kind": "name",
+          "hint": 370,
+          "name": "GetKeyState"
+        },
+        {
+          "kind": "name",
+          "hint": 410,
+          "name": "GetParent"
+        },
+        {
+          "kind": "name",
+          "hint": 279,
+          "name": "FillRect"
+        },
+        {
+          "kind": "name",
+          "hint": 940,
+          "name": "ShowCursor"
+        },
+        {
+          "kind": "name",
+          "hint": 750,
+          "name": "RegisterClassExW"
+        },
+        {
+          "kind": "name",
+          "hint": 20,
+          "name": "BringWindowToTop"
+        },
+        {
+          "kind": "name",
+          "hint": 813,
+          "name": "SendMessageW"
+        },
+        {
+          "kind": "name",
+          "hint": 816,
+          "name": "SetActiveWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 617,
+          "name": "LoadIconW"
+        },
+        {
+          "kind": "name",
+          "hint": 785,
+          "name": "ReleaseDC"
+        },
+        {
+          "kind": "name",
+          "hint": 314,
+          "name": "GetClientRect"
+        },
+        {
+          "kind": "name",
+          "hint": 331,
+          "name": "GetDC"
+        },
+        {
+          "kind": "name",
+          "hint": 84,
+          "name": "CloseWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 244,
+          "name": "EnableWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 16,
+          "name": "AttachThreadInput"
+        },
+        {
+          "kind": "name",
+          "hint": 696,
+          "name": "PeekMessageW"
+        },
+        {
+          "kind": "name",
+          "hint": 502,
+          "name": "GetWindowLongPtrW"
+        },
+        {
+          "kind": "name",
+          "hint": 920,
+          "name": "SetWindowPos"
+        },
+        {
+          "kind": "name",
+          "hint": 250,
+          "name": "EndPaint"
+        },
+        {
+          "kind": "name",
+          "hint": 18,
+          "name": "BeginPaint"
+        },
+        {
+          "kind": "name",
+          "hint": 916,
+          "name": "SetWindowLongPtrW"
+        },
+        {
+          "kind": "name",
+          "hint": 1001,
+          "name": "UpdateLayeredWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 983,
+          "name": "UnhookWindowsHookEx"
+        },
+        {
+          "kind": "name",
+          "hint": 354,
+          "name": "GetForegroundWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 293,
+          "name": "GetAncestor"
+        },
+        {
+          "kind": "name",
+          "hint": 917,
+          "name": "SetWindowLongW"
+        },
+        {
+          "kind": "name",
+          "hint": 273,
+          "name": "EnumWindows"
+        },
+        {
+          "kind": "name",
+          "hint": 630,
+          "name": "LoadStringW"
+        },
+        {
+          "kind": "name",
+          "hint": 447,
+          "name": "GetPropW"
+        },
+        {
+          "kind": "name",
+          "hint": 335,
+          "name": "GetDesktopWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 254,
+          "name": "EnumChildWindows"
+        },
+        {
+          "kind": "name",
+          "hint": 282,
+          "name": "FindWindowExW"
+        },
+        {
+          "kind": "name",
+          "hint": 670,
+          "name": "MonitorFromWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 579,
+          "name": "IsIconic"
+        },
+        {
+          "kind": "name",
+          "hint": 503,
+          "name": "GetWindowLongW"
+        },
+        {
+          "kind": "name",
+          "hint": 883,
+          "name": "SetPropW"
+        },
+        {
+          "kind": "name",
+          "hint": 604,
+          "name": "IsWindowVisible"
+        },
+        {
+          "kind": "name",
+          "hint": 701,
+          "name": "PostQuitMessage"
+        },
+        {
+          "kind": "name",
+          "hint": 182,
+          "name": "DestroyMenu"
+        },
+        {
+          "kind": "name",
+          "hint": 972,
+          "name": "TrackPopupMenu"
+        },
+        {
+          "kind": "name",
+          "hint": 848,
+          "name": "SetForegroundWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 330,
+          "name": "GetCursorPos"
+        },
+        {
+          "kind": "name",
+          "hint": 556,
+          "name": "InsertMenuW"
+        },
+        {
+          "kind": "name",
+          "hint": 555,
+          "name": "InsertMenuItemW"
+        },
+        {
+          "kind": "name",
+          "hint": 117,
+          "name": "CreatePopupMenu"
+        },
+        {
+          "kind": "name",
+          "hint": 863,
+          "name": "SetMenuDefaultItem"
+        },
+        {
+          "kind": "name",
+          "hint": 867,
+          "name": "SetMenuItemInfoW"
+        },
+        {
+          "kind": "name",
+          "hint": 394,
+          "name": "GetMenuItemInfoW"
+        },
+        {
+          "kind": "name",
+          "hint": 391,
+          "name": "GetMenuItemCount"
+        },
+        {
+          "kind": "name",
+          "hint": 464,
+          "name": "GetSubMenu"
+        },
+        {
+          "kind": "name",
+          "hint": 627,
+          "name": "LoadMenuW"
+        },
+        {
+          "kind": "name",
+          "hint": 995,
+          "name": "UnregisterPowerSettingNotification"
+        },
+        {
+          "kind": "name",
+          "hint": 510,
+          "name": "GetWindowRect"
+        },
+        {
+          "kind": "name",
+          "hint": 769,
+          "name": "RegisterPowerSettingNotification"
+        },
+        {
+          "kind": "name",
+          "hint": 45,
+          "name": "ChangeWindowMessageFilter"
+        },
+        {
+          "kind": "name",
+          "hint": 783,
+          "name": "RegisterWindowMessageW"
+        },
+        {
+          "kind": "name",
+          "hint": 489,
+          "name": "GetWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 312,
+          "name": "GetClassNameW"
+        },
+        {
+          "kind": "name",
+          "hint": 700,
+          "name": "PostMessageW"
+        },
+        {
+          "kind": "name",
+          "hint": 619,
+          "name": "LoadImageW"
+        },
+        {
+          "kind": "name",
+          "hint": 469,
+          "name": "GetSystemMetrics"
+        },
+        {
+          "kind": "name",
+          "hint": 181,
+          "name": "DestroyIcon"
+        },
+        {
+          "kind": "name",
+          "hint": 113,
+          "name": "CreateIconIndirect"
+        },
+        {
+          "kind": "name",
+          "hint": 93,
+          "name": "CopyImage"
+        },
+        {
+          "kind": "name",
+          "hint": 360,
+          "name": "GetIconInfo"
+        },
+        {
+          "kind": "name",
+          "hint": 991,
+          "name": "UnregisterHotKey"
+        },
+        {
+          "kind": "name",
+          "hint": 763,
+          "name": "RegisterHotKey"
+        },
+        {
+          "kind": "name",
+          "hint": 981,
+          "name": "UnhookWinEvent"
+        },
+        {
+          "kind": "name",
+          "hint": 907,
+          "name": "SetWinEventHook"
+        },
+        {
+          "kind": "name",
+          "hint": 597,
+          "name": "IsWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 945,
+          "name": "ShowWindow"
+        },
+        {
+          "kind": "name",
+          "hint": 560,
+          "name": "InvalidateRect"
+        }
+      ],
+      "descriptor_file_offset": 5077636,
+      "name_rva": 5088798
+    },
+    {
+      "dll": "GDI32.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 953,
+          "name": "StretchDIBits"
+        },
+        {
+          "kind": "name",
+          "hint": 657,
+          "name": "GetDIBits"
+        },
+        {
+          "kind": "name",
+          "hint": 19,
+          "name": "BitBlt"
+        },
+        {
+          "kind": "name",
+          "hint": 48,
+          "name": "CreateCompatibleBitmap"
+        },
+        {
+          "kind": "name",
+          "hint": 90,
+          "name": "CreateSolidBrush"
+        },
+        {
+          "kind": "name",
+          "hint": 402,
+          "name": "DeleteDC"
+        },
+        {
+          "kind": "name",
+          "hint": 892,
+          "name": "SelectObject"
+        },
+        {
+          "kind": "name",
+          "hint": 49,
+          "name": "CreateCompatibleDC"
+        },
+        {
+          "kind": "name",
+          "hint": 56,
+          "name": "CreateDIBitmap"
+        },
+        {
+          "kind": "name",
+          "hint": 726,
+          "name": "GetStockObject"
+        },
+        {
+          "kind": "name",
+          "hint": 405,
+          "name": "DeleteObject"
+        },
+        {
+          "kind": "name",
+          "hint": 708,
+          "name": "GetObjectW"
+        }
+      ],
+      "descriptor_file_offset": 5077656,
+      "name_rva": 5089010
+    },
+    {
+      "dll": "SHELL32.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 336,
+          "name": "SHGetFolderPathW"
+        },
+        {
+          "kind": "name",
+          "hint": 418,
+          "name": "SetCurrentProcessExplicitAppUserModelID"
+        },
+        {
+          "kind": "name",
+          "hint": 432,
+          "name": "ShellExecuteW"
+        },
+        {
+          "kind": "name",
+          "hint": 444,
+          "name": "Shell_NotifyIconW"
+        },
+        {
+          "kind": "name",
+          "hint": 431,
+          "name": "ShellExecuteExW"
+        }
+      ],
+      "descriptor_file_offset": 5077676,
+      "name_rva": 5089136
+    },
+    {
+      "dll": "ole32.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 97,
+          "name": "CoInitializeEx"
+        },
+        {
+          "kind": "name",
+          "hint": 145,
+          "name": "CoUninitialize"
+        },
+        {
+          "kind": "name",
+          "hint": 43,
+          "name": "CoCreateInstance"
+        },
+        {
+          "kind": "name",
+          "hint": 140,
+          "name": "CoTaskMemFree"
+        },
+        {
+          "kind": "name",
+          "hint": 466,
+          "name": "PropVariantClear"
+        },
+        {
+          "kind": "name",
+          "hint": 528,
+          "name": "StringFromIID"
+        },
+        {
+          "kind": "name",
+          "hint": 318,
+          "name": "IIDFromString"
+        }
+      ],
+      "descriptor_file_offset": 5077696,
+      "name_rva": 5089272
+    },
+    {
+      "dll": "ADVAPI32.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 655,
+          "name": "RegQueryInfoKeyW"
+        },
+        {
+          "kind": "name",
+          "hint": 599,
+          "name": "RegCloseKey"
+        },
+        {
+          "kind": "name",
+          "hint": 677,
+          "name": "RegSetValueExW"
+        },
+        {
+          "kind": "name",
+          "hint": 648,
+          "name": "RegOpenKeyExW"
+        },
+        {
+          "kind": "name",
+          "hint": 629,
+          "name": "RegEnumKeyExA"
+        },
+        {
+          "kind": "name",
+          "hint": 358,
+          "name": "GetUserNameW"
+        },
+        {
+          "kind": "name",
+          "hint": 378,
+          "name": "InitializeSecurityDescriptor"
+        },
+        {
+          "kind": "name",
+          "hint": 740,
+          "name": "SetSecurityDescriptorDacl"
+        },
+        {
+          "kind": "name",
+          "hint": 661,
+          "name": "RegQueryValueExW"
+        },
+        {
+          "kind": "name",
+          "hint": 623,
+          "name": "RegDeleteValueW"
+        },
+        {
+          "kind": "name",
+          "hint": 651,
+          "name": "RegOpenKeyW"
+        },
+        {
+          "kind": "name",
+          "hint": 636,
+          "name": "RegGetValueA"
+        },
+        {
+          "kind": "name",
+          "hint": 637,
+          "name": "RegGetValueW"
+        }
+      ],
+      "descriptor_file_offset": 5077716,
+      "name_rva": 5089526
+    },
+    {
+      "dll": "d3d11.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 6,
+          "name": "D3D11CreateDevice"
+        }
+      ],
+      "descriptor_file_offset": 5077736,
+      "name_rva": 5089560
+    },
+    {
+      "dll": "dwmapi.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 18,
+          "name": "DwmIsCompositionEnabled"
+        },
+        {
+          "kind": "name",
+          "hint": 16,
+          "name": "DwmGetWindowAttribute"
+        }
+      ],
+      "descriptor_file_offset": 5077756,
+      "name_rva": 5089620
+    },
+    {
+      "dll": "WINMM.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 135,
+          "name": "timeEndPeriod"
+        },
+        {
+          "kind": "name",
+          "hint": 134,
+          "name": "timeBeginPeriod"
+        }
+      ],
+      "descriptor_file_offset": 5077776,
+      "name_rva": 5089666
+    },
+    {
+      "dll": "WTSAPI32.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 49,
+          "name": "WTSRegisterSessionNotification"
+        },
+        {
+          "kind": "name",
+          "hint": 65,
+          "name": "WTSUnRegisterSessionNotification"
+        }
+      ],
+      "descriptor_file_offset": 5077796,
+      "name_rva": 5089746
+    },
+    {
+      "dll": "SHLWAPI.dll",
+      "functions": [
+        {
+          "kind": "ordinal",
+          "ordinal": 219
+        }
+      ],
+      "descriptor_file_offset": 5077816,
+      "name_rva": 5089760
+    },
+    {
+      "dll": "MFReadWrite.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 6,
+          "name": "MFCreateSourceReaderFromURL"
+        },
+        {
+          "kind": "name",
+          "hint": 4,
+          "name": "MFCreateSourceReaderFromByteStream"
+        }
+      ],
+      "descriptor_file_offset": 5077836,
+      "name_rva": 5089840
+    },
+    {
+      "dll": "DWrite.dll",
+      "functions": [
+        {
+          "kind": "name",
+          "hint": 0,
+          "name": "DWriteCreateFactory"
+        }
+      ],
+      "descriptor_file_offset": 5077856,
+      "name_rva": 5091744
+    }
+  ],
+  "exports": {
+    "present": true,
+    "dll_name": "wallpaper64.exe",
+    "ordinal_base": 1,
+    "num_functions": 1,
+    "num_names": 1,
+    "addresses_rva": 5082184,
+    "names_rva": 5082188,
+    "ordinals_rva": 5082192,
+    "named_exports": [
+      "NoHotPatch"
+    ]
+  },
+  "debug": {
+    "present": true,
+    "rva": 4816232,
+    "size": 84,
+    "num_entries": 3,
+    "entries": [
+      {
+        "characteristics": 0,
+        "time_date_stamp": 1782743820,
+        "major": 0,
+        "minor": 0,
+        "type": 2,
+        "size_of_data": 40,
+        "address_of_raw_data_rva": 4839372,
+        "pointer_to_raw_data": 4834764,
+        "type_name": "CODEVIEW",
+        "cv_signature": "RSDS",
+        "guid_hex": "c27cc336f6cff9449c53376b9c8d7736",
+        "age": 1,
+        "pdb_path": "wallpaper64.pdb"
+      },
+      {
+        "characteristics": 0,
+        "time_date_stamp": 1782743820,
+        "major": 0,
+        "minor": 0,
+        "type": 12,
+        "size_of_data": 20,
+        "address_of_raw_data_rva": 4839412,
+        "pointer_to_raw_data": 4834804,
+        "type_name": "VC_FEATURE"
+      },
+      {
+        "characteristics": 0,
+        "time_date_stamp": 1782743820,
+        "major": 0,
+        "minor": 0,
+        "type": 13,
+        "size_of_data": 1284,
+        "address_of_raw_data_rva": 4839432,
+        "pointer_to_raw_data": 4834824,
+        "type_name": "POGO"
+      }
+    ]
+  },
+  "tls": {
+    "present": true,
+    "rva": 4816768,
+    "size": 40,
+    "raw_data_start_va": 5373549936,
+    "raw_data_end_va": 5373550760,
+    "address_of_index_va": 5373835912,
+    "address_of_callbacks_va": 5373062560,
+    "size_of_zero_fill": 0,
+    "characteristics": 1,
+    "callbacks": [
+      "0x14028aeb0",
+      "0x14028af90"
+    ]
+  },
+  "load_config": {
+    "present": true,
+    "rva": 4416688,
+    "size": 320,
+    "declared_size": 320,
+    "security_cookie_va": "0x1404dc040",
+    "guard_cf_check_function_pointer": "0x1",
+    "guard_cf_dispatch_function_pointer": "0x0"
+  },
+  "security_summary": {
+    "aslr": true,
+    "dep_nx": true,
+    "high_entropy_va": true,
+    "guard_cf": false,
+    "no_seh": false,
+    "terminal_server_aware": true
+  }
+}

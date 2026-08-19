@@ -1,0 +1,24 @@
+// Function: FUN_1404bc7d4
+// Addr: 1404bc7d4
+// Size: 1 bytes
+
+
+void FUN_1404bc7d4(void)
+
+{
+  char in_AL;
+  undefined1 in_AH;
+  undefined2 in_register_00000002;
+  undefined4 in_register_00000004;
+  
+  *(uint *)CONCAT44(in_register_00000004,CONCAT22(in_register_00000002,CONCAT11(in_AH,in_AL))) =
+       *(uint *)CONCAT44(in_register_00000004,CONCAT22(in_register_00000002,CONCAT11(in_AH,in_AL)))
+       & CONCAT22(in_register_00000002,CONCAT11(in_AH,in_AL));
+  *(char *)CONCAT44(in_register_00000004,CONCAT22(in_register_00000002,CONCAT11(in_AH,in_AL))) =
+       *(char *)CONCAT44(in_register_00000004,CONCAT22(in_register_00000002,CONCAT11(in_AH,in_AL)))
+       + in_AL;
+  do {
+                    /* WARNING: Do nothing block with infinite loop */
+  } while( true );
+}
+

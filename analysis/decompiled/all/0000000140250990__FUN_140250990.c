@@ -1,0 +1,328 @@
+// Function: FUN_140250990
+// Addr: 140250990
+// Size: 1101 bytes
+
+
+void FUN_140250990(longlong param_1,float *param_2,longlong param_3,longlong *param_4)
+
+{
+  float *pfVar1;
+  float *pfVar2;
+  float *pfVar3;
+  uint *puVar4;
+  uint *puVar5;
+  float *pfVar6;
+  float *pfVar7;
+  float *pfVar8;
+  float *pfVar9;
+  float *pfVar10;
+  float *pfVar11;
+  uint uVar12;
+  longlong lVar13;
+  longlong lVar14;
+  longlong lVar15;
+  longlong lVar16;
+  longlong lVar17;
+  longlong lVar18;
+  longlong lVar19;
+  longlong lVar20;
+  longlong lVar21;
+  longlong lVar22;
+  longlong lVar23;
+  longlong lVar24;
+  longlong lVar25;
+  longlong lVar26;
+  float fVar27;
+  float fVar28;
+  float fVar29;
+  float fVar30;
+  float fVar31;
+  float fVar32;
+  float fVar33;
+  float fVar34;
+  float fVar35;
+  float fVar36;
+  float fVar37;
+  float fVar38;
+  float fVar39;
+  float fVar40;
+  float fVar41;
+  float fVar42;
+  float fVar43;
+  float fVar44;
+  float fVar45;
+  float fVar46;
+  float *pfVar47;
+  uint uVar48;
+  longlong lVar50;
+  int iVar51;
+  ulonglong uVar52;
+  uint uVar53;
+  uint uVar54;
+  uint uVar55;
+  uint uVar56;
+  float fVar57;
+  float fVar58;
+  float fVar59;
+  float fVar60;
+  float fVar61;
+  float fVar62;
+  float fVar63;
+  float fVar64;
+  float fVar65;
+  float fVar66;
+  float fVar67;
+  float fVar68;
+  float fVar69;
+  float fVar70;
+  float fVar71;
+  float fVar72;
+  float fVar73;
+  float fVar75;
+  float fVar76;
+  undefined1 auVar74 [16];
+  float fVar77;
+  float fVar78;
+  float fVar81;
+  float fVar82;
+  undefined1 auVar79 [16];
+  float fVar83;
+  undefined1 auVar80 [16];
+  uint uVar84;
+  uint uVar85;
+  uint uVar86;
+  uint uVar87;
+  float fVar88;
+  float fVar89;
+  float fVar90;
+  float fVar91;
+  float local_138;
+  float fStack_134;
+  float fStack_130;
+  float fStack_12c;
+  float local_128;
+  float fStack_124;
+  float fStack_120;
+  float fStack_11c;
+  float local_118;
+  float fStack_114;
+  float fStack_110;
+  float fStack_10c;
+  ulonglong uVar49;
+  
+  lVar13 = *param_4;
+  uVar52 = param_4[1] - lVar13 >> 4;
+  iVar51 = (int)uVar52;
+  if (iVar51 != 0) {
+    uVar12 = *(uint *)(param_3 + 0xe8);
+    uVar48 = *(uint *)(param_1 + 0x144) % (uVar12 / 10000 + 1) << 2;
+    if (uVar48 < uVar12) {
+      lVar14 = *(longlong *)(param_3 + 0x70);
+      lVar15 = *(longlong *)(param_3 + 0x68);
+      lVar16 = *(longlong *)(param_3 + 0x80);
+      lVar17 = *(longlong *)(param_3 + 0x78);
+      lVar18 = *(longlong *)(param_3 + 0x58);
+      lVar19 = param_4[3];
+      lVar20 = param_4[6];
+      lVar21 = param_4[9];
+      lVar22 = param_4[0xc];
+      lVar23 = param_4[0xf];
+      lVar24 = param_4[0x12];
+      lVar25 = param_4[0x15];
+      lVar26 = *(longlong *)(param_3 + 0x60);
+      do {
+        uVar49 = (ulonglong)uVar48;
+        pfVar1 = (float *)(lVar16 + uVar49 * 4);
+        fVar43 = *pfVar1;
+        fVar44 = pfVar1[1];
+        fVar45 = pfVar1[2];
+        fVar46 = pfVar1[3];
+        pfVar1 = (float *)(lVar26 + uVar49 * 4);
+        pfVar2 = (float *)(lVar17 + uVar49 * 4);
+        fVar39 = *pfVar2;
+        fVar40 = pfVar2[1];
+        fVar41 = pfVar2[2];
+        fVar42 = pfVar2[3];
+        pfVar2 = (float *)(lVar15 + uVar49 * 4);
+        fVar27 = *pfVar1;
+        fVar28 = pfVar1[1];
+        fVar29 = pfVar1[2];
+        fVar30 = pfVar1[3];
+        pfVar3 = (float *)(lVar14 + uVar49 * 4);
+        fVar31 = *pfVar2;
+        fVar32 = pfVar2[1];
+        fVar33 = pfVar2[2];
+        fVar34 = pfVar2[3];
+        puVar4 = (uint *)(lVar17 + uVar49 * 4);
+        fVar69 = *pfVar3;
+        fVar70 = pfVar3[1];
+        fVar71 = pfVar3[2];
+        fVar72 = pfVar3[3];
+        puVar5 = (uint *)(lVar16 + uVar49 * 4);
+        pfVar47 = (float *)(uVar49 * 4 + lVar18);
+        fVar78 = 0.0;
+        fVar81 = 0.0;
+        fVar82 = 0.0;
+        fVar83 = 0.0;
+        fVar57 = 0.0;
+        fVar58 = 0.0;
+        fVar59 = 0.0;
+        fVar60 = 0.0;
+        fVar35 = *pfVar47;
+        fVar36 = pfVar47[1];
+        fVar37 = pfVar47[2];
+        fVar38 = pfVar47[3];
+        uVar84 = 0;
+        uVar85 = 0;
+        uVar86 = 0;
+        uVar87 = 0;
+        local_128 = 0.0;
+        fStack_124 = 0.0;
+        fStack_120 = 0.0;
+        fStack_11c = 0.0;
+        fVar88 = 0.0;
+        fVar89 = 0.0;
+        fVar90 = 0.0;
+        fVar91 = 0.0;
+        local_138 = 0.0;
+        fStack_134 = 0.0;
+        fStack_130 = 0.0;
+        fStack_12c = 0.0;
+        local_118 = 0.0;
+        fStack_114 = 0.0;
+        fStack_110 = 0.0;
+        fStack_10c = 0.0;
+        if (iVar51 != 0) {
+          uVar49 = uVar52 & 0xffffffff;
+          lVar50 = 0;
+          do {
+            pfVar6 = (float *)(lVar13 + lVar50 * 0x10);
+            pfVar11 = (float *)(lVar19 + lVar50 * 0x10);
+            pfVar7 = (float *)(lVar20 + lVar50 * 0x10);
+            pfVar8 = (float *)(lVar21 + lVar50 * 0x10);
+            pfVar9 = (float *)(lVar22 + lVar50 * 0x10);
+            auVar74 = *(undefined1 (*) [16])(lVar23 + lVar50 * 0x10);
+            pfVar10 = (float *)(lVar25 + lVar50 * 0x10);
+            fVar69 = *pfVar10;
+            fVar70 = pfVar10[1];
+            fVar71 = pfVar10[2];
+            fVar72 = pfVar10[3];
+            auVar79._0_4_ =
+                 (fVar27 - *pfVar11) * *pfVar9 + (fVar35 - *pfVar6) * *pfVar8 +
+                 (fVar31 - *pfVar7) * auVar74._0_4_;
+            auVar79._4_4_ =
+                 (fVar28 - pfVar11[1]) * pfVar9[1] + (fVar36 - pfVar6[1]) * pfVar8[1] +
+                 (fVar32 - pfVar7[1]) * auVar74._4_4_;
+            auVar79._8_4_ =
+                 (fVar29 - pfVar11[2]) * pfVar9[2] + (fVar37 - pfVar6[2]) * pfVar8[2] +
+                 (fVar33 - pfVar7[2]) * auVar74._8_4_;
+            auVar79._12_4_ =
+                 (fVar30 - pfVar11[3]) * pfVar9[3] + (fVar38 - pfVar6[3]) * pfVar8[3] +
+                 (fVar34 - pfVar7[3]) * auVar74._12_4_;
+            auVar79 = maxps(auVar79,ZEXT816(0));
+            auVar79 = minps(auVar79,*(undefined1 (*) [16])(lVar24 + lVar50 * 0x10));
+            fVar78 = auVar79._0_4_;
+            fVar81 = auVar79._4_4_;
+            fVar82 = auVar79._8_4_;
+            fVar83 = auVar79._12_4_;
+            fVar57 = fVar35 - (fVar78 * *pfVar8 + *pfVar6);
+            fVar58 = fVar36 - (fVar81 * pfVar8[1] + pfVar6[1]);
+            fVar59 = fVar37 - (fVar82 * pfVar8[2] + pfVar6[2]);
+            fVar60 = fVar38 - (fVar83 * pfVar8[3] + pfVar6[3]);
+            fVar61 = fVar27 - (fVar78 * *pfVar9 + *pfVar11);
+            fVar62 = fVar28 - (fVar81 * pfVar9[1] + pfVar11[1]);
+            fVar63 = fVar29 - (fVar82 * pfVar9[2] + pfVar11[2]);
+            fVar64 = fVar30 - (fVar83 * pfVar9[3] + pfVar11[3]);
+            fVar65 = fVar31 - (fVar78 * auVar74._0_4_ + *pfVar7);
+            fVar66 = fVar32 - (fVar81 * auVar74._4_4_ + pfVar7[1]);
+            fVar67 = fVar33 - (fVar82 * auVar74._8_4_ + pfVar7[2]);
+            fVar68 = fVar34 - (fVar83 * auVar74._12_4_ + pfVar7[3]);
+            auVar80._0_4_ = fVar61 * fVar61 + fVar57 * fVar57 + fVar65 * fVar65;
+            auVar80._4_4_ = fVar62 * fVar62 + fVar58 * fVar58 + fVar66 * fVar66;
+            auVar80._8_4_ = fVar63 * fVar63 + fVar59 * fVar59 + fVar67 * fVar67;
+            auVar80._12_4_ = fVar64 * fVar64 + fVar60 * fVar60 + fVar68 * fVar68;
+            auVar74 = rsqrtps(auVar74,auVar80);
+            uVar53 = -(uint)(auVar80._0_4_ < fVar69 * fVar69);
+            uVar54 = -(uint)(auVar80._4_4_ < fVar70 * fVar70);
+            uVar55 = -(uint)(auVar80._8_4_ < fVar71 * fVar71);
+            uVar56 = -(uint)(auVar80._12_4_ < fVar72 * fVar72);
+            fVar73 = auVar74._0_4_;
+            fVar75 = auVar74._4_4_;
+            fVar76 = auVar74._8_4_;
+            fVar77 = auVar74._12_4_;
+            fVar78 = (float)((uint)(fVar73 * fVar57) & uVar53 | ~uVar53 & (uint)local_128);
+            fVar81 = (float)((uint)(fVar75 * fVar58) & uVar54 | ~uVar54 & (uint)fStack_124);
+            fVar82 = (float)((uint)(fVar76 * fVar59) & uVar55 | ~uVar55 & (uint)fStack_120);
+            fVar83 = (float)((uint)(fVar77 * fVar60) & uVar56 | ~uVar56 & (uint)fStack_11c);
+            uVar84 = uVar84 | uVar53;
+            uVar85 = uVar85 | uVar54;
+            uVar86 = uVar86 | uVar55;
+            uVar87 = uVar87 | uVar56;
+            local_138 = (float)((uint)(fVar73 * fVar61) & uVar53 | ~uVar53 & (uint)local_138);
+            fStack_134 = (float)((uint)(fVar75 * fVar62) & uVar54 | ~uVar54 & (uint)fStack_134);
+            fStack_130 = (float)((uint)(fVar76 * fVar63) & uVar55 | ~uVar55 & (uint)fStack_130);
+            fStack_12c = (float)((uint)(fVar77 * fVar64) & uVar56 | ~uVar56 & (uint)fStack_12c);
+            fVar57 = (float)((uint)(fVar65 * fVar73) & uVar53 | ~uVar53 & (uint)local_118);
+            fVar58 = (float)((uint)(fVar66 * fVar75) & uVar54 | ~uVar54 & (uint)fStack_114);
+            fVar59 = (float)((uint)(fVar67 * fVar76) & uVar55 | ~uVar55 & (uint)fStack_110);
+            fVar60 = (float)((uint)(fVar68 * fVar77) & uVar56 | ~uVar56 & (uint)fStack_10c);
+            fVar88 = (float)((uint)(fVar73 * auVar80._0_4_ - fVar69) & uVar53 |
+                            ~uVar53 & (uint)fVar88);
+            fVar89 = (float)((uint)(fVar75 * auVar80._4_4_ - fVar70) & uVar54 |
+                            ~uVar54 & (uint)fVar89);
+            fVar90 = (float)((uint)(fVar76 * auVar80._8_4_ - fVar71) & uVar55 |
+                            ~uVar55 & (uint)fVar90);
+            fVar91 = (float)((uint)(fVar77 * auVar80._12_4_ - fVar72) & uVar56 |
+                            ~uVar56 & (uint)fVar91);
+            uVar53 = (int)uVar49 - 1;
+            uVar49 = (ulonglong)uVar53;
+            lVar50 = lVar50 + 1;
+            local_128 = fVar78;
+            fStack_124 = fVar81;
+            fStack_120 = fVar82;
+            fStack_11c = fVar83;
+            local_118 = fVar57;
+            fStack_114 = fVar58;
+            fStack_110 = fVar59;
+            fStack_10c = fVar60;
+          } while (uVar53 != 0);
+          fVar69 = *pfVar3;
+          fVar70 = pfVar3[1];
+          fVar71 = pfVar3[2];
+          fVar72 = pfVar3[3];
+        }
+        uVar48 = uVar48 + (uVar12 / 10000) * 4 + 4;
+        fVar61 = (local_138 * fVar39 + fVar78 * fVar69 + fVar57 * fVar43) * *param_2;
+        fVar62 = (fStack_134 * fVar40 + fVar81 * fVar70 + fVar58 * fVar44) * param_2[1];
+        fVar63 = (fStack_130 * fVar41 + fVar82 * fVar71 + fVar59 * fVar45) * param_2[2];
+        fVar64 = (fStack_12c * fVar42 + fVar83 * fVar72 + fVar60 * fVar46) * param_2[3];
+        *pfVar47 = (float)((uint)(fVar35 - fVar88 * fVar78) & uVar84 | ~uVar84 & (uint)fVar35);
+        pfVar47[1] = (float)((uint)(fVar36 - fVar89 * fVar81) & uVar85 | ~uVar85 & (uint)fVar36);
+        pfVar47[2] = (float)((uint)(fVar37 - fVar90 * fVar82) & uVar86 | ~uVar86 & (uint)fVar37);
+        pfVar47[3] = (float)((uint)(fVar38 - fVar91 * fVar83) & uVar87 | ~uVar87 & (uint)fVar38);
+        *pfVar1 = (float)((uint)(fVar27 - fVar88 * local_138) & uVar84 | ~uVar84 & (uint)fVar27);
+        pfVar1[1] = (float)((uint)(fVar28 - fVar89 * fStack_134) & uVar85 | ~uVar85 & (uint)fVar28);
+        pfVar1[2] = (float)((uint)(fVar29 - fVar90 * fStack_130) & uVar86 | ~uVar86 & (uint)fVar29);
+        pfVar1[3] = (float)((uint)(fVar30 - fVar91 * fStack_12c) & uVar87 | ~uVar87 & (uint)fVar30);
+        *pfVar2 = (float)((uint)(fVar31 - fVar88 * fVar57) & uVar84 | ~uVar84 & (uint)fVar31);
+        pfVar2[1] = (float)((uint)(fVar32 - fVar89 * fVar58) & uVar85 | ~uVar85 & (uint)fVar32);
+        pfVar2[2] = (float)((uint)(fVar33 - fVar90 * fVar59) & uVar86 | ~uVar86 & (uint)fVar33);
+        pfVar2[3] = (float)((uint)(fVar34 - fVar91 * fVar60) & uVar87 | ~uVar87 & (uint)fVar34);
+        *pfVar3 = (float)((uint)(fVar61 * fVar78 + fVar69) & uVar84 | ~uVar84 & (uint)fVar69);
+        pfVar3[1] = (float)((uint)(fVar62 * fVar81 + fVar70) & uVar85 | ~uVar85 & (uint)fVar70);
+        pfVar3[2] = (float)((uint)(fVar63 * fVar82 + fVar71) & uVar86 | ~uVar86 & (uint)fVar71);
+        pfVar3[3] = (float)((uint)(fVar64 * fVar83 + fVar72) & uVar87 | ~uVar87 & (uint)fVar72);
+        *puVar4 = (uint)(fVar61 * local_138 + fVar39) & uVar84 | ~uVar84 & (uint)fVar39;
+        puVar4[1] = (uint)(fVar62 * fStack_134 + fVar40) & uVar85 | ~uVar85 & (uint)fVar40;
+        puVar4[2] = (uint)(fVar63 * fStack_130 + fVar41) & uVar86 | ~uVar86 & (uint)fVar41;
+        puVar4[3] = (uint)(fVar64 * fStack_12c + fVar42) & uVar87 | ~uVar87 & (uint)fVar42;
+        *puVar5 = (uint)(fVar61 * fVar57 + fVar43) & uVar84 | ~uVar84 & (uint)fVar43;
+        puVar5[1] = (uint)(fVar62 * fVar58 + fVar44) & uVar85 | ~uVar85 & (uint)fVar44;
+        puVar5[2] = (uint)(fVar63 * fVar59 + fVar45) & uVar86 | ~uVar86 & (uint)fVar45;
+        puVar5[3] = (uint)(fVar64 * fVar60 + fVar46) & uVar87 | ~uVar87 & (uint)fVar46;
+      } while (uVar48 < uVar12);
+    }
+  }
+  return;
+}
+

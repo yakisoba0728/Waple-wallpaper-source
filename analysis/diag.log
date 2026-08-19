@@ -1,0 +1,13 @@
+module: wallpaper32.exe @ 0xb50000 size=0x421000
+enumerateRanges type: function
+module rw ranges: 5
+  range[0]: 0xf41000 size=0x1000
+  range[1]: 0xf42000 size=0x1000
+  range[2]: 0xf43000 size=0x2000
+  range[3]: 0xf45000 size=0x1000
+  range[4]: 0xf46000 size=0x6000
+process-wide rw ranges: 743
+relevant modules:
+  wallpaper32.exe @ 0xb50000 size=0x421000
+  d3d11.dll @ 0x63a40000 size=0x1eb000
+  dxgi.dll @ 0x63930000 size=0x10b000

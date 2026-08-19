@@ -1,0 +1,857 @@
+# UTF-16LE strings (>=5 chars) — 854 entries
+# source: Z:\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe
+
+0x0025f550  K&K&K&K&
+0x00429880  !x-sys-default-locale
+0x0042a160  :Sun:Sunday:Mon:Monday:Tue:Tuesday:Wed:Wednesday:Thu:Thursday:Fri:Friday:Sat:Saturday
+0x0042a210  :Jan:January:Feb:February:Mar:March:Apr:April:May:May:Jun:June:Jul:July:Aug:August:Sep:September:Oct:October:Nov:November:Dec:December
+0x0042ad40  :AM:am:PM:pm
+0x0042c398  (null)
+0x0042c560  Assertion failed: %Ts, file %Ts, line %d
+0x0042c5c0  Microsoft Visual C++ Runtime Library
+0x0042c610  Assertion failed!
+0x0042c638  Program: 
+0x0042c650  File: 
+0x0042c660  Line: 
+0x0042c670  Expression: 
+0x0042c690  For information on how your program can cause an assertion
+0x0042c706  failure, see the Visual C++ documentation on asserts
+0x0042c770  (Press Retry to debug the application - JIT must be enabled)
+0x0042c7f8  <program name unknown>
+0x0042d200  minkernel\crts\ucrt\inc\corecrt_internal_strtox.h
+0x0042d270  __crt_strtox::floating_point_value::as_double
+0x0042d2d0  _is_double
+0x0042d2f0  __crt_strtox::floating_point_value::as_float
+0x0042d350  !_is_double
+0x0042d4c8  mscoree.dll
+0x0042d750  LC_ALL
+0x0042d760  LC_COLLATE
+0x0042d778  LC_CTYPE
+0x0042d790  LC_MONETARY
+0x0042d7a8  LC_NUMERIC
+0x0042d7c0  LC_TIME
+0x0042d900           (((((                  H
+0x0042de02           (((((                  H
+0x0042df00        (                          
+0x0042e008  am/pm
+0x0042e480  Sunday
+0x0042e490  Monday
+0x0042e4a0  Tuesday
+0x0042e4b0  Wednesday
+0x0042e4c8  Thursday
+0x0042e4e0  Friday
+0x0042e4f0  Saturday
+0x0042e568  January
+0x0042e578  February
+0x0042e590  March
+0x0042e5a0  April
+0x0042e5d0  August
+0x0042e5e0  September
+0x0042e5f8  October
+0x0042e608  November
+0x0042e620  December
+0x0042e648  MM/dd/yy
+0x0042e660  dddd, MMMM dd, yyyy
+0x0042e688  HH:mm:ss
+0x0042e6a0  en-US
+0x0042e820  api-ms-win-core-datetime-l1-1-1
+0x0042e860  api-ms-win-core-fibers-l1-1-2
+0x0042e8a0  api-ms-win-core-file-l1-2-4
+0x0042e8d8  api-ms-win-core-file-l1-2-2
+0x0042e910  api-ms-win-core-file-l2-1-4
+0x0042e950  api-ms-win-core-localization-l1-2-1
+0x0042e9a0  api-ms-win-core-localization-obsolete-l1-2-0
+0x0042ea00  api-ms-win-core-processthreads-l1-1-2
+0x0042ea50  api-ms-win-core-string-l1-1-0
+0x0042ea90  api-ms-win-core-synch-l1-2-0
+0x0042ead0  api-ms-win-core-sysinfo-l1-2-1
+0x0042eb10  api-ms-win-core-winrt-l1-1-0
+0x0042eb50  api-ms-win-core-xstate-l2-1-0
+0x0042eb90  api-ms-win-rtcore-ntuser-window-l1-1-0
+0x0042ebe0  api-ms-win-security-systemfunctions-l1-1-0
+0x0042ec40  ext-ms-win-ntuser-dialogbox-l1-1-0
+0x0042ec90  ext-ms-win-ntuser-windowstation-l1-1-0
+0x0042ece0  advapi32
+0x0042ecf8  kernel32
+0x0042ed10  api-ms-win-appmodel-runtime-l1-1-2
+0x0042ed58  user32
+0x0042ed68  api-ms-
+0x0042ed78  ext-ms-
+0x0042f0f0  UTF-8
+0x0042f100  UTF-16LEUNICODE
+0x0042f410  ja-JP
+0x0042f420  zh-CN
+0x0042f430  ko-KR
+0x0042f440  zh-TW
+0x0042f9e8  american
+0x0042fa00  american english
+0x0042fa28  american-english
+0x0042fa50  australian
+0x0042fa68  belgian
+0x0042fa78  canadian
+0x0042faa0  chinese
+0x0042fab0  chinese-hongkong
+0x0042fad8  chinese-simplified
+0x0042fb00  chinese-singapore
+0x0042fb28  chinese-traditional
+0x0042fb50  dutch-belgian
+0x0042fb70  english-american
+0x0042fb98  english-aus
+0x0042fbb0  english-belize
+0x0042fbd0  english-can
+0x0042fbe8  english-caribbean
+0x0042fc10  english-ire
+0x0042fc28  english-jamaica
+0x0042fc48  english-nz
+0x0042fc60  english-south africa
+0x0042fc90  english-trinidad y tobago
+0x0042fcc8  english-uk
+0x0042fce0  english-us
+0x0042fcf8  english-usa
+0x0042fd10  french-belgian
+0x0042fd30  french-canadian
+0x0042fd50  french-luxembourg
+0x0042fd78  french-swiss
+0x0042fd98  german-austrian
+0x0042fdb8  german-lichtenstein
+0x0042fde0  german-luxembourg
+0x0042fe08  german-swiss
+0x0042fe28  irish-english
+0x0042fe48  italian-swiss
+0x0042fe68  norwegian
+0x0042fe80  norwegian-bokmal
+0x0042fea8  norwegian-nynorsk
+0x0042fed0  portuguese-brazilian
+0x0042ff00  spanish-argentina
+0x0042ff28  spanish-bolivia
+0x0042ff48  spanish-chile
+0x0042ff68  spanish-colombia
+0x0042ff90  spanish-costa rica
+0x0042ffb8  spanish-dominican republic
+0x0042fff0  spanish-ecuador
+0x00430010  spanish-el salvador
+0x00430038  spanish-guatemala
+0x00430060  spanish-honduras
+0x00430088  spanish-mexican
+0x004300a8  spanish-modern
+0x004300c8  spanish-nicaragua
+0x004300f0  spanish-panama
+0x00430110  spanish-paraguay
+0x00430138  spanish-peru
+0x00430158  spanish-puerto rico
+0x00430180  spanish-uruguay
+0x004301a0  spanish-venezuela
+0x004301c8  swedish-finland
+0x004301e8  swiss
+0x00430210  america
+0x00430220  britain
+0x00430230  china
+0x00430240  czech
+0x00430250  england
+0x00430260  great britain
+0x00430280  holland
+0x00430290  hong-kong
+0x004302a8  new-zealand
+0x004302c8  pr china
+0x004302e0  pr-china
+0x004302f8  puerto-rico
+0x00430310  slovak
+0x00430320  south africa
+0x00430340  south korea
+0x00430358  south-africa
+0x00430378  south-korea
+0x00430390  trinidad & tobago
+0x004303b8  united-kingdom
+0x004303d8  united-states
+0x00430410  utf-8
+0x004312b8  zh-CHS
+0x004314a8  ar-SA
+0x004314b8  bg-BG
+0x004314c8  ca-ES
+0x004314d8  cs-CZ
+0x004314e8  da-DK
+0x004314f8  de-DE
+0x00431508  el-GR
+0x00431518  fi-FI
+0x00431528  fr-FR
+0x00431538  he-IL
+0x00431548  hu-HU
+0x00431558  is-IS
+0x00431568  it-IT
+0x00431578  nl-NL
+0x00431588  nb-NO
+0x00431598  pl-PL
+0x004315a8  pt-BR
+0x004315b8  ro-RO
+0x004315c8  ru-RU
+0x004315d8  hr-HR
+0x004315e8  sk-SK
+0x004315f8  sq-AL
+0x00431608  sv-SE
+0x00431618  th-TH
+0x00431628  tr-TR
+0x00431638  ur-PK
+0x00431648  id-ID
+0x00431658  uk-UA
+0x00431668  be-BY
+0x00431678  sl-SI
+0x00431688  et-EE
+0x00431698  lv-LV
+0x004316a8  lt-LT
+0x004316b8  fa-IR
+0x004316c8  vi-VN
+0x004316d8  hy-AM
+0x004316e8  az-AZ-Latn
+0x00431700  eu-ES
+0x00431710  mk-MK
+0x00431720  tn-ZA
+0x00431730  xh-ZA
+0x00431740  zu-ZA
+0x00431750  af-ZA
+0x00431760  ka-GE
+0x00431770  fo-FO
+0x00431780  hi-IN
+0x00431790  mt-MT
+0x004317a0  se-NO
+0x004317b0  ms-MY
+0x004317c0  kk-KZ
+0x004317d0  ky-KG
+0x004317e0  sw-KE
+0x004317f0  uz-UZ-Latn
+0x00431808  tt-RU
+0x00431818  bn-IN
+0x00431828  pa-IN
+0x00431838  gu-IN
+0x00431848  ta-IN
+0x00431858  te-IN
+0x00431868  kn-IN
+0x00431878  ml-IN
+0x00431888  mr-IN
+0x00431898  sa-IN
+0x004318a8  mn-MN
+0x004318b8  cy-GB
+0x004318c8  gl-ES
+0x004318d8  kok-IN
+0x004318e8  syr-SY
+0x004318f8  div-MV
+0x00431908  quz-BO
+0x00431918  ns-ZA
+0x00431928  mi-NZ
+0x00431938  ar-IQ
+0x00431948  de-CH
+0x00431958  en-GB
+0x00431968  es-MX
+0x00431978  fr-BE
+0x00431988  it-CH
+0x00431998  nl-BE
+0x004319a8  nn-NO
+0x004319b8  pt-PT
+0x004319c8  sr-SP-Latn
+0x004319e0  sv-FI
+0x004319f0  az-AZ-Cyrl
+0x00431a08  se-SE
+0x00431a18  ms-BN
+0x00431a28  uz-UZ-Cyrl
+0x00431a40  quz-EC
+0x00431a50  ar-EG
+0x00431a60  zh-HK
+0x00431a70  de-AT
+0x00431a80  en-AU
+0x00431a90  es-ES
+0x00431aa0  fr-CA
+0x00431ab0  sr-SP-Cyrl
+0x00431ac8  se-FI
+0x00431ad8  quz-PE
+0x00431ae8  ar-LY
+0x00431af8  zh-SG
+0x00431b08  de-LU
+0x00431b18  en-CA
+0x00431b28  es-GT
+0x00431b38  fr-CH
+0x00431b48  hr-BA
+0x00431b58  smj-NO
+0x00431b68  ar-DZ
+0x00431b78  zh-MO
+0x00431b88  de-LI
+0x00431b98  en-NZ
+0x00431ba8  es-CR
+0x00431bb8  fr-LU
+0x00431bc8  bs-BA-Latn
+0x00431be0  smj-SE
+0x00431bf0  ar-MA
+0x00431c00  en-IE
+0x00431c10  es-PA
+0x00431c20  fr-MC
+0x00431c30  sr-BA-Latn
+0x00431c48  sma-NO
+0x00431c58  ar-TN
+0x00431c68  en-ZA
+0x00431c78  es-DO
+0x00431c88  sr-BA-Cyrl
+0x00431ca0  sma-SE
+0x00431cb0  ar-OM
+0x00431cc0  en-JM
+0x00431cd0  es-VE
+0x00431ce0  sms-FI
+0x00431cf0  ar-YE
+0x00431d00  en-CB
+0x00431d10  es-CO
+0x00431d20  smn-FI
+0x00431d30  ar-SY
+0x00431d40  en-BZ
+0x00431d50  es-PE
+0x00431d60  ar-JO
+0x00431d70  en-TT
+0x00431d80  es-AR
+0x00431d90  ar-LB
+0x00431da0  en-ZW
+0x00431db0  es-EC
+0x00431dc0  ar-KW
+0x00431dd0  en-PH
+0x00431de0  es-CL
+0x00431df0  ar-AE
+0x00431e00  es-UY
+0x00431e10  ar-BH
+0x00431e20  es-PY
+0x00431e30  ar-QA
+0x00431e40  es-BO
+0x00431e50  es-SV
+0x00431e60  es-HN
+0x00431e70  es-NI
+0x00431e80  es-PR
+0x00431e90  zh-CHT
+0x00432cf0  af-za
+0x00432d00  ar-ae
+0x00432d10  ar-bh
+0x00432d20  ar-dz
+0x00432d30  ar-eg
+0x00432d40  ar-iq
+0x00432d50  ar-jo
+0x00432d60  ar-kw
+0x00432d70  ar-lb
+0x00432d80  ar-ly
+0x00432d90  ar-ma
+0x00432da0  ar-om
+0x00432db0  ar-qa
+0x00432dc0  ar-sa
+0x00432dd0  ar-sy
+0x00432de0  ar-tn
+0x00432df0  ar-ye
+0x00432e00  az-az-cyrl
+0x00432e18  az-az-latn
+0x00432e30  be-by
+0x00432e40  bg-bg
+0x00432e50  bn-in
+0x00432e60  bs-ba-latn
+0x00432e78  ca-es
+0x00432e88  cs-cz
+0x00432e98  cy-gb
+0x00432ea8  da-dk
+0x00432eb8  de-at
+0x00432ec8  de-ch
+0x00432ed8  de-de
+0x00432ee8  de-li
+0x00432ef8  de-lu
+0x00432f08  div-mv
+0x00432f18  el-gr
+0x00432f28  en-au
+0x00432f38  en-bz
+0x00432f48  en-ca
+0x00432f58  en-cb
+0x00432f68  en-gb
+0x00432f78  en-ie
+0x00432f88  en-jm
+0x00432f98  en-nz
+0x00432fa8  en-ph
+0x00432fb8  en-tt
+0x00432fc8  en-us
+0x00432fd8  en-za
+0x00432fe8  en-zw
+0x00432ff8  es-ar
+0x00433008  es-bo
+0x00433018  es-cl
+0x00433028  es-co
+0x00433038  es-cr
+0x00433048  es-do
+0x00433058  es-ec
+0x00433068  es-es
+0x00433078  es-gt
+0x00433088  es-hn
+0x00433098  es-mx
+0x004330a8  es-ni
+0x004330b8  es-pa
+0x004330c8  es-pe
+0x004330d8  es-pr
+0x004330e8  es-py
+0x004330f8  es-sv
+0x00433108  es-uy
+0x00433118  es-ve
+0x00433128  et-ee
+0x00433138  eu-es
+0x00433148  fa-ir
+0x00433158  fi-fi
+0x00433168  fo-fo
+0x00433178  fr-be
+0x00433188  fr-ca
+0x00433198  fr-ch
+0x004331a8  fr-fr
+0x004331b8  fr-lu
+0x004331c8  fr-mc
+0x004331d8  gl-es
+0x004331e8  gu-in
+0x004331f8  he-il
+0x00433208  hi-in
+0x00433218  hr-ba
+0x00433228  hr-hr
+0x00433238  hu-hu
+0x00433248  hy-am
+0x00433258  id-id
+0x00433268  is-is
+0x00433278  it-ch
+0x00433288  it-it
+0x00433298  ja-jp
+0x004332a8  ka-ge
+0x004332b8  kk-kz
+0x004332c8  kn-in
+0x004332d8  kok-in
+0x004332e8  ko-kr
+0x004332f8  ky-kg
+0x00433308  lt-lt
+0x00433318  lv-lv
+0x00433328  mi-nz
+0x00433338  mk-mk
+0x00433348  ml-in
+0x00433358  mn-mn
+0x00433368  mr-in
+0x00433378  ms-bn
+0x00433388  ms-my
+0x00433398  mt-mt
+0x004333a8  nb-no
+0x004333b8  nl-be
+0x004333c8  nl-nl
+0x004333d8  nn-no
+0x004333e8  ns-za
+0x004333f8  pa-in
+0x00433408  pl-pl
+0x00433418  pt-br
+0x00433428  pt-pt
+0x00433438  quz-bo
+0x00433448  quz-ec
+0x00433458  quz-pe
+0x00433468  ro-ro
+0x00433478  ru-ru
+0x00433488  sa-in
+0x00433498  se-fi
+0x004334a8  se-no
+0x004334b8  se-se
+0x004334c8  sk-sk
+0x004334d8  sl-si
+0x004334e8  sma-no
+0x004334f8  sma-se
+0x00433508  smj-no
+0x00433518  smj-se
+0x00433528  smn-fi
+0x00433538  sms-fi
+0x00433548  sq-al
+0x00433558  sr-ba-cyrl
+0x00433570  sr-ba-latn
+0x00433588  sr-sp-cyrl
+0x004335a0  sr-sp-latn
+0x004335b8  sv-fi
+0x004335c8  sv-se
+0x004335d8  sw-ke
+0x004335e8  syr-sy
+0x004335f8  ta-in
+0x00433608  te-in
+0x00433618  th-th
+0x00433628  tn-za
+0x00433638  tr-tr
+0x00433648  tt-ru
+0x00433658  uk-ua
+0x00433668  ur-pk
+0x00433678  uz-uz-cyrl
+0x00433690  uz-uz-latn
+0x004336a8  vi-vn
+0x004336b8  xh-za
+0x004336c8  zh-chs
+0x004336d8  zh-cht
+0x004336e8  zh-cn
+0x004336f8  zh-hk
+0x00433708  zh-mo
+0x00433718  zh-sg
+0x00433728  zh-tw
+0x00433738  zu-za
+0x004339a0  CONOUT$
+0x00435236  lKERNEL32.DLL
+0x0043bbc0   !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+0x0043bfce   !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+0x0043c092  `abcdefghijklmn
+0x0043c0bc  stuvwxyz
+0x00440926  tABCDEFGHIJKLMNOPQRSTUVWXYZ
+0x0044099e  tabcdefghijklmnopqrstuvwxyz
+0x004416e0  @LV^a
+0x00441b4e   !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+0x00441c12  `abcdefghijklmn
+0x00441c3c  stuvwxyz
+0x00451358  #+3;CScs
+0x00451d59  tABCDEFGHIJKLMNOPQRSTUVWXYZ
+0x00451dd1  tabcdefghijklmnopqrstuvwxyz
+0x00455c30  999999999999999999999MMMMMMMMMMMMMMMMMMMMMMMMMMfffffffffffff
+0x00455caa  fffffffwwxxxxxxxxxxxxxxxxxxxxxf99999999
+0x0045869c  !!!!!!!!!!!*********1
+0x00459432  030000000000000000000000
+0x0045c0c1  tABCDEFGHIJKLMNOPQRSTUVWXYZ
+0x0045c135  eabcdefghijklmnopqrstuvwxyz
+0x0045ff94  (((((((((((((((((((((((((((((FFFFFFFFFFFFaFFFFFFFFFFFeaFegjFFFFFFFFFFFFFaFFFFFFFFFFFeaFe
+0x00466a10                                  
+0x00466af0  @@@@@@@
+0x00466b10  HHH(((00
+0x00466b2a  000000
+0x00466d04  HHHHH
+0x00466e44  ``@@@@000000000
+0x00466e64  000000
+0x00466ed0  8888888888888888
+0x00466fb0  88888888
+0x00466fd0  8888888888888888
+0x00467010  HHH(((
+0x00467020  000000
+0x0046727e  (((((
+0x00467810  hhhhhh
+0x00467a18  HH((X
+0x004682b0  @@@@@@@@@@@@@@@
+0x00468370                  ((((((((((((((((
+0x004683d0  HHHHHHHHHHHHHHHH@@@@@@@@@@@@@@@@0000000000000000PPPPPPPPPPPPPPPP````````````````ppppppppppppppppXXXXXXXXXXXXXXXX8888888888888888
+0x00468570  hhhhhhhhhhhhhhhh
+0x004685ce  00000000
+0x004685f0  hhhhhhhhhhhhhh
+0x00468630  xxxxxxxxxxxxxxxx
+0x00468652  xxxxxxxxxxxxxxxxxxxxx
+0x004686ce  888888888888
+0x00468704  888888
+0x00468756  888888888
+0x00468a7c  PPPPPPPP
+0x00468afc  hhhhh
+0x00468b9c  00000
+0x00468bb0  0000000
+0x00468bc0  hhhhhhhh
+0x00468c68  00000
+0x00468eb4  HHHHHH
+0x00468ee0  xxxxxxxxxxxxXXXXXXXXXXX
+0x00468f1a  000000000000
+0x00468f34  000000000
+0x0046901c  00000
+0x004690c4  8888888888888
+0x004690e0  888888888888888888
+0x0046912e  8888888888888888
+0x00469312  00000
+0x004698f0  @@@@@@@@@@@@@
+0x00469910  @@@@@@@@
+0x00469950  ((((((((((
+0x00469968  (((((((((((((((((((
+0x00469990  pppppppp
+0x004699d0  XXXXXXX
+0x00469b30                
+0x00469c70  hhhhh
+0x00469e5c  xxxxxxx
+0x0046b958  rvwy{|
+0x0046d460  (((((((((((((((
+0x0047109e  ePsapi.dll
+0x004710d0  kernel32.dll
+0x004710f0  raptr
+0x00471100  fraps
+0x00471110  precisionx
+0x00471128  rtsshook
+0x00471150  owexplorer
+0x00471168  mirillis
+0x00471180  action_
+0x00471190  keyhookdll
+0x004711a8  0kraken0
+0x004711c0  playclawhook
+0x004711e0  ovldynext
+0x004711f8  ss2osd
+0x00471208  ss3osd
+0x00471218  graphics-hook32
+0x00471238  mkiiosd
+0x00471248  ss2devprops
+0x00471260  ss3devprops
+0x00471278  sonic suite
+0x00471290  sonicsuite
+0x004712a8  ssaudioosd
+0x004712c0  ddumd
+0x004712d0  gametooldll
+0x004712e8  nahimic
+0x004712f8  gpp32
+0x00471308  gpp64
+0x00471318  xtremetuner
+0x00471330  dxosd
+0x00471340  discord
+0x00471350  k_fps32
+0x00471360  k_fps64
+0x00471370  rzfps
+0x00471380  specialk
+0x00471398  d3dgear
+0x004713a8  asusstrixosd
+0x004713c8  asusphoebusosd
+0x004713e8  fpsmon
+0x004713f8  norton
+0x00471408  msi gaming
+0x00471420  browserhook
+0x00471438  vhook.dll
+0x00471450  nvinject
+0x00471468  easyhook
+0x00471480  easyhk
+0x004714a0  Go here for help:
+0x004714c6  help.wallpaperengine.io/crash
+0x00471518  rzchromasdk
+0x00471530  Razer Synapse has crashed Wallpaper Engine.
+0x0047158a  The Razer Chroma plugin will be disabled to fix this crash. You can re-enable it in the Wallpaper Engine plugin settings.
+0x00471680  Software\WallpaperEngine\
+0x004716b8  disablePlugins
+0x004716e0  PRECISION X hacked and crashed Wallpaper Engine. Update PRECISION X or disable its overlay hack.
+0x004717a8  nvumdshim
+0x004717c0  igc32
+0x004717d0  LIKELY SOLUTION: Update Intel Graphics drivers.
+0x00471830  nvwgf2um
+0x00471848  nvd3dum
+0x00471860  Your Nvidia graphics drivers have crashed Wallpaper Engine. Try reinstalling the NEWEST Nvidia drivers or install OLDER, STABLE drivers. This type of crash can also be the result of a broken graphics hook or overlay program.
+0x00471a28  rtsshooks
+0x00471a40  Rivatuner Statistics Server hacked and crashed Wallpaper Engine. Exclude Wallpaper Engine in RivaTuner to stop it from crashing it.
+0x00471b48  msigamingosd
+0x00471b70  The MSI Gaming App hacked and crashed Wallpaper Engine. Update it or disable its overlay hack.
+0x00471c30  radeonpro
+0x00471c50  RadeonPro hacked and crashed Wallpaper Engine. Update it or disable its overlay hack.
+0x00471d00  kernelbase
+0x00471d18  atcuf
+0x00471d30  BitDefender hacked and possibly crashed Wallpaper Engine through its 'Advanced Threat Defense'. Try excluding Wallpaper Engine there or disabling it.
+0x00471e60  Wallpaper Engine crashed in the Windows System.
+0x00471ec0  audioses
+0x00471ee0  Your audio driver crashed Wallpaper Engine. Try setting 'Other application playing audio' to 'keep running' in the Wallpaper Engine settings.
+0x00472000  overlay.x86.dll
+0x00472020  overlay.x64.dll
+0x00472040  LIKELY SOLUTION: Disable Discord overlay for Wallpaper Engine.
+0x004720c0  Module not found! If you have Windows N and you are trying to play a video, install the latest Media Feature Pack.
+0x004721b0  Wallpaper Engine was likely crashed by the following application. Try closing or updating this application:
+0x00472290  Wallpaper Engine was likely crashed by another application (
+0x00472320  Wallpaper Engine has crashed.
+0x00472364  Crash caused by: '%s'. Error code: 0x%08X.
+0x004723e0   Access violation: trying to %S address %S.
+0x00472438  steammdmp64.dll
+0x004724a8  .mdmp
+0x004724b8  DBGHELP.DLL
+0x004724e8  Software\Valve\Steam\Users
+0x00472564  Crash information written to: 
+0x004725a8  Error
+0x004726e8  cxWallpaperEngineGlobalMutex
+0x00472746  eKristjanSkutta.WallpaperEngine
+0x004727e8  \bin\
+0x004727f8  WPEDesktopDXInitWindow
+0x00472838  WPEInit
+0x0047287e  7High Contrast White
+0x00472b68  \\.\pipe\WPXCMD_
+0x00472be0  WinSta0\default
+0x00472c00  wallpaper64.exe -control aws
+0x00472c40  wallpaper64.exe
+0x00472c60  WPEEventWindow
+0x00472d28  faultyShutdown
+0x00472d78  hideTrayIcon
+0x00473748  WPETrayWindow
+0x00473788   -silentupdate
+0x004737b0  WorkerW
+0x004737c0  TaskbarCreated
+0x004737f0  WPEEventWindowSC
+0x00473ab0  uxtheme.dll
+0x00473b90  winrtutil64.exe
+0x00473d90  apputil32.exe
+0x00473e70  {{err}}
+0x004740d8  wpxscreensaver64.scr
+0x00474138  ImmersiveColorSet
+0x004743c8  WPEUI
+0x004743d8  Progman
+0x004743e8  CabinetWClass
+0x00474408  SHELLDLL_DefView
+0x00474430  SysListView32
+0x00474450  Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects
+0x004744d8  VisualFXSetting
+0x004744f8  Software\Microsoft\Windows\DWM
+0x00474538  Composition
+0x00474550  CompositionPolicy
+0x004745d0  C:\Windows\Resources\Themes\aero.theme
+0x00474620  \system32\desk.cpl
+0x00474650  desk,@Themes /Action:OpenTheme /file:"C:\Windows\Resources\Themes\aero.theme"
+0x004746f0  WallpaperEngineParent
+0x00474720  Multitaskin
+0x00474738  XamlExplore
+0x00474750  Windows.UI.
+0x00474768  dwmapi.dll
+0x004747a0  SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent
+0x00474818  UseNewAutoColorAccentAlgorithm
+0x00474860  Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+0x004748e0  SystemUsesLightTheme
+0x00474910  SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize
+0x00474990  ColorPrevalence
+0x004749b0  SOFTWARE\Microsoft\Windows\DWM
+0x00474c50  \\?\UNC\
+0x00474c68  \\?\GLOBALROOT
+0x004756a0  D:\dev\we\windows\src\json\include\rapidjson\internal\pow10.h
+0x00475720  n >= 0 && n <= 308
+0x00475f60  D:\dev\we\windows\src\json\include\rapidjson\reader.h
+0x00475fd0  !HasParseError()
+0x00476000  D:\dev\we\windows\src\json\include\rapidjson\internal/stack.h
+0x00476080  stackTop_
+0x004760a0  static_cast<std::ptrdiff_t>(sizeof(T) * count) <= (stackEnd_ - stackTop_)
+0x00476138  GetSize() >= count * sizeof(T)
+0x00476178  is.Peek() == 'n'
+0x004761a0  is.Peek() == 't'
+0x004761c8  is.Peek() == 'f'
+0x004761f0  s.Peek() == '\"'
+0x00476218  length <= 0xFFFFFFFF
+0x00476248  is.Peek() == '{'
+0x00476270  is.Peek() == '['
+0x00476298  expFrac <= 0
+0x004762b8  GetSize() >= sizeof(T)
+0x004762f0  D:\dev\we\windows\src\json\include\rapidjson\encodings.h
+0x00476368  codepoint <= 0x10FFFF
+0x004763a0  D:\dev\we\windows\src\json\include\rapidjson\stream.h
+0x00476410  dst_ != 0
+0x00476630  WPEUIFadeWindow
+0x00476650  WPEUIUnderlayWindow
+0x00476680  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\DirectXMathMatrix.inl
+0x00476730  NearZ > 0.f && FarZ > 0.f
+0x00476770  !XMScalarNearEqual(FarZ, NearZ, 0.00001f)
+0x004767d0  !XMScalarNearEqual(FovAngleY, 0.0f, 0.00001f * 2.0f)
+0x00476840  !XMScalarNearEqual(AspectRatio, 0.0f, 0.00001f)
+0x004768a0  d3dcompiler_47.dll
+0x004768e8  cloneextensions64.dll
+0x00476b20  D:\dev\we\windows\src\lib\include\glm\detail\type_vec4.inl
+0x00476ba0  (i) >= 0 && (i) < (this->length())
+0x00476bf0  D:\dev\we\windows\src\lib\include\glm\detail\type_vec3.inl
+0x00476c70  D:\dev\we\windows\src\lib\include\glm\detail\type_mat4x4.inl
+0x00476d98  WPEDesktopDX11Window
+0x00476dc8  WPEDesktopGLWindow
+0x00476df0  WPEVideoWallpaper
+0x00476e18  WPEDesktopCEFWindow
+0x00476e40  WPEAppIntermediateWorker
+0x00476f6e  1resourceutil64.dll
+0x00477128  \\.\pipe\
+0x00477140  Client
+0x004771ce   relative to: 
+0x00477320  Process Error
+0x00477440  D:\dev\we\windows\src\json\src\json_value.cpp
+0x004774a0  false
+0x004774b0  this->cstr_ && other.cstr_
+0x00477510  this_str && other_str
+0x00477568  false && oss.str().c_str()
+0x004776a0  D:\dev\we\windows\src\json\src\json_writer.cpp
+0x00477708  current >= buffer
+0x00477776  9len >= 0
+0x004777d0  childValues_.size() == size
+0x00477820  indentString_.size() >= indentation_.size()
+0x00478440   !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+0x00483f00  D:\dev\we\windows\src\json\src\json_reader.cpp
+0x00483f88  lastValue_ != nullptr
+0x00484918  log.txt
+0x004851c0  MachineGuid
+0x00485210  SOFTWARE\Microsoft\Cryptography\
+0x00485290  mediaextensions64.dll
+0x004852d8  scenescript64.dll
+0x0048577e  mindex >= 0 && index < m.length()
+0x004857d0  D:\dev\we\windows\src\lib\include\glm\gtc\matrix_access.inl
+0x00485850  D:\dev\we\windows\src\lib\include\glm\detail\type_mat3x3.inl
+0x004858f8  alnum
+0x00485910  alpha
+0x00485928  blank
+0x00485938  cntrl
+0x00485948  digit
+0x00485960  graph
+0x00485978  lower
+0x00485990  print
+0x004859a8  punct
+0x004859c0  space
+0x004859e0  upper
+0x004859f0  xdigit
+0x00485f18  mfplat.dll
+0x00485f58  video
+0x004872e0  writePos < (gridWidth * gridHeight * 3)
+0x00487330  readPos < (width * height * 4)
+0x00487370  D:\dev\we\windows\src\wallpaper\src\wallpaper\videowallpaper.cpp
+0x004873f8  WallpaperEngineWallpaper
+0x00487440  mfreadwrite.dll
+0x00487f50  WPELiveWallpaper
+0x00487fd8  , iswnd: 
+0x00487ff0  , code: 
+0x00488010  , hdr: 
+0x00488068   (hr: 
+0x00488198  /assets
+0x004881d0  D:\dev\we\windows\src\json\include\rapidjson/document.h
+0x00488240  IsBool()
+0x00488258  IsArray()
+0x00488270  IsObject()
+0x00488288  IsNumber()
+0x004882a0  (data_.f.flags & kUint64Flag) != 0
+0x004882e8  name.IsString()
+0x00488308  shared_ != 0
+0x00488330  D:\dev\we\windows\src\json\include\rapidjson\internal\../allocators.h
+0x004883c0  baseAllocator_ != 0
+0x004883e8  rhs.IsString()
+0x00488410  stack_.GetSize() == sizeof(ValueType)
+0x00488460  IsString()
+0x00488478  shared_->refcount > 0
+0x004884a8  str != 0
+0x004884c0  allocator_
+0x004884d8  str != 0 || len == 0u
+0x00488ae0  WPEOverlappedWallpaper
+0x00488f08  LAV Splitter Source
+0x00488f38  LAV Video Decoder
+0x00488f60  Audio Renderer
+0x004891c8  MSCTFIME UI
+0x004891e0  UserAdapterWindowClass
+0x00489210  OleMainThreadWndClass
+0x00489240  CicMarshalWndClass
+0x00489268  Chrome_SystemMessageWindow
+0x004892a0  NVOpenGLPbuffer
+0x004892c0  Chrome_MessageWindow
+0x004892f0  Base_PowerMessageWindow
+0x00489320  UnityWndClass
+0x00489358  MMDEVAPI
+0x00489370  FolderView
+0x00489388  ntdll
+0x004894b0  WPEImageWallpaper
+0x00489f80  \GPU Local Adapter Memory(*)\Local Usage
+0x0048a040  D:\dev\we\windows\src\ffts\src\ffts_static.c
+0x0048a0a0  N == 32
+0x0048a828  data_.f.flags & kIntFlag
+0x0048d210  index >= 0 && index < m[0].length()
+0x0048db80  D:\dev\we\windows\src\lib\include\glm\detail\type_vec2.inl
+0x0048fe80  D:\dev\we\windows\src\lib\include\glm\gtc\quaternion.inl
+0x004910b8  \assets\
+0x004f8c32  K7%n%
+0x0051653c  core_tray_change_wallpaper
+0x00516576  core_tray_change_screensaver
+0x005165ba  core_tray_browse_workshop
+0x005165f2  core_tray_create_wallpaper
+0x0051662c  core_tray_settings
+0x0051665c  core_tray_faq
+0x00516682  core_tray_take_screenshot
+0x005166ba  core_tray_mute
+0x005166dc  core_tray_pause
+0x00516700  core_tray_quit
+0x00516726  VS_VERSION_INFO
+0x00516782  StringFileInfo
+0x005167a6  000904b0
+0x005167be  FileVersion
+0x005167d8  2.8.0.42
+0x005167f2  InternalName
+0x0051680c  wallpaper64
+0x0051682a  OriginalFilename
+0x0051684c  wallpaper64.exe
+0x00516872  LegalCopyright
+0x00516890  Copyright (C) 2026 Skutta Software GmbH
+0x005168e6  ProductName
+0x00516900  Wallpaper Engine
+0x0051692a  ProductVersion
+0x00516948  2.8.0.42
+0x00516962  CompanyName
+0x0051697c  Skutta Software GmbH
+0x005169ae  VarFileInfo
+0x005169ce  Translation
+0x005169fe  Wallpaper Engine

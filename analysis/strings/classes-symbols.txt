@@ -1,0 +1,178 @@
+# C++ class/method/RTTI/vtable hints (std::, ::, vftable, operator, etc.)
+# total matches: 175 (incl. duplicates) | unique: 174
+# column 1: encoding (A=ASCII, U=UTF-16LE)  column 2: file offset  column 3: string
+
+A 0x00425c40  Unknown exception
+A 0x00425d10  bad function call
+A 0x00425dc0  regex_error(error_collate): The expression contained an invalid collating element name.
+A 0x00425e20  regex_error(error_ctype): The expression contained an invalid character class name.
+A 0x00425e80  regex_error(error_escape): The expression contained an invalid escaped character, or a trailing escape.
+A 0x00425ef0  regex_error(error_backref): The expression contained an invalid back reference.
+A 0x00425f40  regex_error(error_brack): The expression contained mismatched [ and ].
+A 0x00425f90  regex_error(error_paren): The expression contained mismatched ( and ).
+A 0x00425fe0  regex_error(error_brace): The expression contained mismatched { and }.
+A 0x00426030  regex_error(error_badbrace): The expression contained an invalid range in a {} expression.
+A 0x00426090  regex_error(error_range): The expression contained an invalid character range, such as [b-a] in most encodings.
+A 0x00426100  regex_error(error_space): There was insufficient memory to convert the expression into a finite state machine.
+A 0x00426170  regex_error(error_badrepeat): One of *?+{ was not preceded by a valid regular expression.
+A 0x004261d0  regex_error(error_complexity): The complexity of an attempted match against a regular expression exceeded a pre-set level.
+A 0x00426250  regex_error(error_stack): There was insufficient memory to determine whether the regular expression could match the specified character sequence.
+A 0x004262e8  regex_error(error_parse)
+A 0x00426308  regex_error(error_syntax)
+A 0x00426328  regex_error
+A 0x00429118  argument list too long
+A 0x004292b0  function not supported
+A 0x00429ec8  bad exception
+A 0x0042ba40  __cdecl
+A 0x0042ba58  __thiscall
+A 0x0042ba68  __fastcall
+A 0x0042ba78  __vectorcall
+A 0x0042bba8  `vftable'
+A 0x0042bbb8  `vbtable'
+A 0x0042bc20  `vector deleting destructor'
+A 0x0042bc80  `vector constructor iterator'
+A 0x0042bca0  `vector destructor iterator'
+A 0x0042bcc0  `vector vbase constructor iterator'
+A 0x0042bce8  `virtual displacement map'
+A 0x0042bd08  `eh vector constructor iterator'
+A 0x0042bd30  `eh vector destructor iterator'
+A 0x0042bd50  `eh vector vbase constructor iterator'
+A 0x0042bdac  `RTTI
+A 0x0042bdb8  `local vftable'
+A 0x0042bdc8  `local vftable constructor closure'
+A 0x0042be58  `managed vector constructor iterator'
+A 0x0042be80  `managed vector destructor iterator'
+A 0x0042bea8  `eh vector copy constructor iterator'
+A 0x0042bed0  `eh vector vbase copy constructor iterator'
+A 0x0042bf48  `vector copy constructor iterator'
+A 0x0042bf70  `vector vbase copy constructor iterator'
+A 0x0042bfa0  `managed vector copy constructor iterator'
+A 0x0042bfd0  `local static thread guard'
+A 0x0042bff0  operator "" 
+A 0x0042c000  operator co_await
+A 0x00435670  tt-cmaps
+A 0x0043a198  glyph-to-script-map
+A 0x0043bb28  postscript-cmaps
+A 0x0045d58b  :::::
+A 0x00464f27  ::::::::LLLLLLLL
+A 0x0046598d  ::6666
+A 0x0046f530  bool __cdecl hb_blob_t::try_make_writable(void)
+A 0x004703f0  face=%p num_features=%u num_coords=%u shaper_list=%p
+A 0x00470430  struct hb_shape_plan_t *__cdecl hb_shape_plan_create2(struct hb_face_t *,const struct hb_segment_properties_t *,const struct hb_feature_t *,unsigned int,const int *,unsigned int,const char *const *)
+A 0x00470540  bool __cdecl _hb_shape_plan_execute_internal(struct hb_shape_plan_t *,struct hb_font_t *,struct hb_buffer_t *,const struct hb_feature_t *,unsigned int)
+A 0x004705d8  face=%p num_features=%u shaper_list=%p
+A 0x00470600  struct hb_shape_plan_t *__cdecl hb_shape_plan_create_cached2(struct hb_face_t *,const struct hb_segment_properties_t *,const struct hb_feature_t *,unsigned int,const int *,unsigned int,const char *...
+A 0x00472a68  openPlaylist
+A 0x00472a78  playlist
+A 0x00472a88  -playlist
+A 0x00472dc8  unordered_map/set too long
+A 0x00472e10  ios_base::badbit set
+A 0x00472e28  ios_base::failbit set
+A 0x00472e40  ios_base::eofbit set
+A 0x00473108  vector too long
+A 0x004732c8  unknown exception
+A 0x004735b8   -monitormap RAW~(
+A 0x004736f8  monitormap
+A 0x004739a8  playlists
+A 0x004739f0  core_tray_saved_playlists
+A 0x00473a20  core_tray_playlist_prefix
+A 0x004741a0  map/set too long
+A 0x00474c10  directory_iterator::operator++
+A 0x00475a88  steamapps
+A 0x00476520  recursive_directory_iterator::operator++
+A 0x00476a70  assets/shaders/HLSL/dx11playlisttransition
+A 0x00476ae8  assets/shaders/HLSL/dx11playlistgaussian
+A 0x00476ea0  bin/playliststate.bin
+A 0x00476ec8  bin/playliststatetime.bin
+A 0x00476f08  mediablocklist
+A 0x00477150  deque<T> too long
+A 0x00477358  ChildProcess::Close waited indefinitely.
+A 0x00477390  in Json::Value::duplicateAndPrefixStringValue(): Failed to allocate string value buffer
+A 0x004773f0  in Json::Value::duplicateStringValue(): Failed to allocate string value buffer
+A 0x00478020  wuffs_aux::DecodeJson: no match
+A 0x00478068  wuffs_aux::DecodeJson: bad JSON Pointer
+A 0x00478090  wuffs_aux::DecodeImage: unsupported image format
+A 0x004780c8  wuffs_aux::DecodeImage: unsupported metadata
+A 0x004780f8  wuffs_aux::DecodeImage: unsupported pixel blend
+A 0x00478128  wuffs_aux::DecodeImage: unsupported pixel format
+A 0x00478160  wuffs_aux::DecodeImage: buffer is too short
+A 0x00478190  wuffs_aux::DecodeImage: max_incl_dimension exceeded
+A 0x004781c8  wuffs_aux::DecodeImage: max_incl_metadata_length exceeded
+A 0x00478208  wuffs_aux::DecodeImage: unexpected end of file
+A 0x00478238  wuffs_aux::DecodeImage: unsupported pixel configuration
+A 0x00478270  wuffs_aux::DecodeImage: out of memory
+A 0x00485148  broken promise
+A 0x00485158  promise already satisfied
+A 0x00485178  future already retrieved
+A 0x00485194  future
+A 0x004858d0  vector<bool> too long
+A 0x00486840  struct VS_INPUT
+A 0x00486888  struct PS_INPUT
+A 0x004868a0  struct VS_OUTPUT
+A 0x004868b8  struct PS_OUTPUT
+A 0x004868f0  struct PS_OUTPUT {};
+A 0x00487038  invalid unordered_map<K, T> key
+A 0x00488830  function
+A 0x00489b18  loadplaylist
+A 0x0048cca8  list too long
+A 0x0048e6a8  transformfunction
+A 0x0048eab8  colorlist
+A 0x0048ec00  mapsequencearoundcontrolpoint
+A 0x0048ec20  mapsequencebetweencontrolpoints
+A 0x0048ec40  remapinitialvalue
+A 0x0048ee58  remapvalue
+A 0x0048f628  functions
+A 0x00490d6c  remap
+A 0x004d88e2  CancelSynchronousIo
+A 0x004d945c  CreateDIBitmap
+A 0x004d94b4  CreateCompatibleBitmap
+A 0x004d9754  dwmapi.dll
+A 0x004d9f3a  UnmapViewOfFile
+A 0x004df140  .?AVbad_alloc@std@@
+A 0x004df168  .?AVexception@std@@
+A 0x004df1c0  .?AVruntime_error@std@@
+A 0x004df238  .?AVbad_function_call@std@@
+A 0x004df268  .?AVregex_error@std@@
+A 0x004df2e0  .?AVbad_cast@std@@
+A 0x004df308  .?AVfailure@ios_base@std@@
+A 0x004df338  .?AVbad_exception@std@@
+A 0x004dfc18  .?AVlogic_error@std@@
+A 0x004dfc40  .?AVfuture_error@std@@
+A 0x004dfc68  .?AVexception@stdext@@
+A 0x004dfc90  .?AV?$_Binder@U_Unforced@std@@P8AudioEventHandler@@EAAXW4WASAPICallbackType@4@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@2@@ZPEAV3@AEBU?$_Ph@$00@2@AEBU?$_Ph@$01@2@@std@@
+A 0x004dfd60  .?AV?$_Binder@U_Unforced@std@@P8AudioProcessor@@EAAXW4WASAPICallbackType@4@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@2@@ZPEAV3@AEBU?$_Ph@$00@2@AEBU?$_Ph@$01@2@@std@@
+A 0x004e0170  .?AVbad_alloc@stdext@@
+A 0x004e07d0  .?AVtype_info@@
+A 0x004e0908  .?AVios_base@std@@
+A 0x004e0958  .?AV?$basic_ios@DU?$char_traits@D@std@@@std@@
+A 0x004e09a0  .?AV?$basic_streambuf@DU?$char_traits@D@std@@@std@@
+A 0x004e09f0  .?AV?$basic_ostream@DU?$char_traits@D@std@@@std@@
+A 0x004e0a40  .?AV?$basic_filebuf@DU?$char_traits@D@std@@@std@@
+A 0x004e0c10  .?AV?$_ExceptionPtr_static@Vbad_alloc@std@@@?A0x6e02efe5@@
+A 0x004e0c60  .?AV?$_ExceptionPtr_static@Vbad_exception@std@@@?A0x6e02efe5@@
+A 0x004e0cb0  .?AV?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@
+A 0x004e0d10  .?AV?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@
+A 0x004e0ed0  .?AV?$num_get@_WV?$istreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@
+A 0x004e0f30  .?AV?$num_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@
+A 0x004e1010  .?AV?$money_get@_WV?$istreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@
+A 0x004e1070  .?AV?$money_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@
+A 0x004e1160  .?AV?$time_get@_WV?$istreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@
+A 0x004e11c0  .?AV?$time_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@
+A 0x004e1220  .?AV?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@
+A 0x004e1280  .?AV?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@
+A 0x004e1360  .?AV?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@
+A 0x004e13c0  .?AV?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@
+A 0x004e14b0  .?AV?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@
+A 0x004e1510  .?AV?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@
+A 0x004e15c0  .?AV?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@
+A 0x004e1620  .?AV?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@
+A 0x004e1710  .?AV?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@
+A 0x004e1770  .?AV?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@
+U 0x0042d200  minkernel\crts\ucrt\inc\corecrt_internal_strtox.h
+U 0x0042d270  __crt_strtox::floating_point_value::as_double
+U 0x0042d2f0  __crt_strtox::floating_point_value::as_float
+U 0x0042ea00  api-ms-win-core-processthreads-l1-1-2
+U 0x0042ebe0  api-ms-win-security-systemfunctions-l1-1-0
+U 0x004760a0  static_cast<std::ptrdiff_t>(sizeof(T) * count) <= (stackEnd_ - stackTop_)
+U 0x00488330  D:\dev\we\windows\src\json\include\rapidjson\internal\../allocators.h
+U 0x004884c0  allocator_

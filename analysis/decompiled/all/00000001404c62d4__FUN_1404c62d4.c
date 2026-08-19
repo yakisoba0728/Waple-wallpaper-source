@@ -1,0 +1,22 @@
+// Function: FUN_1404c62d4
+// Addr: 1404c62d4
+// Size: 1 bytes
+
+
+/* WARNING: Control flow encountered bad instruction data */
+
+void FUN_1404c62d4(undefined8 param_1,longlong param_2)
+
+{
+  uint in_EAX;
+  undefined4 in_register_00000004;
+  
+  *(uint *)CONCAT44(in_register_00000004,in_EAX) =
+       *(uint *)CONCAT44(in_register_00000004,in_EAX) & in_EAX;
+  *(char *)CONCAT44(in_register_00000004,in_EAX) =
+       *(char *)CONCAT44(in_register_00000004,in_EAX) + (char)in_EAX;
+  *(char *)(param_2 + -0x37ffd073) = *(char *)(param_2 + -0x37ffd073) + (char)param_2;
+                    /* WARNING: Bad instruction - Truncating control flow here */
+  halt_baddata();
+}
+

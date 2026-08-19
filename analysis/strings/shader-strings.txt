@@ -1,0 +1,97 @@
+# HLSL/GLSL/MSL keywords, sampler/texture names, cbuffer, shader-model targets
+# total matches: 94 (incl. duplicates) | unique: 93
+# column 1: encoding (A=ASCII, U=UTF-16LE)  column 2: file offset  column 3: string
+
+A 0x000f68af  cbuffer A
+A 0x000f747b  cbuffer H
+A 0x00471070  precision
+A 0x00473ae0  core_msgbox_prompt_high_contrast_was_enabled
+A 0x00475e08  highprecisiontimer
+A 0x004769b0  vs_4_0
+A 0x004769c8  ps_4_0
+A 0x00476a24  gs_4_0
+A 0x00477810  precisionType
+A 0x00477900  precisionType must be 'significant' or 'decimal'
+A 0x004855c4  vs_5_0
+A 0x00485614  gs_5_0
+A 0x0048561c  ps_5_0
+A 0x0048562c  ps_4_1
+A 0x00485698  #define HLSL 1
+A 0x004856a7  #define HLSL_SM40 1
+A 0x00485778  uniform
+A 0x004862c0  sampler2DBackBuffer
+A 0x004862e8  sampler2D
+A 0x004862f8  sampler3D
+A 0x00486308  sampler2DComparison
+A 0x004863d0  :register(b
+A 0x00486400  HLSL var error: %s
+A 0x00486418  cbuffer 
+A 0x00486760  Texture3D 
+A 0x00486770  :register(t
+A 0x00486780  Texture2D 
+A 0x00486790  SamplerComparisonState:register(s
+A 0x004867b8  SamplerState 
+A 0x004867d0  SamplerComparisonState 
+A 0x004867e8  Texture2DMS<float4> 
+A 0x00486818  SamplerState:register(s
+A 0x00486868  gl_Position
+A 0x004868cb  float4 gl_FragColor : SV_TARGET;
+A 0x00486960  varying
+A 0x00486990  attribute
+A 0x00486b10  #define vec2 float2
+A 0x00486b24  #define vec3 float3
+A 0x00486b38  #define vec4 float4
+A 0x00486b4c  #define uvec4 uint4
+A 0x00486b60  #define mat4 float4x4
+A 0x00486b76  #define mat4x3 float4x3
+A 0x00486b8e  #define mat3 float3x3
+A 0x00486ba4  #define mat2 float2x2
+A 0x00486bba  #define mix lerp
+A 0x00486bcb  #define mod(x, y) ((x)-(y)*floor((x)/(y)))
+A 0x00486bf6  #define CASTI(x) ((int)(x))
+A 0x00486c12  #define CASTU(x) ((uint)(x))
+A 0x00486c2f  #define CASTF(x) ((float)(x))
+A 0x00486c4d  #define CAST2(x) ((float2)(x))
+A 0x00486c6c  #define CAST3(x) ((float3)(x))
+A 0x00486c8b  #define CAST4U(x) ((uint4)(x))
+A 0x00486caa  #define CAST4(x) ((float4)(x))
+A 0x00486cc9  #define CAST3X3(x) ((float3x3)(x))
+A 0x00486cec  #define DECLARE_SAMPLER2D_PARAMETER(t) Texture2D t, SamplerState t ## SamplerState
+A 0x00486d3f  #define MAKE_SAMPLER2D_ARGUMENT(t) t, t ## SamplerState
+A 0x00486d77  #define DECLARE_SAMPLER2D_COMPARE_PARAMETER(t) Texture2D t, SamplerComparisonState t ## SamplerComparisonState
+A 0x00486de6  #define MAKE_SAMPLER2D_COMPARE_ARGUMENT(t) t, t ## SamplerComparisonState
+A 0x00486e30  #define texSample2D(s, u) s.Sample(s ## SamplerState, u)
+A 0x00486e69  #define texSample2DLod(s, u, m) s.SampleLevel(s  ## SamplerState, u, m)
+A 0x00486eb1  #define texSample2DCompare(s, u, d) s.SampleCmpLevelZero(s ## SamplerComparisonState, u, d)
+A 0x00486f0d  #define texLoad2D(s, u, r) s.Load(int3((u) * (r), 0))
+A 0x00486f43  #define texSample3D(s, u) s.Sample(s ## SamplerState, u)
+A 0x00486f80  gl_FragColor
+A 0x00486f90  OUT.gl_FragColor
+A 0x00486fb0  #define texSample2DBackBuffer(s, u, r) s.Load(int2((u) * (r)), 0)
+A 0x00486ff8  #define texSample2DBackBuffer(s, u, r) texSample2D(s, (u))
+A 0x0048a298  _alias_lightCookie
+A 0x0048a798  #define GS_ENABLED 1
+A 0x0048a7c0  #include
+A 0x0048ac50  uniform vec4 g_LPoint_Origin[
+A 0x0048ac70  uniform vec4 g_LPoint_Color[
+A 0x0048aca0  uniform vec4 g_LSpot_Exponent[
+A 0x0048acc0  uniform vec4 g_LSpot_Direction[
+A 0x0048ace0  uniform vec4 g_LSpot_Origin[
+A 0x0048ad00  uniform vec4 g_LSpot_Color[
+A 0x0048ad20  uniform vec4 g_LDirectional_Color[
+A 0x0048ad48  uniform vec4 g_LTube_OriginB[
+A 0x0048ad68  uniform vec4 g_LTube_OriginA[
+A 0x0048ad88  uniform vec4 g_LTube_Color[
+A 0x0048ada8  uniform vec4 g_LFeature_ShadowPointProjection[
+A 0x0048add8  uniform vec4 g_LFeature_ShadowProjectionTransform[
+A 0x0048ae10  uniform mat4 g_LFeature_ShadowProjection[
+A 0x0048ae40  uniform vec4 g_LDirectional_Direction[
+A 0x0048af20  uniform vec4 g_LFeature_ShadowPointProjectionTransform[
+A 0x0048beb8  #define 
+A 0x0048bf00  ^uniform[\s]+(sampler[\w]*)[\s]+g_Texture([\d]+)
+A 0x0048de78  __font_atlas_
+A 0x0048de88  __font_atlas_color_
+A 0x0048f640  nointerpolation
+U 0x0042d270  __crt_strtox::floating_point_value::as_double
+U 0x0042d2f0  __crt_strtox::floating_point_value::as_float
+U 0x00471110  precisionx
