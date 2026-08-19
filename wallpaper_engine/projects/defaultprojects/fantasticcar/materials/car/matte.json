@@ -1,0 +1,17 @@
+{
+	"passes": [{
+		"shader": "car",
+		"textures": ["car/matte", "car/matte_normal"],
+		"combos": {
+			"normalmap": 1,
+			"TEX1FORMAT": 4
+		},
+		"constantshadervalues": {
+			"specularstrength": 0.5,
+			"specularpower": 10
+		},
+		"usershadervalues": {
+			"schemecolor": "ambientcolor"
+		}
+	}]
+}

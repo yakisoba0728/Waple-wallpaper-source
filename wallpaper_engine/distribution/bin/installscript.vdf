@@ -1,0 +1,29 @@
+"InstallScript"
+{
+	"Run Process On Uninstall"
+	{
+		"Process_name"
+		{
+			"process 1"		"%INSTALLDIR%\\launcher.exe"
+			"command 1"		"-uninstall"
+		}
+	}
+	"Run Process"
+	{
+		"Fix Windows Network Media Throttle"
+		{
+			"HasRunKey"		"HKEY_LOCAL_MACHINE\\Software\\Valve\\Steam\\Apps\\431960\\disableNetworkThrottle"
+			"process 1"		"%INSTALLDIR%\\launcher.exe"
+			"command 1"		"-disablenetworkthrottle"
+			"NoCleanUp"		"1"
+		}
+	}
+	"Firewall"
+	{
+		"Wallpaper Engine UI"		"%INSTALLDIR%\\bin\\wallpaperui.exe"
+	}
+}
+"kvsignatures"
+{
+	"InstallScript"		"7a2dfd700e1557b7ec024fa082c911e5cb579fc373ad197678a92b162f2ea702699d55a4c11f392e6c2bb72c3364098581e419caacde034f5addb3cb527245bb904410fc1c4be9e508e84f830ee12bed903b5845f5beeb56b9f4305e949d763d29dec55a8253eb06250dbb0908678c395afca07e779f81846413e44aba8494db"
+}
