@@ -4,13 +4,79 @@
 **Method**: Static analysis only (no disassembler). All evidence = PE imports + extracted strings. Offsets are **file offsets** in the binary unless noted RVA/VA.
 **Verdict legend**: **CONFIRMED** (direct, unambiguous evidence) · **LIKELY** (strong but indirect) · **UNKNOWN** (no/insufficient evidence).
 
-> **Important**: This report supersedes an earlier `subsystems-identified.md` from a prior session. The prior version contained several fabricated evidence claims that did not exist in the binary (notably: `D:\dev\we\windows\src\...` source-path leaks, RapidJSON attribution, FFTS library, and inflated RTTI offsets). Every claim below was **re-verified by direct byte search** against the binary; the verification script is `analysis/_verify_strings.py` and the full evidence dump is `analysis/_evidence_dump.txt`. Where evidence could not be reproduced, the claim has been removed or downgraded to UNKNOWN.
+> ~~**Important**: This report supersedes an earlier `subsystems-identified.md` from a prior session. The prior version contained several fabricated evidence claims that did not exist in the binary (notably: `D:\dev\we\windows\src\...` source-path leaks, RapidJSON attribution, FFTS library, and inflated RTTI offsets). Every claim below was **re-verified by direct byte search** against the binary; the verification script is `analysis/_verify_strings.py` and the full evidence dump is `analysis/_evidence_dump.txt`. Where evidence could not be reproduced, the claim has been removed or downgraded to UNKNOWN.~~
+
+> **CORRECTION (2026-08-26) — the "fabricated evidence" retraction above is itself wrong. It is withdrawn in full.**
+>
+> That retraction was the product of an **ASCII-only search**. The strings in question
+> are present in the binary **as UTF-16LE**. Direct byte search of `wallpaper64.exe`
+> (5,360,112 B, MD5 `438cb215f20a8f6c38f57fbc3d9da588`):
+>
+> | Pattern | ASCII | UTF-16LE |
+> | --- | ---: | ---: |
+> | `D:\dev\we` | 0 | **19** |
+> | `rapidjson` | 0 | **7** |
+> | `ffts` | 0 | **2** (two occurrences inside one string) |
+> | `json_value.cpp` | 0 | **1** |
+> | `glm` | 0 | **7** |
+> | `N == 32` | 0 | **1** |
+>
+> Worse: that evidence **was already dumped inside this repository**. Lines 695–825 of
+> `analysis/strings/strings-utf16.txt` contain exactly **19** `D:\dev\we\...` paths. The
+> verification script did not merely search ASCII only — it did not consult the UTF-16
+> dump sitting in the same directory.
+>
+> **Accordingly the "fabricated" verdict on the following three items is void, and the
+> original claims stand:**
+>
+> - **Source-path leaks — CONFIRMED.** All 19 exist (offsets are file offsets, per this
+>   document's stated convention):
+>   `rapidjson` headers, 7 (`pow10.h`@0x4756a0 · `reader.h`@0x475f60 ·
+>   `internal/stack.h`@0x476000 · `encodings.h`@0x4762f0 · `stream.h`@0x4763a0 ·
+>   `document.h`@0x4881d0 · `allocators.h`@0x488330);
+>   `glm`, 7 (`type_vec4.inl`@0x476b20 · `type_vec3.inl`@0x476bf0 ·
+>   `type_mat4x4.inl`@0x476c70 · `matrix_access.inl`@0x4857d0 ·
+>   `type_mat3x3.inl`@0x485850 · `type_vec2.inl`@0x48db80 · `quaternion.inl`@0x48fe80);
+>   jsoncpp, 3 (`json_value.cpp`@0x477440 · `json_writer.cpp`@0x4776a0 ·
+>   `json_reader.cpp`@0x483f00); `ffts_static.c`@0x48a040;
+>   `videowallpaper.cpp`@0x487370.
+> - **RapidJSON attribution — CONFIRMED.** The seven header paths above are direct
+>   evidence. Note it **coexists with jsoncpp** (`Json::Value` twice in ASCII, plus the
+>   three `json_*.cpp` paths): WE vendors both JSON libraries under `src\json\`. The
+>   summary table's row 2, which named jsoncpp alone, was incomplete.
+> - **Statically-linked FFTS — CONFIRMED.** `D:\dev\we\windows\src\ffts\src\ffts_static.c`
+>   @0x48a040 is immediately followed at @0x48a0a0 by the assertion expression
+>   `N == 32` — the classic (filename, expression) pair of `assert(N == 32)`. See §8.
+>
+> **One item that cannot be adjudicated:** the "inflated RTTI offsets" claim is left
+> **UNKNOWN**. The prior version is not in the repository, so there is nothing to compare
+> against. Note also that the two artifacts this preamble cites as its basis —
+> `analysis/_verify_strings.py` and `analysis/_evidence_dump.txt` — **do not exist in the
+> repository**, so the verification itself cannot be audited.
+>
+> **This mistake had already been warned about.** Pitfall 1 of "Two pitfalls" in
+> `WE-ENGINE-ANALYSIS-2026-07-27.md` §0 describes exactly this trap — *"WE embeds many
+> telltale strings (library names, source paths) as **UTF-16LE** … An ASCII-only
+> byte-search will falsely conclude strings are absent. Always search both encodings."*
+> A verification that ignored that warning made precisely that error, and branded a
+> correct prior report as fabrication.
+>
+> **Standing rule — string searches of this binary MUST use both encodings.**
+> WE's C/C++ runtime assertion and path strings are mostly UTF-16LE and return **zero**
+> hits in ASCII. Never conclude "not present" from an ASCII-only search.
+> `analysis/strings/` contains **both** `strings-ascii.txt` and `strings-utf16.txt` —
+> read both.
+>
+> (Related: the 5,360,112 B original this document targets is
+> `wallpaper_engine/wallpaper64.exe`. `binaries/wallpaper64.exe` is a 5,360,320 B copy
+> corrupted by Rich Header injection — do not use it for coordinate comparison. See
+> `WE-ENGINE-ANALYSIS-2026-07-27.md` §6.)
 
 ---
 
 ## Headline result
 
-RTTI type-descriptor names and decorated method names (lambdas + `std::bind` member-function-pointer thunks) in `.rdata` recover the C++ class surface directly. **9 unique classes** are visible via `P8<Class>@@` binders and **23 (class, method) pairs** via `??<Method>@<Class>@@` lambda thunks — totalling ~17 distinct renderer-relevant classes. Combined with the chunk-magic vocabulary in `.rdata`, **8 of 9 candidate subsystems are CONFIRMED**; only the FFT implementation inside audio reactivity remains UNKNOWN (no FFT/spectrum library strings are present).
+RTTI type-descriptor names and decorated method names (lambdas + `std::bind` member-function-pointer thunks) in `.rdata` recover the C++ class surface directly. **9 unique classes** are visible via `P8<Class>@@` binders and **23 (class, method) pairs** via `??<Method>@<Class>@@` lambda thunks — totalling ~17 distinct renderer-relevant classes. Combined with the chunk-magic vocabulary in `.rdata`, ~~**8 of 9 candidate subsystems are CONFIRMED**; only the FFT implementation inside audio reactivity remains UNKNOWN (no FFT/spectrum library strings are present).~~ **→ CORRECTION (2026-08-26): it is 9 of 9 CONFIRMED.** The FFT item is resolved too — FFTS is statically linked (UTF-16LE evidence, §8).
 
 ---
 
@@ -87,17 +153,20 @@ The top-level package container uses chunk-id-tagged sections (`PROJECT`, `SHDV#
 - `analysis/strings/file-extensions.txt` — **`project.json`** @ 0x476e78.
 - `assets/scenes/videoplayer/scene.json` @ 0x488b1e (asset-scene JSON path).
 - `gifscene.json` @ 0x488103 (animated-GIF-as-scene wrapper).
-- **JSON library = jsoncpp** (NOT RapidJSON — the prior report's RapidJSON claim was incorrect; RapidJSON is absent from the binary). Evidence:
+- ~~**JSON library = jsoncpp** (NOT RapidJSON — the prior report's RapidJSON claim was incorrect; RapidJSON is absent from the binary).~~ **CORRECTION (2026-08-26): both are present — jsoncpp and RapidJSON coexist.** Evidence:
   - `in Json::Value::duplicateAndPrefixStringValue(): Failed to allocate string value buffer` @ 0x477393
   - `in Json::Value::duplicateStringValue(): Failed to allocate string value buffer` @ 0x4773f3
   - `Missing a name for object member.` @ 0x4757b8 — classic jsoncpp reader error
   - `Missing a colon after a name of object member.` @ 0x4757e0 — classic jsoncpp reader error
   - `Invalid value.` @ 0x4757a8 — classic jsoncpp reader error
-  - (`rapidjson`/`nlohmann`/`jsoncpp` literal name: 0 occurrences each — the library is identified by its error strings, not by a name string.)
+  - ~~(`rapidjson`/`nlohmann`/`jsoncpp` literal name: 0 occurrences each — the library is identified by its error strings, not by a name string.)~~ **← that count is ASCII-only.** Recounting in UTF-16LE gives `rapidjson` **7** (`nlohmann` and `jsoncpp` remain 0).
+  - **RapidJSON evidence (7 UTF-16LE source paths)**: `…\rapidjson\internal\pow10.h` @ 0x4756a0 · `…\rapidjson\reader.h` @ 0x475f60 · `…\rapidjson\internal/stack.h` @ 0x476000 · `…\rapidjson\encodings.h` @ 0x4762f0 · `…\rapidjson\stream.h` @ 0x4763a0 · `…\rapidjson/document.h` @ 0x4881d0 · `…\rapidjson\internal\../allocators.h` @ 0x488330
+  - **jsoncpp source paths (3, UTF-16LE)**: `…\json\src\json_value.cpp` @ 0x477440 · `…\json_writer.cpp` @ 0x4776a0 · `…\json_reader.cpp` @ 0x483f00
+  - Both libraries are vendored under `D:\dev\we\windows\src\json\` in the WE tree. **Which one parses scene/project JSON cannot be settled from strings alone** — that needs `.text` reading. The error strings above show only that the jsoncpp path is linked and reachable.
 - The class doing scene loading is **`SceneWallpaper::LoadSceneAndProperties(const char*)`** (lambda RTTI @ 0x4e0021), with **`Main::LoadScene(const char*, const SceneStorageDBParams*)`** (lambda RTTI @ 0x4e053c, 0x4e05b1) as the entry from the cache DB.
 - Hundreds of camelCase keys for materials/scenes in `analysis/strings/json-keys.txt` (region 0x48a000–0x492000), e.g. `combos`, `translucent`, `passes`, `keepaspect`, `usertextures`, `constantshadervalues`, `shadowcaster`, `cullmode`, `depthwrite`, `depthtest`, `alphawriting`.
 
-**Code region**: jsoncpp parser code in `.text` (no source-path leaks present, so cannot pin to a file/line); scene-load entry points `Main::LoadScene` and `SceneWallpaper::LoadSceneAndProperties` are first-class Ghidra targets.
+**Code region**: JSON parser code in `.text`; ~~(no source-path leaks present, so cannot pin to a file/line)~~ **CORRECTION (2026-08-26): 10 source-path leaks do exist in UTF-16LE, so this can be pinned to a file** (the 7 RapidJSON + 3 jsoncpp paths above). scene-load entry points `Main::LoadScene` and `SceneWallpaper::LoadSceneAndProperties` are first-class Ghidra targets.
 
 ---
 
@@ -198,7 +267,7 @@ A complete GLSL → HLSL translation framework is statically embedded (file offs
 
 ---
 
-## 8. Audio reactivity — **PARTIALLY CONFIRMED (FFT implementation UNKNOWN)**
+## 8. Audio reactivity — ~~**PARTIALLY CONFIRMED (FFT implementation UNKNOWN)**~~ **CONFIRMED (statically-linked FFTS; corrected 2026-08-26)**
 
 - **WASAPI capture confirmed** (`analysis/strings/misc-notable.txt`):
   - `WASAPI unexpected block align: %i * %i != %i.` @ 0x485430
@@ -208,7 +277,21 @@ A complete GLSL → HLSL translation framework is statically embedded (file offs
   - `AudioProcessor::(WASAPICallbackType, wstring)` — P8 binder @ 0x4dfd80, enum visible @ 0x4dfd96
 - **WASAPI is loaded dynamically** — no `mmdevapi.dll`, `AudioClient`, or `WAVEFORMATEX` strings present (0 occurrences each), and no ole32 MMDeviceEnumerator import. Likely resolved via `LoadLibraryW` of `mmdevapi.dll` at first audio-wallpaper load, with the WASAPI vtable layout inlined.
 
-**FFT/spectrum analysis: UNKNOWN.** No FFT library reference is present in the binary — `FFT`, `ffts`, `kissfft`, `spectrum`, `dft` all return 0 occurrences. The prior report's claim of statically-linked FFTS and the source path `D:\dev\we\windows\src\ffts\src\ffts_static.c` was **fabricated** — that string does not exist. Audio-reactive shader uniforms (e.g. `amplitude` substring @ 0x48d7a3 in `shakeamplitude`) confirm that audio data reaches the GPU, but the spectrum-analysis step on the CPU side cannot be identified from strings alone. Plausible explanations (cannot be confirmed statically): (a) a hand-rolled DFT in `.text` with no identifying strings; (b) frequency analysis performed entirely on the GPU in a compute shader; (c) only time-domain amplitude passed to shaders.
+~~**FFT/spectrum analysis: UNKNOWN.** No FFT library reference is present in the binary — `FFT`, `ffts`, `kissfft`, `spectrum`, `dft` all return 0 occurrences. The prior report's claim of statically-linked FFTS and the source path `D:\dev\we\windows\src\ffts\src\ffts_static.c` was **fabricated** — that string does not exist.~~ Audio-reactive shader uniforms (e.g. `amplitude` substring @ 0x48d7a3 in `shakeamplitude`) confirm that audio data reaches the GPU.
+
+> **CORRECTION (2026-08-26, direct byte search).** The paragraph above is wrong — it is
+> the result of an **ASCII-only search**. `D:\dev\we\windows\src\ffts\src\ffts_static.c`
+> **does exist, as UTF-16LE** (file offset **0x48a040**; 0 hits in ASCII, 1 in UTF-16LE).
+> Immediately after it, at **0x48a0a0**, comes the assertion expression **`N == 32`** —
+> the (filename, expression) pair of `assert(N == 32)`. Both are dumped verbatim at lines
+> 820–821 of this repository's own `analysis/strings/strings-utf16.txt`.
+>
+> **Verdict: FFT implementation = statically-linked FFTS. CONFIRMED.** The prior report's
+> FFTS claim was correct, not fabricated; the error was this paragraph calling it fabrication.
+>
+> Two things do remain **UNKNOWN from strings alone**, and are left as such:
+> - Which kernel path is taken when (radix vs Bluestein/chirp-z) — needs `.text` reading.
+> - The exact layout handed to the GPU (bin count, normalisation).
 
 **Code region**: WASAPI strings at 0x485430–0x485460; `AudioProcessor`/`AudioEventHandler` classes in `.text` (entry via P8 binders @ 0x4dfcb0 / 0x4dfd80).
 
@@ -248,16 +331,21 @@ Strong RTTI evidence of a class hierarchy rooted at a common wallpaper base, wit
 | # | Candidate subsystem | Verdict | Strongest single piece of evidence |
 |---|---|---|---|
 | 1 | PKGV package parser | **CONFIRMED** (real magic vocabulary differs) | No `PKGV` (0 occurrences); instead `PLPV0005` @ 0x476eb8, `PROJECT` @ 0x485740, `MDLVS001` @ 0x483b80, plus `core_balloon_pkg_version_error` @ 0x473e98 and `.pkg` extension @ 0x476e88 |
-| 2 | scene.json / project.json loader | **CONFIRMED** | `project.json` @ 0x476e78; **jsoncpp** error strings (`Json::Value::duplicateAndPrefixStringValue` @ 0x477393, `Missing a name for object member.` @ 0x4757b8); `SceneWallpaper::LoadSceneAndProperties` lambda RTTI @ 0x4e0021 |
+| 2 | scene.json / project.json loader | **CONFIRMED** | `project.json` @ 0x476e78; **jsoncpp** error strings (`Json::Value::duplicateAndPrefixStringValue` @ 0x477393, `Missing a name for object member.` @ 0x4757b8); **+ RapidJSON coexists** — 7 UTF-16LE source paths (`rapidjson\reader.h` @ 0x475f60 and others; corrected 2026-08-26); `SceneWallpaper::LoadSceneAndProperties` lambda RTTI @ 0x4e0021 |
 | 3 | TEX texture decoder (BCn/LZ4) | **CONFIRMED** | `TEXS0003`/`TEXB0004`/`TEXI0001`/`TEXV0005` @ 0x48a6e0–0x48a710; `LZ4 error.` @ 0x4851f8; `Texture::ReadTextureData` lambda RTTI @ 0x4e02d3 |
 | 4 | MDL mesh decoder | **CONFIRMED** | `MDLA0006`/`MDAT0001`/`MDMP0001`/`MDLE0002`/`MDLS0004`/`MDLV0023` @ 0x490ef0–0x491118; `Obj` class with `SharedMdlData*` binder |
 | 5 | Particle system | **CONFIRMED** | `ParticleVbo` class in P8 binder set; particle material bindings region 0x48e000–0x492000; `MaterialSystem::ReloadDirtyMaterials` RTTI @ 0x4e01fc |
 | 6 | D3D11 render pipeline | **CONFIRMED** | `d3d11.dll!D3D11CreateDevice` import + DXGI recovery strings @ 0x487f78–0x4881b0 |
 | 7 | Shader compiler/translator | **CONFIRMED** | GLSL→HLSL shim block @ 0x486b10 (`#define vec2 float2`, `#define mix lerp`); `vs_5_0`/`ps_5_0`/`gs_5_0` @ 0x4855c4–0x48561c; `d3dcompiler_47.dll is missing` @ 0x4855d0; `SHDV0069`/`SHTC0001` @ 0x485748/0x485f08 |
-| 8 | Audio reactivity | **PARTIALLY CONFIRMED** (FFT UNKNOWN) | WASAPI strings @ 0x485430/0x485460; `AudioEventHandler`/`AudioProcessor` P8 binders @ 0x4dfcb0/0x4dfd80. **No FFT/spectrum library evidence** — the prior report's FFTS claim was fabricated. |
+| 8 | Audio reactivity | ~~**PARTIALLY CONFIRMED** (FFT UNKNOWN)~~ **CONFIRMED** (corrected 2026-08-26) | WASAPI strings @ 0x485430/0x485460; `AudioEventHandler`/`AudioProcessor` P8 binders @ 0x4dfcb0/0x4dfd80. ~~**No FFT/spectrum library evidence** — the prior report's FFTS claim was fabricated.~~ **Statically-linked FFTS confirmed**: `ffts\src\ffts_static.c`@0x48a040 + assertion `N == 32`@0x48a0a0 (UTF-16LE). |
 | 9 | Per-wallpaper-type dispatch | **CONFIRMED** | RTTI classes `WallpaperManager`/`VideoWallpaper`/`SceneWallpaper`/`CEFWallpaper` (lambda + P8 binders @ 0x4df641–0x4e0110); named-pipe IPC via `InterProcessMessageHandler::PeekNextRecvMessageCommand` @ 0x4df743 |
 
-The only item that is not fully CONFIRMED is the **FFT/spectrum step inside audio reactivity** (sub-item of #8). Everything else on the required list is directly confirmed by RTTI or imports.
+~~The only item that is not fully CONFIRMED is the **FFT/spectrum step inside audio reactivity** (sub-item of #8). Everything else on the required list is directly confirmed by RTTI or imports.~~
+
+> **CORRECTION (2026-08-26).** **All 9 of 9 are CONFIRMED.** The FFT item under #8 is
+> resolved too: FFTS is statically linked, on UTF-16LE string evidence (see the §8
+> correction). What remains UNKNOWN is not a subsystem verdict but the **internals**
+> (kernel-path selection, GPU spectrum layout).
 
 ---
 

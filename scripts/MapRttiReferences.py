@@ -40,7 +40,7 @@ import struct, json, os, sys
 
 WE = r"Z:\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
 # use the rich-injected copy if present, else original
-RICH = r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\binaries\wallpaper64_rich.exe"
+RICH = r"C:\Users\<user>\Desktop\wallpaper_source\binaries\wallpaper64_rich.exe"
 SRC = RICH if os.path.exists(RICH) else WE
 print("Scanning:", SRC)
 with open(SRC, 'rb') as f:
@@ -151,6 +151,6 @@ for cls, refs in results.items():
 
 # Save
 import json
-with open(r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\analysis\rtti-references.json", "w") as f:
+with open(r"C:\Users\<user>\Desktop\wallpaper_source\analysis\rtti-references.json", "w") as f:
     json.dump({cls: [{"file_off": off, "kind": k} for off,k in refs] for cls,refs in out.items()}, f, indent=2)
 print("\nSaved: rtti-references.json")

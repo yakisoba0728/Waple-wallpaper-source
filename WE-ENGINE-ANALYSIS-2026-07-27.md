@@ -38,9 +38,9 @@
 |---|---|
 | PKGV/TEX/MDL/JSON formats fully decoded (446 scenes, 0 errors) | ✅ §2-4 |
 | 9/9 subsystems identified with byte-level evidence | ✅ §5 |
-| 11,252 functions decompiled to C pseudocode (45 MB) | ✅ §7 |
+| ~~11,252 functions decompiled to C pseudocode (45 MB)~~ | ❌ **INVALID — see §6 correction.** Built by loading a displaced binary, so every address in it is wrong. Needs regeneration |
 | GLSL→HLSL shim table extracted (port directly to GLSL→MSL) | ✅ §5 |
-| MDL decoder entry point pinned at `FUN_140261950` | ✅ §4 |
+| MDL decoder entry point pinned at ~~`FUN_140261950`~~ **`0x140261880`** (corrected 2026-08-26 — the old value was a displaced corpus coordinate) | ⚠️ §4 |
 | Rich-Header-injection recipe to make Ghidra recognize WE binaries | ✅ §6 |
 
 | Partial / open | Status |
@@ -60,8 +60,8 @@
 ## 0. How this audit was produced
 
 - Docker RE environment: Ubuntu 24.04 + Ghidra 12.1.2 + JDK 21 + radare2 + Python RE libs (`docker/Dockerfile.re`).
-- Binary import into Ghidra required **Rich Header injection** (see §6): WE binaries ship with `e_lfanew=0x40` (DOS stub + Rich Header stripped), which prevented MSVC recognition.
-- Full 11,252-function decompilation in `analysis/decompiled/all/` (45 MB C pseudocode).
+- Binary import into Ghidra required **Rich Header injection** (see §6): WE binaries ship with `e_lfanew=0x40` (DOS stub + Rich Header stripped), which prevented MSVC recognition. **⚠️ The injection script used at the time was defective — see the §6 correction.**
+- ~~Full 11,252-function decompilation in `analysis/decompiled/all/` (45 MB C pseudocode).~~ **INVALID (2026-08-26, §6 correction)** — produced from a corrupted input. Must be regenerated from a pristine original.
 - Evidence index in `analysis/decompiled/evidence-index.tsv` maps each function to referenced RTTI classes, format magics, imported APIs, filename strings.
 - Corpus format reverse-engineered across 446 workshop scenes (`corpus_scan/`).
 
@@ -83,7 +83,7 @@
 | CFG | OFF (easier to instrument) |
 | Compiler | MSVC (PGO-optimized, Authenticode-signed) |
 | Imports | 13 DLLs, 334 functions. Key: `d3d11.dll!D3D11CreateDevice` (only direct D3D import), `MFReadWrite`, `DWrite`, `dwmapi`, `USER32` (multi-monitor), `WINMM` |
-| Functions | 11,252 (Ghidra), ~14,752 by `.pdata` RUNTIME_FUNCTION count |
+| Functions | 11,252 (Ghidra — **INVALID, see §6 correction**), ~~approx. 14,752~~ **exactly 14,792** by `.pdata` RUNTIME_FUNCTION count (`.pdata` VirtualSize 0x2b560 ÷ 12, all inside `.text`) |
 | Custom section | `.fptable` (256-byte RW, non-standard — likely function-pointer table) |
 
 ---
@@ -160,7 +160,28 @@ DATA SECTION: contiguous blobs, offsets strictly increasing.
 
 `mdl-format.md`. Bespoke binary (not FBX/OBJ). Chunk magics: `MDLV0016`/`0017`/`0019`/`0021`/`0023` (loader version), with sub-chunks `MDLA` (animation), `MDAT` (data), `MDMP` (map), `MDLE` (elements), `MDLS` (skeleton v4 with bone tags `gd`/`m `/`tf`/`ik`/`ikce`/`se`/`re`).
 
-**Decompilation anchor**: `FUN_140261950` (RVA 0x260950, 8056 bytes) — the MDL decoder main. References all five mesh chunk magics (MDAT/MDLA/MDLE/MDLS/MDMP). Heavy floating-point buffer processing ⇒ vertex decoding. **This is the canonical reference for Waple's MDL parser.**
+~~**Decompilation anchor**: `FUN_140261950` (RVA 0x260950, 8056 bytes)~~ — the MDL decoder main. References all five mesh chunk magics (MDAT/MDLA/MDLE/MDLS/MDMP). Heavy floating-point buffer processing ⇒ vertex decoding. **This is the canonical reference for Waple's MDL parser.**
+
+> **CORRECTION (2026-08-26, measured against the pristine original).** Because of the
+> defect in §6, this coordinate is stated **in displaced-corpus terms**. Three separate
+> things are wrong with it:
+>
+> 1. **The real function start is `0x140261880`** (= corpus `0x140261950` − `0xD0`).
+>    In the pristine original that address is a function start listed in `.pdata`, with a
+>    normal prologue (`mov rax, rsp` / `mov [rax+8], rbx` / `mov [rax+0x18], r8`).
+>    The corpus's `0x140261950` is **not** in the `.pdata` function-start list at all.
+> 2. **"RVA 0x260950" is not an RVA.** It is a **section-relative offset** — the corpus VA
+>    with both ImageBase and `.text`'s VA (`0x1000`) subtracted. The real RVA is
+>    **`0x261880`**.
+> 3. **"8056 bytes" does not reproduce — left UNKNOWN.** That figure came from Ghidra
+>    sizing a function in the damaged image. In the pristine original, `.pdata` records
+>    `0x261880`–`0x26238b` (**2,827 B**) as one entry, **immediately followed by**
+>    `0x26238b`–`0x265a0c` (13,953 B). MSVC routinely splits a single function across
+>    several `.pdata` entries, so **whether these two are one function or two can only be
+>    settled by reloading the pristine binary.**
+>
+> Do not cite this anchor as-is until the corpus is regenerated. If you must cite it, use
+> `0x140261880` and give no size.
 
 **Open question**: vertex-format flag word (`0x0900` vs `0x0f00`) gates vertex stride; `0x8000` hi-bit gates a puppet/bone-weight block. Per-bit attribute mapping and index width (u16 vs u32) need dump of engine `CModel`/`CPuppet` structs.
 
@@ -168,12 +189,46 @@ DATA SECTION: contiguous blobs, offsets strictly increasing.
 
 ## 5. Subsystem identification — 9/9 CONFIRMED (verified by direct byte-search)
 
+> **CORRECTION (2026-08-26) — the `@0x…` values in this section are file offsets, not VAs.**
+>
+> `@0x488040`, `@0x476eb8`, `@0x473e98`, `@0x485748`, `@0x48a06c` and the rest in the table
+> below were copied straight out of `analysis/strings/*.txt`, whose own header states
+> **`column 2: file offset`**. The `@0x` notation makes them read as VAs, but **they are
+> not**. The strings themselves and the subsystem verdicts remain valid; only the
+> coordinate notation is wrong.
+>
+> `analysis/extract_strings.py` reads the **pristine original** (`Z:\…\wallpaper64.exe`),
+> so the dump offsets are relative to that file. To convert to a VA:
+>
+> ```
+> VA = ImageBase + SectionVA + (file offset − section RawPtr)
+> ```
+>
+> **The delta differs per section.** Measured for this binary:
+>
+> | Section | VA − RawPtr | Note |
+> | --- | --- | --- |
+> | `.text` | `+0xC00` | |
+> | `.rdata` | `+0x1200` | most strings live here |
+> | `.data` | `+0x2000` | RTTI coordinates (`0x4dfcb0` etc.) live here |
+> | `.pdata` | `+0x8400` | |
+> | `.rsrc` | `+0xAA00` | |
+>
+> Two checks: `DXGI device lost in render loop.` at file offset `0x488040` → VA
+> **`0x140489240`**; `PLPV0005` at file offset `0x476eb8` → VA **`0x1404780b8`** (both
+> confirmed against the original bytes). Do not apply `+0x1200` uniformly across sections —
+> RTTI coordinates in `.data` need `+0x2000`.
+>
+> Note: this conversion does **not** involve the `0xD0` correction from §6. The dump being
+> pristine-relative and the section `RawPtr` never having been updated are two errors that
+> cancel exactly. Do not mix the two coordinate systems (dump file offset ↔ corpus VA).
+
 | # | Subsystem | Verdict | Evidence (direct) |
 |---|---|---|---|
 | 1 | Package parser | ✅ | `PKGV` absent (0 hits, both encodings); real magics `PLPV0005`@0x476eb8, `SHDV0069`@0x485748, `MDLVS001`@0x483b80, `core_balloon_pkg_version_error`@0x473e98 |
 | 2 | scene.json / project.json loader | ✅ | `project.json`@0x476e78; **RapidJSON UTF-16LE** `rapidjson\internal\p`@0x4756e6; jsoncpp `Json::Value`@0x477393 |
-| 3 | TEX decoder | ✅ | `TEXV0005`/`TEXI0001`/`TEXB0003/4`; `LZ4 error.`@0x4851f8; decoder `FUN_140261950` |
-| 4 | MDL decoder | ✅ | `MDLV0023`/`MDLA0006`/`MDAT0001`/`MDMP0001`/`MDLE0002`/`MDLS0004`; `FUN_140261950` |
+| 3 | TEX decoder | ✅ | `TEXV0005`/`TEXI0001`/`TEXB0003/4`; `LZ4 error.`@0x4851f8; ~~decoder `FUN_140261950`~~ **← UNKNOWN**: this names the same function as MDL in row 4, so a copy-paste error is suspected. `subsystems-identified.md` puts the TEX entry at `Texture::ReadTextureData` (RTTI @0x4e02d3). Re-adjudicate after regeneration |
+| 4 | MDL decoder | ✅ | `MDLV0023`/`MDLA0006`/`MDAT0001`/`MDMP0001`/`MDLE0002`/`MDLS0004`; ~~`FUN_140261950`~~ **`0x140261880`** (corrected 2026-08-26, §4) |
 | 5 | Particle system | ✅ | `ParticleVbo` RTTI; `emitParticles`; `showparticlecollision` |
 | 6 | D3D11 render pipeline | ✅ | `d3d11.dll!D3D11CreateDevice` import; DXGI recovery strings `DXGI device lost in render loop.`@0x488040; `--disable-d3d11` fallback flag |
 | 7 | Shader compiler/translator | ✅ | **GLSL→HLSL shim block statically embedded**: `#define vec2 float2`, `#define mix lerp`, `gl_FragColor`→`SV_Target`; `vs_5_0`/`ps_5_0`/`gs_5_0`; runtime `d3dcompiler_47.dll` load (NOT DXIL/SM6); `SHDV0069`/`SHTC0001` container |
@@ -203,9 +258,66 @@ A complete compatibility shim is **statically embedded** in the binary (UTF-16/A
 
 **Consequence**: Ghidra's `PeLoader.CompilerOpinion` cannot detect MSVC without the Rich Header → RTTI analyzer refused with "only valid for Visual Studio windows PE".
 
-**Fix applied** (`scripts/inject_rich_header.py`): copy the DOS-stub+Rich-Header block from `assimp-vc143-mt64.dll`, place it in front of the PE header, patch `e_lfanew` from 0x40 → 0x110. PE body is byte-identical. After injection, Ghidra ran `Windows x86 PE RTTI Analyzer` and `Windows x86 PE Exception Handling` successfully.
+~~**Fix applied** (`scripts/inject_rich_header.py`): copy the DOS-stub+Rich-Header block from `assimp-vc143-mt64.dll`, place it in front of the PE header, patch `e_lfanew` from 0x40 → 0x110. PE body is byte-identical. After injection, Ghidra ran `Windows x86 PE RTTI Analyzer` and `Windows x86 PE Exception Handling` successfully.~~
 
-**Waple note**: If Waple's team re-runs Ghidra on any WE binary, this injection is mandatory and reproducible.
+~~**Waple note**: If Waple's team re-runs Ghidra on any WE binary, this injection is mandatory and reproducible.~~
+
+> ## ⚠️ CORRECTION (2026-08-26) — this "fix" contaminated the entire corpus
+>
+> **"PE body is byte-identical" was the trap.** The byte sequence was indeed identical, but
+> its **position within the file** moved back by `0x110 − 0x40 = 0xD0`, and **not one
+> section header's `PointerToRawData` was updated** to match. The output is therefore a PE
+> whose section table points `0xD0` *before* the real body, and Ghidra disassembled bytes
+> displaced by `0xD0` in every section.
+>
+> **Measured evidence** (parsing `binaries/wallpaper64.exe` directly):
+>
+> - `binaries/wallpaper64.exe` and `binaries/wallpaper64_rich.exe` are **MD5-identical**
+>   (`263677f0891626089b3553dcf52018ac`) — the injected output overwrote the copy in
+>   `binaries/`.
+> - The section table says `.text RawPtr = 0x400`, but file offset `0x400` is **zero
+>   padding**; the real code starts at **`0x4D0`** (`48 83 ec 28` = `sub rsp,0x28`).
+> - Parsing `.pdata` at the offset the header states yields **0** entries inside `.text`;
+>   parsing at `+0xD0` yields **14,792 (= 100%)**.
+> - Further file-offset fields are stale by the same `0xD0`: `SizeOfHeaders`,
+>   `IMAGE_DIRECTORY_ENTRY_SECURITY` (that field is a file offset, not an RVA), and the
+>   `PointerToRawData` of all 3 `IMAGE_DEBUG_DIRECTORY` entries.
+>
+> **Consequence — the 11,252-function corpus in `analysis/decompiled/all/` is invalid.**
+> An address the corpus calls `X` actually holds the content of `X − 0xD0`. Measured
+> against the 14,792 real function starts in `.pdata` as ground truth:
+>
+> ```
+> corpus address as-is    matched     86 / 11,252   ( 0.76%)
+> corpus address + 0xD0   matched    145 / 11,252   ( 1.29%)
+> corpus address − 0xD0   matched  3,290 / 11,252   (29.24%)   <- correct direction
+> ```
+>
+> The residual 71% is not a different shift — it is **phantom function boundaries invented
+> by disassembling displaced bytes**. So **the corpus cannot be salvaged by arithmetic; it
+> must be regenerated.**
+>
+> **The input for regeneration is already here.** Only the `binaries/` copy was overwritten:
+> `wallpaper_engine/wallpaper64.exe` and `wallpaper_engine/distribution/wallpaper64.exe`
+> are both pristine originals at **5,360,112 B, MD5 `438cb215f20a8f6c38f57fbc3d9da588`**.
+>
+> **`scripts/inject_rich_header.py` was fixed on 2026-08-26** — it now shifts the section
+> `PointerToRawData`, `SizeOfHeaders`, SECURITY and DEBUG offsets by the same amount the
+> stub adds, and self-checks its output. The hardcoded personal absolute paths were also
+> replaced with CLI arguments.
+>
+> ```
+> python3 scripts/inject_rich_header.py \
+>     --target wallpaper_engine/wallpaper64.exe \
+>     --donor  wallpaper_engine/bin/assimp-vc143-mt64.dll \
+>     --out    binaries/wallpaper64_rich.exe
+> python3 scripts/inject_rich_header.py --verify-only <file>   # consistency check only
+> ```
+>
+> **Waple note (updated)**: when re-running Ghidra, use a file rebuilt from a **pristine
+> original** with the **fixed script**. Do not feed it `binaries/wallpaper64.exe`, which is
+> the damaged copy. Every coordinate cited in this document in `FUN_…` form is stated in
+> old-corpus terms; do not trust any of them until the corpus is regenerated.
 
 ---
 
@@ -223,15 +335,17 @@ A complete compatibility shim is **statically embedded** in the binary (UTF-16/A
 ## 8. Deliverables index (this audit)
 
 ```
-C:\Users\yakihyuk0728\Desktop\wallpaper_source\
+<REPO>\                                     <- repository root (was a personal absolute path; substituted 2026-08-26)
 ├── WE-ENGINE-ANALYSIS-2026-07-27.md        ← this file (start here)
 ├── binaries\                                ← working copies (not originals; 56 MB)
-│   ├── wallpaper64.exe                       (Rich-Header-injected, used by Ghidra)
-│   ├── wallpaper64_rich.exe
+│   ├── wallpaper64.exe                       ⚠️ DAMAGED - overwritten by the injected output (§6). Not an original
+│   ├── wallpaper64_rich.exe                  ⚠️ MD5-identical to the above. Both need regenerating
+│   │                                          -> pristine original is wallpaper_engine\wallpaper64.exe (5,360,112 B)
 │   ├── wallpaper32.exe / wallpaperui.exe / scenescript64.dll / webwallpaper64.exe
 ├── docker\Dockerfile.re                     ← reproducible RE env (Ubuntu+Ghidra 12.1.2+JDK21+radare2)
 ├── scripts\                                  ← all RE/instrumentation tools (160 KB)
 │   ├── inject_rich_header.py                 ← MANDATORY pre-Ghidra: fixes MSVC recognition
+│   │                                            (fixed 2026-08-26: corrects section file offsets; CLI arguments)
 │   ├── ghidra_analyze.sh                     ← import+analyze pipeline
 │   ├── DecompileAll.java                     ← full-function decompiler
 │   ├── BuildEvidenceIndex.java               ← RTTI/magic/API xref per function
@@ -275,7 +389,7 @@ Ranked by Waple-defect impact × ease. Items 1-3 use only the static artifacts a
 
 2. **Port the §5 GLSL→HLSL shim to GLSL→MSL.** The aliasing philosophy (`vec2`→`float4`, `mix`→`lerp`, `gl_FragColor`→output) transfers directly; MSL shares HLSL's `float4`/`SamplerState` vocabulary. This is the highest-leverage fix for Waple's compile-rate deficit cases.
 
-3. **Pin MDL decoder against `FUN_140261950` (RVA 0x260950).** Read its decompilation in `analysis/decompiled/all/0000000140261950__FUN_140261950.c` and match Waple's MDL parser field-by-field. Resolves the vertex-format-flag question (§4) for most cases.
+3. ~~**Pin MDL decoder against `FUN_140261950` (RVA 0x260950).** Read its decompilation in `analysis/decompiled/all/0000000140261950__FUN_140261950.c` and match Waple's MDL parser field-by-field.~~ **CORRECTION (2026-08-26): do not run this step as written.** That `.c` file is a displaced-corpus artifact, so its contents are not the real function (§6). **First regenerate the corpus from a pristine original**, then read the decompilation at the true start address **`0x140261880`** and match it field-by-field against Waple's MDL parser. That resolves the vertex-format-flag question (§4) for most cases.
 
 4. **Drive the 12 defect clusters from `evidence-index.tsv`.** For each cluster's class name (e.g. `SceneWallpaper`, `MaterialSystem`), grep the evidence index → get the functions that reference it → read those decompilations. This is how to convert `FUN_*` pseudocode into role-identified engine logic without RTTI.
 
@@ -283,7 +397,21 @@ Ranked by Waple-defect impact × ease. Items 1-3 use only the static artifacts a
 
 5. **Capture TEX→DXGI format mapping** (resolves §3 open question): resume from `scripts/identify_device_vtable.js` to name the `CreateTexture2D` vtable slot, then hook it during a wallpaper switch. One capture run yields the full `format` enum → DXGI table.
 
-6. **Optional: dump MDL vertex format live** — `Interceptor.attach(ptr(wallpaper32_base).add(0x260950), ...)` on the running process to log `vertex_format_lo` and bone-block presence per mesh. Definitively closes §4.
+6. ~~**Optional: dump MDL vertex format live** — `Interceptor.attach(ptr(wallpaper32_base).add(0x260950), ...)` on the running process to log `vertex_format_lo` and bone-block presence per mesh. Definitively closes §4.~~
+
+   > **CORRECTION (2026-08-26) — this one line contains at least two errors plus one
+   > UNKNOWN.**
+   > - **Wrong base.** `0x260950` came out of `wallpaper64.exe` analysis, yet it is being
+   >   added to `wallpaper32_base` — a separate 32-bit binary. The two differ even in size
+   >   (5,360,112 B vs 4,303,856 B).
+   > - **Wrong offset.** Per the §4 correction, `0x260950` is a displaced-corpus coordinate
+   >   with `.text`'s VA subtracted a second time. The true RVA in `wallpaper64.exe` is
+   >   **`0x261880`**, so for a 64-bit process the candidate is
+   >   `ptr(wallpaper64_base).add(0x261880)`.
+   > - **UNKNOWN:** where the corresponding function lives inside `wallpaper32.exe` **could
+   >   not be established in this repository**. The 32-bit image has a completely different
+   >   layout, so a 64-bit RVA cannot be carried across; that needs separate analysis.
+   >   Left unresolved rather than inventing a number.
 
 ### What this audit does NOT solve (and why)
 
@@ -362,7 +490,16 @@ The concrete resume steps live in **§9 Tier 2** (items 5-6) to keep the action 
 
 ## Appendix A — Quickstart reproduction
 
-All commands run from `C:\Users\yakihyuk0728\Desktop\wallpaper_source\`. Git Bash on Windows; Python via `py` (3.14); Docker via Docker Desktop's Windows-side CLI.
+All commands run from the repository root. Git Bash on Windows; Python via `py` (3.14); Docker via Docker Desktop's Windows-side CLI.
+
+> **CORRECTION (2026-08-26).** The original text hardcoded the author's personal absolute
+> path (`C:\Users\<account>\Desktop\wallpaper_source\`), exposing an account name in the
+> repository. It has been replaced with `$REPO` below — set it to the absolute path of the
+> repository root.
+>
+> ```bash
+> REPO="$(pwd)"     # or a Windows path: REPO='C:\path\to\wallpaper_source'
+> ```
 
 ### A.1 Rebuild the RE environment from scratch
 ```bash
@@ -371,23 +508,42 @@ docker build -f Dockerfile.re -t we-re:latest .
 ```
 
 ### A.2 Re-run Ghidra analysis on wallpaper64.exe (with Rich Header injection)
-```bash
-# 1. Inject Rich Header (mandatory — WE binaries ship without one)
-py scripts/inject_rich_header.py
-cp binaries/wallpaper64_rich.exe binaries/wallpaper64.exe
 
-# 2. Import + auto-analyze (creates ghidra_proj/we_analysis)
+> **⚠️ CORRECTION (2026-08-26) — the original procedure is what damaged this repository.**
+> It read:
+>
+> ```bash
+> py scripts/inject_rich_header.py                          # hardcoded personal paths; offsets not corrected
+> cp binaries/wallpaper64_rich.exe binaries/wallpaper64.exe  # <- overwrote the pristine original
+> ```
+>
+> That single `cp` replaced the clean copy in `binaries/` with the injected output (which
+> is why the two files share an MD5), and because the script never updated the section
+> offsets, every corpus Ghidra produced afterwards was displaced (§6).
+> **Never reproduce this sequence.**
+
+```bash
+# 1. Inject the Rich Header - from a pristine original, into a separate file (never overwrite)
+py scripts/inject_rich_header.py \
+    --target wallpaper_engine/wallpaper64.exe \
+    --donor  wallpaper_engine/bin/assimp-vc143-mt64.dll \
+    --out    binaries/wallpaper64_rich.exe
+
+# 2. Self-check the output (is .text zero padding? is .pdata 100%?)
+py scripts/inject_rich_header.py --verify-only binaries/wallpaper64_rich.exe
+
+# 3. Import + auto-analyze - always feed it _rich.exe
 MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*' docker run --rm \
-  -v "C:\Users\yakihyuk0728\Desktop\wallpaper_source:/work" \
-  we-re:latest bash /work/scripts/ghidra_analyze.sh /work/binaries/wallpaper64.exe
+  -v "$REPO:/work" \
+  we-re:latest bash /work/scripts/ghidra_analyze.sh /work/binaries/wallpaper64_rich.exe
 ```
 
 ### A.3 Regenerate the full decompilation + evidence index
 ```bash
 MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*' docker run --rm \
-  -v "C:\Users\yakihyuk0728\Desktop\wallpaper_source:/work" \
+  -v "$REPO:/work" \
   we-re:latest /opt/ghidra/support/analyzeHeadless \
-    /work/ghidra_proj we_analysis -process wallpaper64.exe -noanalysis \
+    /work/ghidra_proj we_analysis -process wallpaper64_rich.exe -noanalysis \
     -scriptPath /work/scripts \
     -postScript DecompileAll.java \
     -postScript BuildEvidenceIndex.java

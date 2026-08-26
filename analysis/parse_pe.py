@@ -6,10 +6,10 @@ import json
 import sys
 from pathlib import Path
 
-BIN = r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\..\..\..\..\..\..\z\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
+BIN = r"C:\Users\<user>\Desktop\wallpaper_source\..\..\..\..\..\..\z\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
 # Use direct absolute Windows path to be safe
 BIN = r"Z:\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
-OUT_DIR = Path(r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\analysis")
+OUT_DIR = Path(r"C:\Users\<user>\Desktop\wallpaper_source\analysis")
 
 data = open(BIN, "rb").read()
 print(f"[*] File size: {len(data)} bytes (0x{len(data):x})", file=sys.stderr)

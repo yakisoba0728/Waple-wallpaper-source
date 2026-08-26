@@ -6,7 +6,7 @@ import struct
 import json
 import sys
 
-BIN = r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\..\..\..\..\..\..\z\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
+BIN = r"C:\Users\<user>\Desktop\wallpaper_source\..\..\..\..\..\..\z\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
 # Use the direct drive path instead:
 BIN = r"Z:\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
 
@@ -268,7 +268,7 @@ result = {
     },
 }
 
-OUT = r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\analysis\pe-structure.json"
+OUT = r"C:\Users\<user>\Desktop\wallpaper_source\analysis\pe-structure.json"
 with open(OUT, "w", encoding="utf-8") as f:
     json.dump(result, f, indent=2)
 print(f"wrote {OUT}", file=sys.stderr)

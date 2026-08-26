@@ -8,7 +8,7 @@ import os
 import re
 
 BIN = r"Z:\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
-OUTDIR = r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\analysis\strings"
+OUTDIR = r"C:\Users\<user>\Desktop\wallpaper_source\analysis\strings"
 os.makedirs(OUTDIR, exist_ok=True)
 
 data = open(BIN, "rb").read()
