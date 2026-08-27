@@ -1,25 +1,31 @@
 // Function: FUN_1400fb3e0
 // Addr: 1400fb3e0
-// Size: 111 bytes
+// Size: 99 bytes
 
 
-undefined8 FUN_1400fb3e0(longlong *param_1,int *param_2,undefined8 *param_3)
+void FUN_1400fb3e0(longlong *param_1,undefined8 param_2,uint param_3)
 
 {
-  *param_3 = 0;
-  if (*param_2 == 0) {
-    if (((param_2[1] == 0) && (param_2[2] == 0xc0)) && (param_2[3] == 0x46000000)) {
-      *param_3 = param_1;
-      (**(code **)(*param_1 + 8))();
-      return 0;
+  longlong lVar1;
+  longlong lVar2;
+  uint uVar3;
+  undefined8 uVar4;
+  
+  lVar1 = FUN_14004c4c0(param_1 + 2,param_2,param_3 | 1);
+  lVar2 = (longlong)*(int *)(*param_1 + 4) + (longlong)param_1;
+  if (lVar1 != 0) {
+    uVar4 = 4;
+    if (*(longlong *)(lVar2 + 0x48) != 0) {
+      uVar4 = 0;
     }
+    FUN_140013b50(lVar2,uVar4,0);
+    return;
   }
-  else if ((((*param_2 == -0x52b3e500) && (param_2[1] == 0x422f4bf7)) && (param_2[2] == 0x66757591))
-          && (param_2[3] == 0xd13d993)) {
-    *param_3 = param_1;
-    (**(code **)(*param_1 + 8))();
-    return 0;
+  uVar3 = 6;
+  if (*(longlong *)(lVar2 + 0x48) != 0) {
+    uVar3 = 2;
   }
-  return 0x80004002;
+  FUN_140013b50(lVar2,uVar3 | *(uint *)(lVar2 + 0x10),0);
+  return;
 }
 

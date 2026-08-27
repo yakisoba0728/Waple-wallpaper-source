@@ -1,39 +1,25 @@
 // Function: FUN_14031fe40
 // Addr: 14031fe40
-// Size: 101 bytes
+// Size: 98 bytes
 
 
-uint FUN_14031fe40(byte *param_1,byte *param_2)
+ulonglong FUN_14031fe40(longlong param_1,undefined8 *param_2)
 
 {
-  byte *pbVar1;
-  byte bVar2;
+  char *pcVar1;
+  int iVar2;
+  ulonglong uVar3;
   
-  bVar2 = *param_1;
-  pbVar1 = param_1 + 1;
-  if (bVar2 == 0x1c) {
-    if ((param_1 + 3 <= param_2) || (param_2 < pbVar1)) {
-      return (int)(short)((ushort)*pbVar1 << 8) | (uint)param_1[2];
-    }
+  pcVar1 = (char *)*param_2;
+  if (*pcVar1 == '\x1e') {
+    iVar2 = FUN_14031feb0(pcVar1,*(undefined8 *)(param_1 + 0x10),0,0);
+    return (ulonglong)(uint)(iVar2 >> 0x10);
   }
-  else if (bVar2 == 0x1d) {
-    if ((param_1 + 5 <= param_2) || (param_2 < pbVar1)) {
-      return CONCAT31(CONCAT21(CONCAT11(*pbVar1,param_1[2]),param_1[3]),param_1[4]);
-    }
+  if (*pcVar1 == -1) {
+    return (ulonglong)
+           (uint)(int)(short)(CONCAT21(CONCAT11(pcVar1[1],pcVar1[2]),pcVar1[3]) + 0x80 >> 8);
   }
-  else {
-    if (bVar2 < 0xf7) {
-      return bVar2 - 0x8b;
-    }
-    if (bVar2 < 0xfb) {
-      if ((param_1 + 2 <= param_2) || (param_2 < pbVar1)) {
-        return (*pbVar1 - 0xf694) + (uint)bVar2 * 0x100;
-      }
-    }
-    else if ((param_1 + 2 <= param_2) || (param_2 < pbVar1)) {
-      return ((uint)bVar2 * -0x100 + 0xfa94) - (uint)*pbVar1;
-    }
-  }
-  return 0;
+  uVar3 = FUN_14031fd70(pcVar1,*(undefined8 *)(param_1 + 0x10));
+  return uVar3;
 }
 

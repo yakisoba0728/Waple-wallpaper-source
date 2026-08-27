@@ -1,40 +1,27 @@
 // Function: FUN_1401b44d0
 // Addr: 1401b44d0
-// Size: 116 bytes
+// Size: 111 bytes
 
 
-void FUN_1401b44d0(longlong *param_1)
+undefined4 * FUN_1401b44d0(undefined4 *param_1)
 
 {
-  code *pcVar1;
-  longlong lVar2;
-  longlong lVar3;
-  undefined1 *puVar4;
-  undefined1 auStack_28 [8];
-  undefined1 auStack_20 [24];
+  longlong lVar1;
   
-  lVar3 = *param_1;
-  if (lVar3 != 0) {
-    lVar2 = param_1[1];
-    for (; lVar3 != lVar2; lVar3 = lVar3 + 0x18) {
-      func_0x0001401b8030(lVar3);
-    }
-    lVar3 = *param_1;
-    lVar2 = lVar3;
-    puVar4 = auStack_28;
-    if ((0xfff < (ulonglong)((param_1[2] - lVar3 >> 3) * 8)) &&
-       (lVar2 = *(longlong *)(lVar3 + -8), puVar4 = auStack_28, 0x1f < (lVar3 - lVar2) - 8U)) {
-      lVar2 = 5;
-      pcVar1 = (code *)swi(0x29);
-      (*pcVar1)(5);
-      puVar4 = auStack_20;
-    }
-    *(undefined8 *)(puVar4 + -8) = 0x1401b4567;
-    func_0x00014028b040(lVar2);
-    *param_1 = 0;
-    param_1[1] = 0;
-    param_1[2] = 0;
-  }
-  return;
+  *param_1 = 0;
+  *(undefined8 *)(param_1 + 2) = 0;
+  *(undefined8 *)(param_1 + 4) = 0;
+  lVar1 = FUN_14028af20(0x18);
+  *(longlong *)lVar1 = lVar1;
+  *(longlong *)(lVar1 + 8) = lVar1;
+  *(longlong *)(param_1 + 2) = lVar1;
+  *(undefined8 *)(param_1 + 6) = 0;
+  *(undefined8 *)(param_1 + 8) = 0;
+  *(undefined8 *)(param_1 + 10) = 0;
+  *(undefined8 *)(param_1 + 0xc) = 7;
+  *(undefined8 *)(param_1 + 0xe) = 8;
+  *param_1 = 0x3f800000;
+  FUN_14004f190(param_1 + 6,0x10,*(undefined8 *)(param_1 + 2));
+  return param_1;
 }
 

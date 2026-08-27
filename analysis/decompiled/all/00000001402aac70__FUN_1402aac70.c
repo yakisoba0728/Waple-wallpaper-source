@@ -1,0 +1,67 @@
+// Function: FUN_1402aac70
+// Addr: 1402aac70
+// Size: 386 bytes
+
+
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+longlong *
+FUN_1402aac70(undefined8 param_1,longlong *param_2,longlong *param_3,longlong *param_4,
+             longlong param_5,uint *param_6,undefined8 *param_7)
+
+{
+  int iVar1;
+  int iVar2;
+  undefined8 uVar3;
+  undefined2 uVar4;
+  longlong lVar5;
+  int *piVar6;
+  undefined1 auStack_3a8 [32];
+  undefined1 **local_388;
+  undefined1 *local_378;
+  longlong local_370;
+  undefined1 local_368 [800];
+  ulonglong local_48;
+  
+  local_48 = DAT_1404dc040 ^ (ulonglong)auStack_3a8;
+  local_370 = *(longlong *)(*(longlong *)(param_5 + 0x40) + 8);
+  (*(code *)PTR__guard_dispatch_icall_140426ae8)();
+  local_388 = &local_378;
+  uVar4 = FUN_1402970c0(local_368,0x300,param_3,param_4);
+  if ((local_370 != 0) && (lVar5 = (*(code *)PTR__guard_dispatch_icall_140426ae8)(), lVar5 != 0)) {
+    (*(code *)PTR__guard_dispatch_icall_140426ae8)(lVar5,1);
+  }
+  if ((char)uVar4 == '\0') {
+    *param_6 = 2;
+    *param_7 = 0;
+  }
+  else {
+    piVar6 = (int *)FUN_1402caf34();
+    iVar1 = *piVar6;
+    *piVar6 = 0;
+    uVar3 = FUN_1402d3d60(local_368,&local_378);
+    iVar2 = *piVar6;
+    *piVar6 = iVar1;
+    *param_7 = uVar3;
+    if (((local_378 == local_368) || (iVar2 != 0)) || ((char)((ushort)uVar4 >> 8) != '\0')) {
+      *param_6 = 2;
+    }
+  }
+  if ((char)param_3[1] == '\0') {
+    FUN_1402a7e60(param_3);
+  }
+  if ((char)param_4[1] == '\0') {
+    FUN_1402a7e60(param_4);
+  }
+  if (*param_3 == 0) {
+    if (*param_4 != 0) goto LAB_1402aadbb;
+  }
+  else if (*param_4 == 0) goto LAB_1402aadbb;
+  *param_6 = *param_6 | 1;
+LAB_1402aadbb:
+  lVar5 = param_3[1];
+  *param_2 = *param_3;
+  param_2[1] = lVar5;
+  return param_2;
+}
+

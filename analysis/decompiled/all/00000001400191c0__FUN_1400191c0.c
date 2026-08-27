@@ -1,12 +1,11 @@
 // Function: FUN_1400191c0
 // Addr: 1400191c0
-// Size: 21 bytes
+// Size: 12 bytes
 
 
-void FUN_1400191c0(longlong param_1)
+uint FUN_1400191c0(void)
 
 {
-                    /* WARNING: Subroutine does not return */
-  FUN_140017310(param_1 + 0x90);
+  return DAT_1404e52e4 >> 6 & 0xffffff01;
 }
 

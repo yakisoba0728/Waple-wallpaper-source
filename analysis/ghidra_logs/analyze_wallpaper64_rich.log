@@ -1,0 +1,212 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/root/.ccr/java-truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=45619 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/root/.ccr/java-truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=45619 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/root/.ccr/java-truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=45619 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/root/.ccr/java-truststore.p12 -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.trustStoreType=PKCS12 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=45619 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+openjdk version "21.0.10" 2026-01-20
+OpenJDK Runtime Environment (build 21.0.10+7-Ubuntu-124.04)
+OpenJDK 64-Bit Server VM (build 21.0.10+7-Ubuntu-124.04, mixed mode)
+INFO  Using log config file: jar:file:/opt/ghidra_12.1.2_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /root/.config/ghidra/ghidra_12.1.2_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /root/.config/ghidra/ghidra_12.1.2_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1643 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Starting cache cleanup: /var/tmp/root-ghidra/fscache2 (FileCacheMaintenanceDaemon)  
+INFO  Finished cache cleanup, estimated storage used: 0 (FileCacheMaintenanceDaemon)  
+INFO  Headless startup complete (5957 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 59 extension points (20 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/BSim/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/Base/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating project: /work/ghidra_proj/we_analysis (HeadlessAnalyzer)  
+INFO  Creating project: /work/ghidra_proj/we_analysis (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /work/ghidra_proj/we_analysis (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///home/user/Waple-wallpaper-source/binaries/wallpaper64_rich.exe (HeadlessAnalyzer)  
+INFO  Using Loader: Portable Executable (PE) (ProgramLoader)  
+INFO  Using Language/Compiler: x86:LE:64:default:windows (ProgramLoader)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib/x86_64-linux-gnu/jni, /usr/lib/x86_64-linux-gnu, /usr/lib/jni] (ProgramLoader)  
+INFO  TLS callbacks at 140426da0 (TLSDirectory)  
+INFO  Additional info:
+Loading file:///home/user/Waple-wallpaper-source/binaries/wallpaper64_rich.exe?MD5=5c7114bd46108e1649c8c71e152ef6d3...
+------------------------------------------------
+
+Searching 8 paths for library ADVAPI32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library D3D11.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library DWMAPI.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library DWRITE.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library GDI32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library KERNEL32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library MF.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library MFPLAT.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library MFREADWRITE.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library OLE32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library PDH.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library SHELL32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library SHLWAPI.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library USER32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library WINMM.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library WTSAPI32.DLL...
+Library not found.
+------------------------------------------------
+
+Linking the External Programs of 'wallpaper64_rich.exe' to imported libraries...
+  [KERNEL32.DLL] -> not found in project
+  [USER32.DLL] -> not found in project
+  [GDI32.DLL] -> not found in project
+  [SHELL32.DLL] -> not found in project
+  [OLE32.DLL] -> not found in project
+  [ADVAPI32.DLL] -> not found in project
+  [D3D11.DLL] -> not found in project
+  [DWMAPI.DLL] -> not found in project
+  [WINMM.DLL] -> not found in project
+  [WTSAPI32.DLL] -> not found in project
+  [SHLWAPI.DLL] -> not found in project
+  [MFREADWRITE.DLL] -> not found in project
+  [DWRITE.DLL] -> not found in project
+  [MF.DLL] -> not found in project
+  [MFPLAT.DLL] -> not found in project
+  [PDH.DLL] -> not found in project
+------------------------------------------------
+
+ (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///home/user/Waple-wallpaper-source/binaries/wallpaper64_rich.exe (HeadlessAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___raise_securityfailure' specified in file: /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___report_rangecheckfailure' specified in file: /opt/ghidra_12.1.2_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+INFO  Skipping PDB processing: failed to locate PDB file in configured locations (PdbUniversalAnalyzer)  
+INFO  Use a script to set the PDB file location. I.e.,
+    PdbAnalyzer.setPdbFileOption(currentProgram, new File("/path/to/pdb/file.pdb")); or
+    PdbUniversalAnalyzer.setPdbFileOption(currentProgram, new File("/path/to/pdb/file.pdb"));
+Or set the symbol server search configuration using:    PdbPlugin.saveSymbolServerServiceConfig(...);
+ This must be done using a pre-script (prior to analysis). (PdbUniversalAnalyzer)  
+INFO  Packed database cache: /var/tmp/root-ghidra/packed-db-cache (PackedDatabaseCache)  
+ERROR Invalid PNG data at 1400b7625 (PngDataType)  
+WARN  Decompiling 14010d170, pcode error at 14010d56c: Unable to resolve constructor at 14010d56c (DecompileCallback)  
+WARN  Decompiling 14010d170, pcode error at 14010d56c: Unable to resolve constructor at 14010d56c (DecompileCallback)  
+WARN  Decompiling 140150d60, pcode error at 129152698: Could not follow disassembly flow into non-existing memory at 129152698 (DecompileCallback)  
+WARN  Decompiling 140150d60, pcode error at 129152698: Could not follow disassembly flow into non-existing memory at 129152698 (DecompileCallback)  
+WARN  Decompiling 14008e780: Unable to read bytes at ram:152121200 (DecompileCallback)  
+WARN  Decompiling 14008d530: Unable to read bytes at ram:20ccccccc (DecompileCallback)  
+WARN  Decompiling 14023b340: Unable to read bytes at ram:20ccccccc (DecompileCallback)  
+WARN  Decompiling 14023fbc0: Unable to read bytes at ram:20ccccccc (DecompileCallback)  
+WARN  Decompiling 140041a60, pcode error at 140041c7d: Unable to resolve constructor at 140041c7d (DecompileCallback)  
+WARN  Decompiling 14023fbc0, pcode error at 14000000c: Unable to resolve constructor at 14000000c (DecompileCallback)  
+WARN  Decompiling 1402ed040: Unable to read bytes at ram:143020103 (DecompileCallback)  
+WARN  Decompiling 140045c40, pcode error at 1400464cd: Unable to resolve constructor at 1400464cd (DecompileCallback)  
+WARN  Decompiling 140045c40, pcode error at 1400464cd: Unable to resolve constructor at 1400464cd (DecompileCallback)  
+WARN  Decompiling 14001c0a0, pcode error at 14001c964: Unable to resolve constructor at 14001c964 (DecompileCallback)  
+WARN  Decompiling 14001c0a0, pcode error at 14001c964: Unable to resolve constructor at 14001c964 (DecompileCallback)  
+WARN  More than 100 address segments have been created! (AddressMapDB)  
+INFO  Unprocessed TypeDescriptor: void (__cdecl *)(void) (TypeDescriptorModel)  
+INFO  Unprocessed TypeDescriptor: void (__cdecl *)(void) (TypeDescriptorModel)  
+INFO  Applied data type archive: windows_vs12_64 (ApplyDataArchiveAnalyzer)  
+INFO  Applied data type archive: windows_vs12_64 (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              2.027 secs
+    Apply Data Archives                        0.498 secs
+    Call Convention ID                         0.079 secs
+    Call-Fixup Installer                       0.202 secs
+    Create Address Tables                      4.576 secs
+    Create Address Tables - One Time           5.058 secs
+    Create Function                            0.764 secs
+    Data Reference                             5.947 secs
+    Decompiler Switch Analysis                99.924 secs
+    Demangler Microsoft                        0.086 secs
+    Disassemble                                0.002 secs
+    Disassemble Entry Points                  40.389 secs
+    Embedded Media                             0.076 secs
+    External Entry References                  0.001 secs
+    Function ID                               11.469 secs
+    Function Start Search                      0.182 secs
+    Non-Returning Functions - Discovered      13.548 secs
+    Non-Returning Functions - Known            0.042 secs
+    PDB Universal                              0.034 secs
+    Reference                                  3.994 secs
+    Scalar Operand References                 11.416 secs
+    Shared Return Calls                        5.793 secs
+    Stack                                     78.326 secs
+    Subroutine References                      2.629 secs
+    Subroutine References - One Time           0.054 secs
+    Windows x86 PE Exception Handling          3.266 secs
+    Windows x86 PE RTTI Analyzer               2.074 secs
+    Windows x86 Thread Environment Block (TEB) Analyzer     0.028 secs
+    WindowsResourceReference                  27.330 secs
+    x86 Constant Reference Analyzer           61.999 secs
+-----------------------------------------------------
+     Total Time   381 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///home/user/Waple-wallpaper-source/binaries/wallpaper64_rich.exe (HeadlessAnalyzer)  
+INFO  /wallpaper64_rich.exe: file created (root) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /wallpaper64_rich.exe (we_analysis:/wallpaper64_rich.exe) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  
