@@ -1,3 +1,7 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Ghidra 프로젝트 락 — 실행 중에만 존재하는 일시 파일
+ghidra_proj/*.lock
+ghidra_proj/*.lock~
