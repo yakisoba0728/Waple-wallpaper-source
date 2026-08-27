@@ -22,9 +22,24 @@ The 8-byte magic is `MDLV` + a 4-digit ascii version. Versions observed:
 | `MDLV0016` |     8 | older |
 | `MDLV0017` |     2 | older |
 
-The layout below is documented against `MDLV0023`; older versions have a
-shorter/simpler header (e.g. `MDLV0016` uses flag word `0x80000900`,
-`MDLV0023` uses `0x0900` or `0x0f00`).
+> ## ⚠️ CORRECTION (2026-08-27) — this file was off by one byte, and that broke the flag word
+>
+> Everything below the version table was written by eyeballing hex dumps, and it assumed the
+> `MDLV00NN` magic is exactly 8 raw bytes. **It is not: the engine reads it with a
+> NUL-terminated-string reader (`0x14009c500`) that consumes the terminating NUL, so the
+> magic occupies 9 bytes and every header field after it sits one byte later than this file
+> says.** The byte at `0x08` that this file folded into a "vertex format" u16 pair is the
+> string's NUL.
+>
+> The sections below have been corrected against the decoder itself (`0x140261880` in
+> `wallpaper64.exe`) and re-validated on the 28 `.mdl` assets shipped in this repository —
+> **28/28 parse to exactly EOF**. Run `python3 scripts/verify_mdl_tex.py` to reproduce, and
+> see `analysis/reports/mdl-tex-decoders-2026-08-27.md` for the disassembly.
+>
+> The **version census above is unaffected** — it came from magic counting, not framing.
+
+The layout below is documented against `MDLV0023`; older versions differ only by
+version gates (see "Version gates" below), not by a different header shape.
 
 ## Top-level layout (MDLV0023)
 
@@ -34,60 +49,157 @@ Annotated against `models/1x1_puppet.mdl` (1,663 bytes) and
 ```
 offset  type/bytes  field                evidence / notes
 ------  ----------  -------------------  ----------------------------------------
-0x00    8 bytes     b"MDLV0023"          magic + version
-0x08    u16         vertex_format_lo     0x0900 or 0x0f00 — vertex-attribute mask
-0x0A    u16         vertex_format_hi     0x8000 (puppet/boned) or 0x0000 (static)
-0x0C    u32         count_A              0x00000101 (257) on boned; 0x00000001 on static
-0x10    u32         count_B              0x00000100 (256) on boned; 0x00000001 on static
-0x14    1 byte      0x00                 null separator before material string
-0x15    cstr        material_ref         null-terminated UTF-8 path to the
-                                          material .json, e.g.
-                                          "materials/1x1.json" or
-                                          "materials/models/OBJOBJBone/12312.json"
-...     ~20-40 B    bounding-box floats  6 × float32 (min xyz, max xyz) — values
-                                          like -26.0, 18.0, 1.0 seen; the pattern
-                                          0x0000803f (1.0f) and 0x000080bf (-1.0f)
-                                          repeats near the end of the bbox.
-...     u32         vertex_count         e.g. 0x0000000f = 15
-...     u32         index_count          e.g. 0x00000570 = 1392 (or byte-size?)
-...     [vertex buffer]                  vertex_count × stride bytes
-...     [index buffer]                   16-bit or 32-bit indices
-...     [optional bone/puppet data]      present when vertex_format_hi & 0x8000
+0x00    9 bytes     b"MDLV00NN\0"        magic + version, NUL-TERMINATED (9 bytes)
+                                          version = atoi(magic + 4)
+0x09    u32         format_flag           vertex-attribute bitmask (one u32, see below)
+0x0D    u32         skin_count            how many material cstrings each mesh carries
+0x11    u32         mesh_count            number of mesh records that follow
+0x15    ...         mesh_count × mesh record
 ```
 
-## Vertex format flag word (0x08)
+**Mesh record** (exact order the decoder reads; gated fields marked):
 
-Read as two little-endian u16s. The low u16 (`vertex_format_lo`) almost
-certainly encodes which attribute channels are present (position, UV, normal,
-colour, tangent, bone weights/indices). Observed:
+```
+cstr × skin_count   material_ref     null-terminated UTF-8 path to a material .json
+u32                 gate_word        only if version >= 4  (else treated as 0)
+u32                 -                only if (gate_word & 2)
+float32 × 6         aabb             only if version >= 17  (min xyz, max xyz)
+u32                 format_flag      only if version >= 15  (else reuse the header one)
+u32 + bytes         vertex_buffer    LENGTH IS IN BYTES, not vertices
+u32 + bytes         index_buffer     LENGTH IS IN BYTES; elements are u16
+u8 gate -> u32 + (u32+bytes)          only if version >= 21
+u8 gate -> (u32+bytes)                only if version >= 21
+u32 n -> n × bone-binding record       only if version >= 23
+```
 
-- `0x0900` on `1x1_puppet.mdl` and most `图层 N_puppet.mdl`
-- `0x0f00` on `OBJOBJBone.mdl` and `Spooky Mask.mdl` (more attributes)
-- the high u16 `0x8000` is set on puppet meshes, `0x0000` on plain ones
+After all meshes, **if version >= 13**, a sub-chunk section loop runs: read a
+NUL-terminated tag; an empty tag ends the loop. That trailing empty tag is why
+`MDLV0014`/`0017`/`0023` files end in a single `0x00` while `MDLV0004` files end
+on the last index byte.
 
-**Needs dynamic confirmation:** the per-bit attribute mapping. Based on float
-repetition, a stride of ~36–48 bytes/vertex is typical (pos3 + uv2 + maybe
-normal3 + color4 + 2 bone weights).
+### Version gates (all read off the decoder)
+
+| gate | condition | site |
+|---|---|---|
+| `gate_word` u32 | `version >= 4` | `0x140261979 cmp edi,4` |
+| one extra u32 after it | `gate_word & 2` | `0x140261992 test al,2` |
+| AABB `float[6]` | `version >= 17` | `0x1402619a6 cmp edi,0x11` |
+| per-mesh `format_flag` | `version >= 15` | `0x140261a19 cmp edi,0xf` |
+| mesh trailer (2 gated blobs) | `version >= 21` | decompiled `:327` |
+| v23 bone-binding records | `version >= 23` | decompiled `:345` |
+| sub-chunk section loop | `version >= 13` | decompiled `:694` |
+
+For `version < 15` the engine reloads the **header** `format_flag` at every mesh
+(`0x140261a33 mov [rbp+0xa8], r10d`) — there is no per-mesh read at all.
+
+## Vertex format flag word (offset 0x09, one u32) — ✅ DECODED
+
+**This is a single u32, not two u16s at 0x08.** The engine computes the vertex
+stride with a 26-iteration loop over two parallel `u32[26]` tables in `.rdata`:
+
+```
+stride = 0;
+for (i = 0; i < 26; i++)
+    if (format_flag & mask[i]) stride += size[i];
+```
+
+`mask[26] @ VA 0x140484a20`, `size[26] @ VA 0x1404849b0`, loop at `0x140261b10`.
+Two more arrays sit alongside: attribute names `char*[26] @ 0x140484a90`, and a
+literal `D3D11_INPUT_ELEMENT_DESC[26] @ 0x140482af0` giving each channel's
+`DXGI_FORMAT` and `SemanticIndex`.
+
+| idx | mask | size | attribute | semantic · DXGI_FORMAT |
+|---:|---|---:|---|---|
+| 0 | `0x00000001` | 12 | `a_Position` | POSITION0 · R32G32B32_FLOAT |
+| 1 | `0x00010000` | 16 | `a_PositionVec4` | POSITION0 · R32G32B32A32_FLOAT |
+| 2 | `0x02000000` | 12 | `a_PositionC1` | POSITION1 · R32G32B32_FLOAT |
+| 3 | `0x00000002` | 12 | `a_Normal` | NORMAL0 · R32G32B32_FLOAT |
+| 4 | `0x00000004` | 16 | `a_Tangent4` | TANGENT0 · R32G32B32A32_FLOAT |
+| 5 | `0x00800000` | 16 | `a_BlendIndices` | BLENDINDICES0 · **R32G32B32A32_UINT** |
+| 6 | `0x01000000` | 16 | `a_BlendWeights` | BLENDWEIGHT0 · R32G32B32A32_FLOAT |
+| 7 | `0x00000008` | 8 | `a_TexCoord` | TEXCOORD0 · R32G32_FLOAT |
+| 8 | `0x00000010` | 12 | `a_TexCoordVec3` | TEXCOORD0 · R32G32B32_FLOAT |
+| 9 | `0x00000020` | 16 | `a_TexCoordVec4` | TEXCOORD0 · R32G32B32A32_FLOAT |
+| 10–12 | `0x40`/`0x80`/`0x100` | 8/12/16 | `a_TexCoord*C1` | TEXCOORD1 · float2/3/4 |
+| 13–15 | `0x200`/`0x400`/`0x800` | 8/12/16 | `a_TexCoord*C2` | TEXCOORD2 · float2/3/4 |
+| 16–18 | `0x1000`/`0x2000`/`0x4000` | 8/12/16 | `a_TexCoord*C3` | TEXCOORD3 · float2/3/4 |
+| 19–21 | `0x20000`/`0x40000`/`0x80000` | 8/12/16 | `a_TexCoord*C4` | TEXCOORD4 · float2/3/4 |
+| 22–24 | `0x100000`/`0x200000`/`0x400000` | 8/12/16 | `a_TexCoord*C5` | TEXCOORD5 · float2/3/4 |
+| 25 | `0x00008000` | 16 | `a_Color` | COLOR0 · R32G32B32A32_FLOAT |
+
+Three things this table settles that the old text got wrong:
+
+- **Channel offsets accumulate in table-index order, not bit order.** `a_BlendIndices`
+  (idx 5) precedes `a_TexCoord` (idx 7); `a_Color` (idx 25) is always last.
+- **`0x8000` is `a_Color`, not a puppet gate.** Skinning is `0x00800000 | 0x01000000`,
+  and those are channels *inside the stride* — there is no separate bone block
+  (see below).
+- **Nothing is packed or normalised.** Every channel is 32-bit; `a_Color` is a float4,
+  not `u8[4]`. Only `a_BlendIndices` is integer (uint4).
+- **The top 6 bits (`~0x03FFFFFF`) contribute 0** — the loop runs 26 iterations and
+  never sees them.
+
+Observed in the 28 `.mdl` assets in this repository (45 meshes):
+
+| format_flag | channels | stride | meshes |
+|---|---|---:|---:|
+| `0x09` | pos3 + uv2 | 20 | 19 |
+| `0x0b` | pos3 + normal3 + uv2 | 32 | 10 |
+| `0x0f` | pos3 + normal3 + tangent4 + uv2 | 48 | 10 |
+| `0x27` | pos3 + normal3 + tangent4 + **uv4** | 56 | 6 |
+
+The puppet example this file used to cite (`1x1_puppet.mdl`) reads
+`format_flag = 0x01800009` under the corrected framing = pos3(12) + uv2(8) +
+blendIndices4(16) + blendWeights4(16) = **stride 52**.
 
 ## Geometry data
 
-Vertex data is uncompressed float32 little-endian. Diagnostic evidence:
-`1x1_puppet.mdl` at body offset 0x58 contains the runs
-`00 00 80 3F` (= 1.0f) and `00 00 80 BF` (= −1.0f) alternating — the four
-corners of a unit quad. `OBJOBJBone.mdl` carries coordinates like
-`29 9E 08 42` (= 34.0977f) consistent with model-space positions.
+Both buffers are **length-prefixed blobs whose u32 length is a BYTE COUNT**, read by
+the same primitive (`0x14009c5c0`: read u32, hand back a pointer, skip that many
+bytes). Vertex count is therefore `vertex_blob_len / stride`, not a stored field.
 
-Index data follows the vertex buffer; indices reference the vertex array. Index
-width is most likely u16 for these small meshes (no sample is large enough to
-require u32), but **needs dynamic confirmation.**
+Vertex data is uncompressed little-endian float32 (plus uint32 for
+`a_BlendIndices`).
+
+**Index width is u16** — ✅ settled, no dynamic analysis needed. Across the 28
+`.mdl` assets / 45 meshes every `index_blob_len % 6 == 0` (u16 triangles), and
+**5 meshes have `index_blob_len % 12 != 0`**, which makes 32-bit indices
+impossible for them (`camera.mdl` 3342, `pistols.mdl` 8082, `body.mdl` 12630,
+`ricepod.mdl` 3450 and 49998). The smallest case is explicit:
+`audiophile/models/audiophile/glow.mdl` has 4 vertices and a 12-byte index blob
+reading `00 00 01 00 02 00 | 00 00 02 00 03 00` = `0,1,2, 0,2,3`.
 
 ## Bone / puppet data
 
-When `vertex_format_hi & 0x8000` is set (puppet meshes), a trailing block
-describes bones and per-vertex bone weights. This block was not fully
-reverse-engineered from static analysis — its layout varies between the
-`图层 N_puppet` family. **Needs dynamic confirmation** by dumping the
-`CPuppet`/`CBone` structures from the engine.
+~~When `vertex_format_hi & 0x8000` is set (puppet meshes), a trailing block
+describes bones and per-vertex bone weights.~~ **CORRECTED (2026-08-27).** There is
+no such trailing block. Per-vertex bone data lives **inside the vertex stride** as
+two ordinary channels, `a_BlendIndices` (`0x00800000`, uint4) and `a_BlendWeights`
+(`0x01000000`, float4).
+
+The *skeleton* is a separate sub-chunk, `MDLS000N`, in the section loop that runs
+after all meshes (version >= 13). The decoder matches it on the **4-character
+prefix only** (`strncmp(tag, "MDLS0004", 4)`) and takes the version from
+`atoi(tag+4)`, so `MDLS0002`/`0003`/`0004` are all accepted. Bone count is read as
+a u32 and has a **hard cap of 128** — exceeding it does not fail the load, it calls
+`__fastfail` and kills the process (`0x1402624f9`, `cmp eax, 0x80` / `int 0x29`).
+
+Sub-chunk tag matching is not uniform, and a reimplementation has to copy it:
+
+| tag | comparison | version |
+|---|---|---|
+| `MDLS0004` | 4-char prefix | `atoi(tag+4)` |
+| `MDLA0006` | 4-char prefix | `atoi(tag+4)` |
+| `MDAT0001` | full 8 bytes | — |
+| `MDMP0001` | full 8 bytes | — |
+| `MDLE0002` | full string equality | — |
+| anything else | — | skipped by its length word |
+
+**[UNRESOLVED]** The length word of a sub-chunk is written by `0x140261770` as
+`section_end = blob_base + value` — i.e. an **absolute end offset from the start of
+the blob**, not a relative length. No `.mdl` in this repository has a non-empty
+sub-chunk, so that reading has not been confirmed against real bytes. The interior
+layout of `MDLS`/`MDLA`/`MDAT`/`MDMP`/`MDLE` records is likewise unconfirmed.
 
 ## What this is NOT
 
@@ -101,29 +213,46 @@ reverse-engineered from static analysis — its layout varies between the
 
 ## Canonical byte-layout example
 
-`models/1x1_puppet.mdl`, MDLV0023, first 0x60 bytes:
+`audiophile/models/audiophile/glow.mdl` (MDLV0004, 156 bytes) — small enough to
+account for every byte in the file.
 
 ```
-00: 4D 44 4C 56 30 30 32 33   "MDLV0023"
-08: 00 09 00 80               vertex_format = {lo:0x0900, hi:0x8000}  (puppet)
-0C: 01 01 00 00               count_A = 0x101
-10: 00 01 00 00               count_B = 0x100
-14: 00                        null
-15: 6D 61 74 65 72 69 61 6C 73 2F 31 78 31 2E 6A 73 6F 6E 00
-                             "materials/1x1.json\0"
-28: ...zeros / padding...
-44: 0F 00 80 01               sub-record header (vertex format repeat + flags)
-48: B0 04 00 00               u32 = 0x4B0 = 1200 (vertex buffer byte size?)
-4C: 00 00 D0 C1               float −26.0   (bbox min x)
-50: 00 00 90 41               float +18.0   (bbox ...)
-...vertex float stream follows, with 0x0000803F (1.0) at quad corners...
+00: 4D 44 4C 56 30 30 30 34 00   "MDLV0004\0"    version = 4
+09: 09 00 00 00                  format_flag = 0x09 -> pos3 + uv2, stride 20
+0D: 01 00 00 00                  skin_count = 1
+11: 01 00 00 00                  mesh_count = 1
+15: "materials/audiophile/glow.json\0"           material_ref (one, = skin_count)
+34: 00 00 00 00                  gate_word = 0    (version >= 4)
+                                 (no AABB: version < 17; no per-mesh flag: version < 15)
+38: 50 00 00 00                  vertex_buffer length = 0x50 = 80 bytes = 4 x 20
+3C: .. 80 bytes ..               4 vertices: pos(x,y,z) + uv(u,v)
+                                   (-3.2851,-3.2851,-0.5549) (0,1)
+                                   ( 3.2851,-3.2851,-0.5549) (1,1)
+                                   ( 3.2851, 3.2851,-0.5549) (1,0)
+                                   (-3.2851, 3.2851,-0.5549) (0,0)
+8C: 0C 00 00 00                  index_buffer length = 12 bytes
+90: 00 00 01 00 02 00            u16 indices 0,1,2
+    00 00 02 00 03 00            u16 indices 0,2,3
+9C: <EOF>                        version < 13 -> no section loop, no trailing NUL
 ```
 
-## Open questions for dynamic confirmation
+## Open questions
 
-1. **Vertex attribute mask bit decoding** (`vertex_format_lo` 0x0900 vs 0x0f00).
-2. **Index buffer width** (u16 vs u32) and whether `0x4B0` is a byte size or a
-   vertex count.
-3. **Puppet/bone block layout** (the `vertex_format_hi & 0x8000` case).
-4. **Meaning of count_A/count_B** at 0x0C/0x10 (bone count + weight-count?).
-5. **Version differences** (MDLV0016/0017/0019/0021 vs 0023 headers).
+1. ~~Vertex attribute mask bit decoding.~~ ✅ **RESOLVED 2026-08-27** — see the table above.
+2. ~~Index buffer width (u16 vs u32), and whether the length word is a byte size.~~
+   ✅ **RESOLVED** — u16, and both length words are byte counts.
+3. ~~Puppet/bone block layout.~~ ✅ **RESOLVED for the per-vertex part** (two vertex
+   channels, not a block). **[UNRESOLVED]** the `MDLS` skeleton record interior.
+4. ~~Meaning of count_A/count_B at 0x0C/0x10.~~ ✅ **RESOLVED** — the off-by-one made
+   these look like two odd counters; they are `skin_count` (materials per mesh) at
+   `0x0D` and `mesh_count` at `0x11`.
+5. **Version differences** — the gate table above covers 4/14/17/23 against real bytes.
+   `MDLV0016`/`0019`/`0021` are covered by the same gates but **no sample of those
+   versions exists in this repository**, so they are inferred from the gates, not
+   measured. (Waple's `Model3DFormat.swift` reports having byte-checked them against
+   a wider workshop corpus.)
+6. **[UNRESOLVED]** Sub-chunk length semantics and record interiors (see above).
+7. **[UNRESOLVED]** The v23 bone-binding record body: the framing
+   `{u64; cstr; u32; u32 k -> k×u32; u32 m -> m×u32}` makes all 28 files land exactly
+   on EOF, but the record count is 0 in every one of them, so the body has never
+   actually been exercised.
