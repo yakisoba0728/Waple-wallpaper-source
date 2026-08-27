@@ -4,7 +4,7 @@
 
 
 /* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
-/* WARNING: Enum "SectionFlags": Some values do not have unique names */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 ulonglong FUN_1402ed040(uint param_1,longlong param_2,int *param_3,undefined8 param_4,short param_5,
                        undefined8 param_6,undefined8 param_7,undefined8 param_8,ulonglong param_9,
@@ -15,114 +15,113 @@ ulonglong FUN_1402ed040(uint param_1,longlong param_2,int *param_3,undefined8 pa
   code *pcVar2;
   undefined8 uVar3;
   undefined8 uVar4;
-  undefined8 uVar5;
-  longlong lVar6;
+  longlong lVar5;
   UINT fuLoad;
+  bool bVar6;
   bool bVar7;
   bool bVar8;
-  bool bVar9;
   HWND hWnd;
-  int iVar10;
-  IMAGE_DATA_DIRECTORY IVar11;
-  char cVar12;
-  byte bVar13;
-  LSTATUS LVar14;
-  int iVar15;
-  DWORD DVar16;
-  HICON pHVar17;
-  longlong lVar18;
-  IMAGE_DATA_DIRECTORY IVar19;
-  IMAGE_DATA_DIRECTORY hmenu;
-  longlong lVar20;
-  undefined4 *puVar21;
-  undefined8 *puVar22;
+  int iVar9;
+  RECT *pRVar10;
+  char cVar11;
+  byte bVar12;
+  LSTATUS LVar13;
+  int iVar14;
+  DWORD DVar15;
+  HICON pHVar16;
+  longlong lVar17;
+  RECT *pRVar18;
+  RECT *hmenu;
+  longlong lVar19;
+  undefined4 *puVar20;
+  undefined8 *puVar21;
   HMODULE hModule;
-  FARPROC pFVar23;
-  uint uVar24;
-  IMAGE_SECTION_HEADER *pIVar25;
-  IMAGE_DATA_DIRECTORY IVar26;
-  IMAGE_DATA_DIRECTORY IVar27;
-  char acVar28 [8];
-  byte bVar29;
-  ulonglong uVar30;
-  uint uVar31;
+  FARPROC pFVar22;
+  uint uVar23;
+  RECT *pRVar24;
+  RECT *pRVar25;
+  undefined *puVar26;
+  byte bVar27;
+  ulonglong uVar28;
+  uint uVar29;
   HKEY unaff_RSI;
-  ulonglong uVar32;
-  char *pcVar33;
+  ulonglong uVar30;
+  char *pcVar31;
+  IMAGE_DATA_DIRECTORY IVar32;
+  byte *pbVar33;
   byte *pbVar34;
-  byte *pbVar35;
-  IMAGE_DATA_DIRECTORY unaff_R12;
-  IMAGE_DATA_DIRECTORY unaff_R13;
-  undefined8 uVar36;
+  HMENU unaff_R12;
+  RECT *unaff_R13;
+  undefined8 uVar35;
   
-  iVar15 = *param_3;
-  uVar32 = (ulonglong)iVar15;
-  pbVar34 = (byte *)((ulonglong)*(uint *)(*(longlong *)(param_2 + 0x10) + 8) +
+  iVar14 = *param_3;
+  uVar30 = (ulonglong)iVar14;
+  pbVar33 = (byte *)((ulonglong)*(uint *)(*(longlong *)(param_2 + 0x10) + 8) +
                     *(longlong *)(param_2 + 8));
-  bVar1 = pbVar34[3];
-  if (2 < (*pbVar34 & 7)) {
+  bVar1 = pbVar33[3];
+  if (2 < (*pbVar33 & 7)) {
     if ((bVar1 & 0x1f) != 0) {
-      uVar31 = 0;
-      pbVar34 = pbVar34 + (ulonglong)(bVar1 & 0x1f) + 4;
-      pbVar35 = pbVar34;
-      uVar24 = uVar31;
+      uVar29 = 0;
+      pbVar33 = pbVar33 + (ulonglong)(bVar1 & 0x1f) + 4;
+      pbVar34 = pbVar33;
+      uVar23 = uVar29;
       if (bVar1 >> 5 != 0) {
         do {
-          pbVar34 = pbVar35 + 3;
-          if (*pbVar35 >> 3 != 0) {
-            pbVar34 = pbVar35 + (ulonglong)(uint)(*pbVar35 >> 3) + 6;
+          pbVar33 = pbVar34 + 3;
+          if (*pbVar34 >> 3 != 0) {
+            pbVar33 = pbVar34 + (ulonglong)(uint)(*pbVar34 >> 3) + 6;
           }
-          uVar24 = uVar24 + 1;
-          pbVar35 = pbVar34;
-        } while (uVar24 < bVar1 >> 5);
+          uVar23 = uVar23 + 1;
+          pbVar34 = pbVar33;
+        } while (uVar23 < bVar1 >> 5);
       }
       if ((bVar1 & 0x1f) != 0) {
         do {
-          bVar13 = *pbVar34;
-          bVar29 = bVar13;
-          if (((bVar13 < 4) || (bVar29 = bVar13 & 0xf, (byte)(bVar29 - 8) < 3)) ||
-             (bVar29 = bVar13 & 7, (byte)(bVar29 - 4) < 4)) {
-            if (bVar29 == 0) break;
-            if (3 < bVar13) {
-              bVar29 = bVar13 & 0xf;
-              if ((2 < (byte)((bVar13 & 0xf) - 8)) &&
-                 (bVar29 = bVar13 & 7, 3 < (byte)((bVar13 & 7) - 4))) goto LAB_1402ed148;
-              bVar13 = bVar29;
-              if (0x20 < bVar13) goto switchD_1402ed16c_caseD_4;
+          bVar12 = *pbVar33;
+          bVar27 = bVar12;
+          if (((bVar12 < 4) || (bVar27 = bVar12 & 0xf, (byte)(bVar27 - 8) < 3)) ||
+             (bVar27 = bVar12 & 7, (byte)(bVar27 - 4) < 4)) {
+            if (bVar27 == 0) break;
+            if (3 < bVar12) {
+              bVar27 = bVar12 & 0xf;
+              if ((2 < (byte)((bVar12 & 0xf) - 8)) &&
+                 (bVar27 = bVar12 & 7, 3 < (byte)((bVar12 & 7) - 4))) goto LAB_1402ed148;
+              bVar12 = bVar27;
+              if (0x20 < bVar12) goto switchD_1402ed16c_caseD_4;
             }
           }
           else {
 LAB_1402ed148:
-            if ((bVar13 & 0x3f) != 0x20) goto switchD_1402ed16c_caseD_4;
-            bVar13 = 0x20;
+            if ((bVar12 & 0x3f) != 0x20) goto switchD_1402ed16c_caseD_4;
+            bVar12 = 0x20;
           }
                     /* WARNING (jumptable): Sanity check requires truncation of jumptable */
                     /* WARNING: Could not find normalized switch variable to match jumptable */
-          switch(*(undefined1 *)((longlong)&UINT_1402ed1e4 + (ulonglong)bVar13)) {
+          switch(*(undefined1 *)((longlong)&UINT_1402ed1e4 + (ulonglong)bVar12)) {
           case 0:
-            lVar18 = 2;
+            lVar17 = 2;
             break;
           case 1:
-            lVar18 = 5;
+            lVar17 = 5;
             break;
           case 2:
-            lVar18 = 3;
+            lVar17 = 3;
             break;
           case 3:
-            lVar18 = 1;
+            lVar17 = 1;
             break;
           case 4:
 switchD_1402ed16c_caseD_4:
             FUN_1402ed010();
             pcVar2 = (code *)swi(3);
-            uVar32 = (*pcVar2)();
-            return uVar32;
+            uVar30 = (*pcVar2)();
+            return uVar30;
           case 5:
-            pcVar33 = "core_tray_pause";
+            pcVar31 = "core_tray_pause";
             if ((param_1 & 1) != 0) {
-              pcVar33 = (char *)0x40474b40;
+              pcVar31 = (char *)0x40474b40;
             }
-            FUN_140097640(&DAT_1404e6d80,&IMAGE_SECTION_HEADER_140000218,pcVar33);
+            FUN_140097640(&DAT_1404e6d80,&UNK_140000218,pcVar31);
             FUN_140097640(&DAT_1404e6d80,0x140000068);
             UNK_140000080._64_8_ = 0;
             UNK_140000080._72_8_ = 0;
@@ -132,50 +131,47 @@ switchD_1402ed16c_caseD_4:
             UNK_140000080._104_8_ = 0;
             UNK_140000080._112_8_ = 0;
             UNK_140000080._120_8_ = 0;
-            IRam000000013fffff98.VirtualAddress = 0;
-            IRam000000013fffff98.Size = 0;
-            IRam000000013fffffa0.VirtualAddress = 0;
-            IRam000000013fffffa0.Size = 0;
+            pRRam000000013fffff98 = (RECT *)0x0;
+            pRRam000000013fffffa0 = (RECT *)0x0;
             UNK_140000080._48_4_ = 0x50;
             UNK_140000080._52_4_ = 0xc0;
-            IRam000000013fffffa8 = unaff_R13;
+            pRRam000000013fffffa8 = unaff_R13;
             UNK_140000080._56_8_ = unaff_R13;
-            cVar12 = FUN_140015180(10,0);
-            if ((cVar12 == '\0') ||
-               (LVar14 = RegOpenKeyExW((HKEY)0xffffffff80000001,
+            cVar11 = FUN_140015180(10,0);
+            if ((cVar11 == '\0') ||
+               (LVar13 = RegOpenKeyExW((HKEY)0xffffffff80000001,
                                        L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
-                                       ,0,0xf003f,(PHKEY)&stack0x00000018), LVar14 != 0)) {
+                                       ,0,0xf003f,(PHKEY)&stack0x00000018), LVar13 != 0)) {
 LAB_140020244:
-              uVar36 = 0xcc;
+              uVar35 = 0xcc;
             }
             else {
               iRam00000001400006b8 = 4;
-              LVar14 = RegQueryValueExW(unaff_RSI,L"SystemUsesLightTheme",(LPDWORD)0x0,(LPDWORD)0x0,
+              LVar13 = RegQueryValueExW(unaff_RSI,L"SystemUsesLightTheme",(LPDWORD)0x0,(LPDWORD)0x0,
                                         &UNK_140000080.field_0x28,(LPDWORD)&iRam00000001400006b8);
-              if ((LVar14 != 0) || (UNK_140000080._40_4_ == iVar15)) {
+              if ((LVar13 != 0) || (UNK_140000080._40_4_ == iVar14)) {
                 RegCloseKey(unaff_RSI);
                 goto LAB_140020244;
               }
-              uVar36 = 0x33;
+              uVar35 = 0x33;
               RegCloseKey(unaff_RSI);
             }
-            fuLoad = unaff_R13.VirtualAddress;
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)((ulonglong)((byte)param_1 & 1) | 0x96),1,
+            fuLoad = (UINT)unaff_R13;
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)((ulonglong)((byte)param_1 & 1) | 0x96),1,
                                  0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            pIVar25 = &IMAGE_SECTION_HEADER_140000218;
-            if (7 < (ulonglong)IMAGE_SECTION_HEADER_140000218._24_8_) {
-              pIVar25 = (IMAGE_SECTION_HEADER *)IMAGE_SECTION_HEADER_140000218.Name;
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            UNK_140000080._104_8_ = &UNK_140000218;
+            if (7 < _UNK_140000230) {
+              UNK_140000080._104_8_ = _UNK_140000218;
             }
-            UNK_140000080._104_8_ = pIVar25;
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c56,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            pHVar17 = LoadImageW(DAT_1404e8b80,
+            SetMenuItemInfoW(unaff_R12,0x9c56,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            pHVar16 = LoadImageW(DAT_1404e8b80,
                                  (LPCWSTR)((ulonglong)((byte)(param_1 >> 6) & 1) | 0x9a),1,0x10,0x10
                                  ,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
             uVar3._2_1_ = IMAGE_DOS_HEADER_140000000.e_program[0x2a];
             uVar3._3_1_ = IMAGE_DOS_HEADER_140000000.e_program[0x2b];
             uVar3._4_1_ = IMAGE_DOS_HEADER_140000000.e_program[0x2c];
@@ -188,90 +184,85 @@ LAB_140020244:
             if (7 < (ulonglong)UNK_140000080._0_8_) {
               UNK_140000080._104_8_ = uVar3;
             }
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c5f,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
+            SetMenuItemInfoW(unaff_R12,0x9c5f,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
             UNK_140000080._52_4_ = 0x80;
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x98,1,0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c4d,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x99,1,0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c5c,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x9c,1,0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c59,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x9d,1,0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c61,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x9f,1,0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c4a,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x9e,1,0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c52,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0xa0,1,0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c5b,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            pHVar17 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0xa1,1,0x10,0x10,fuLoad);
-            UNK_140000080._120_8_ = FUN_14001cb20(pHVar17,uVar36);
-            FUN_1400302d0(&IRam000000013fffff98,0x1400000f8);
-            SetMenuItemInfoW((HMENU)unaff_R12,0x9c53,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
-            DestroyIcon(pHVar17);
-            FUN_140084dd0(0x140000238,0);
-            FUN_140084dd0(0x140000170,0);
-            IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[8].VirtualAddress =
-                 CONCAT31(IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[8].
-                          VirtualAddress._1_3_,(char)iVar15);
-            uVar24 = IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[8].VirtualAddress &
-                     0xfffffeff;
-            IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[9].VirtualAddress = 0;
-            IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[9].Size = 0;
-            IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[10].VirtualAddress = 0;
-            IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[10].Size = 0;
-            IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[8].VirtualAddress = uVar24;
-            IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xb] = unaff_R13;
-            uVar36 = FUN_140086de0(&DAT_1404df5e8,"general","");
-            lVar18 = FUN_140087490(uVar36,"wallpaperconfigrecent","");
-            if (lVar18 != 0) {
-              uVar36 = FUN_140086de0(uVar36,"wallpaperconfigrecent","");
-              FUN_140085520(0x140000238,uVar36);
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x98,1,0x10,0x10,fuLoad);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            SetMenuItemInfoW(unaff_R12,0x9c4d,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x99,1,0x10,0x10,fuLoad);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            SetMenuItemInfoW(unaff_R12,0x9c5c,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x9c,1,0x10,0x10,fuLoad);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            SetMenuItemInfoW(unaff_R12,0x9c59,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x9d,1,0x10,0x10,fuLoad);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            SetMenuItemInfoW(unaff_R12,0x9c61,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x9f,1,0x10,0x10,fuLoad);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            SetMenuItemInfoW(unaff_R12,0x9c4a,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0x9e,1,0x10,0x10,fuLoad);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            SetMenuItemInfoW(unaff_R12,0x9c52,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0xa0,1,0x10,0x10,fuLoad);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            SetMenuItemInfoW(unaff_R12,0x9c5b,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            pHVar16 = LoadImageW(DAT_1404e8b80,(LPCWSTR)0xa1,1,0x10,0x10,fuLoad);
+            UNK_140000080._120_8_ = FUN_14001cb20(pHVar16,uVar35);
+            FUN_1400302d0(&pRRam000000013fffff98,0x1400000f8);
+            SetMenuItemInfoW(unaff_R12,0x9c53,0,(LPCMENUITEMINFOW)&UNK_140000080.field_0x30);
+            DestroyIcon(pHVar16);
+            FUN_140084dd0(&UNK_140000238,0);
+            FUN_140084dd0(&UNK_140000170,0);
+            _UNK_1400001d8 = CONCAT31(_UNK_1400001d9,(char)iVar14);
+            uVar23 = _UNK_1400001d8 & 0xfffffeff;
+            _UNK_1400001e0 = 0;
+            _UNK_1400001e8 = 0;
+            _UNK_1400001d8 = uVar23;
+            _UNK_1400001f0 = unaff_R13;
+            uVar35 = FUN_140086de0(&DAT_1404df5e8,"general","");
+            lVar17 = FUN_140087490(uVar35,"wallpaperconfigrecent","");
+            if (lVar17 != 0) {
+              uVar35 = FUN_140086de0(uVar35,"wallpaperconfigrecent","");
+              FUN_140085520(&UNK_140000238,uVar35);
             }
-            uVar36 = FUN_140086de0(&DAT_1404df5e8,"general","");
-            lVar18 = FUN_140087490(uVar36,"playlists","");
-            if (lVar18 != 0) {
-              uVar36 = FUN_140086de0(uVar36,"playlists","");
-              FUN_140085520(0x140000170,uVar36);
+            uVar35 = FUN_140086de0(&DAT_1404df5e8,"general","");
+            lVar17 = FUN_140087490(uVar35,"playlists","");
+            if (lVar17 != 0) {
+              uVar35 = FUN_140086de0(uVar35,"playlists","");
+              FUN_140085520(&UNK_140000170,uVar35);
             }
-            uVar36 = FUN_140086de0(&DAT_1404df5e8,"general","");
-            lVar18 = FUN_140087490(uVar36,"profiles","");
-            if (lVar18 != 0) {
-              uVar36 = FUN_140086de0(uVar36,"profiles","");
-              FUN_140085520(0x1400001d0,uVar36);
-              uVar24 = IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[8].VirtualAddress;
+            uVar35 = FUN_140086de0(&DAT_1404df5e8,"general","");
+            lVar17 = FUN_140087490(uVar35,"profiles","");
+            if (lVar17 != 0) {
+              uVar35 = FUN_140086de0(uVar35,"profiles","");
+              FUN_140085520(&UNK_1400001d0,uVar35);
+              uVar23 = _UNK_1400001d8;
             }
-            if (((char)uVar24 != '\x06') || (iVar15 = FUN_1400863a0(), iVar15 == 0))
+            if (((char)uVar23 != '\x06') || (iVar14 = FUN_1400863a0(), iVar14 == 0))
             goto LAB_140020ad5;
-            IVar19 = (IMAGE_DATA_DIRECTORY)CreatePopupMenu();
-            uVar24 = uVar24 & 0xff;
-            uVar30 = (ulonglong)unaff_R13 & 0xffffffff;
+            pRVar18 = (RECT *)CreatePopupMenu();
+            uVar23 = uVar23 & 0xff;
+            uVar28 = (ulonglong)unaff_R13 & 0xffffffff;
             uRam000000013fffffd8 = 0;
             uRam000000013fffffd0 = 0x50;
             uRam000000013fffffe0 = 0;
-            IRam000000013fffffe8 = (IMAGE_DATA_DIRECTORY)0x0;
+            pRRam000000013fffffe8 = (RECT *)0x0;
             uRam000000013ffffff0 = 0;
             uRam000000013ffffff8 = 0;
             IMAGE_DOS_HEADER_140000000.e_magic[0] = '\0';
@@ -291,80 +282,74 @@ LAB_140020244:
             IMAGE_DOS_HEADER_140000000.e_ovno = 0;
             IMAGE_DOS_HEADER_140000000.e_res_4_[0] = 0;
             IMAGE_DOS_HEADER_140000000.e_res_4_[1] = 0;
-            if (((uVar24 == 6) || (uVar24 == 7)) &&
-               (IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[7] !=
-                (IMAGE_DATA_DIRECTORY)0x0)) {
-              bVar9 = false;
-              IVar27 = **(IMAGE_DATA_DIRECTORY **)
-                         IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[7];
-            }
-            else {
-              bVar9 = true;
-              IVar27 = unaff_R13;
-            }
-            if (((uVar24 == 6) || (uVar24 == 7)) &&
-               (IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[7] !=
-                (IMAGE_DATA_DIRECTORY)0x0)) {
+            if (((uVar23 == 6) || (uVar23 == 7)) && (_UNK_1400001d0 != (undefined8 *)0x0)) {
               bVar8 = false;
-              hmenu = *(IMAGE_DATA_DIRECTORY *)
-                       IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[7];
+              pRVar25 = *(RECT **)*_UNK_1400001d0;
             }
             else {
               bVar8 = true;
+              pRVar25 = unaff_R13;
+            }
+            if (((uVar23 == 6) || (uVar23 == 7)) && (_UNK_1400001d0 != (undefined8 *)0x0)) {
+              bVar7 = false;
+              hmenu = (RECT *)*_UNK_1400001d0;
+            }
+            else {
+              bVar7 = true;
               hmenu = unaff_R13;
             }
             goto LAB_140020906;
           }
-          pbVar34 = pbVar34 + lVar18;
-          uVar31 = uVar31 + 1;
-        } while (uVar31 < (bVar1 & 0x1f));
+          pbVar33 = pbVar33 + lVar17;
+          uVar29 = uVar29 + 1;
+        } while (uVar29 < (bVar1 & 0x1f));
       }
     }
   }
-  return uVar32 & 0xfffffffffffffff8;
+  return uVar30 & 0xfffffffffffffff8;
 LAB_140020906:
-  bVar7 = bVar8;
-  if (!bVar9) {
-    bVar7 = IVar27 == hmenu;
+  bVar6 = bVar7;
+  if (!bVar8) {
+    bVar6 = pRVar25 == hmenu;
   }
-  if (bVar7) goto LAB_140020a42;
-  FUN_140085090(0x140000140,(longlong)IVar27 + 0x30);
-  lVar18 = FUN_140086de0(0x140000140,&DAT_1404748b8,&DAT_1404748bc);
-  if (*(char *)(lVar18 + 8) == '\x04') {
-    uVar32 = (ulonglong)((uint)uVar32 | 1);
-    FUN_140085cc0(lVar18,0x140000120);
+  if (bVar6) goto LAB_140020a42;
+  FUN_140085090(&UNK_140000140,pRVar25 + 3);
+  lVar17 = FUN_140086de0(&UNK_140000140,&DAT_1404748b8,&DAT_1404748bc);
+  if (*(char *)(lVar17 + 8) == '\x04') {
+    uVar30 = (ulonglong)((uint)uVar30 | 1);
+    FUN_140085cc0(lVar17,&UNK_140000120);
     FUN_140005880(&param_10);
   }
   else {
     param_10 = (undefined8 *)0x0;
     param_11 = 0;
-    IRam000000013fffff88 = unaff_R13;
-    IRam000000013fffff90 = unaff_R13;
+    pRRam000000013fffff88 = unaff_R13;
+    pRRam000000013fffff90 = unaff_R13;
     FUN_140016170(&param_10,&DAT_140474bc4,2);
   }
-  if ((uVar32 & 1) != 0) {
-    uVar32 = (ulonglong)((uint)uVar32 & 0xfffffffe);
-    FUN_140017240(0x140000120);
+  if ((uVar30 & 1) != 0) {
+    uVar30 = (ulonglong)((uint)uVar30 & 0xfffffffe);
+    FUN_140017240(&UNK_140000120);
   }
   uRam000000013fffffd0 = CONCAT44(0x42,(undefined4)uRam000000013fffffd0);
   IMAGE_DOS_HEADER_140000000._8_8_ = &param_10;
-  if (7 < (ulonglong)IRam000000013fffff90) {
+  if ((RECT *)0x7 < pRRam000000013fffff90) {
     IMAGE_DOS_HEADER_140000000._8_8_ = param_10;
   }
-  uRam000000013fffffe0 = CONCAT44(uRam000000013fffffe0._4_4_,(int)uVar30 + 0x8cae);
-  InsertMenuItemW((HMENU)IVar19,0,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
-  uVar24 = (int)uVar30 + 1;
-  uVar30 = (ulonglong)uVar24;
-  if (0x3e6 < (int)uVar24) goto LAB_140020a2c;
-  if (7 < (ulonglong)IRam000000013fffff90) {
+  uRam000000013fffffe0 = CONCAT44(uRam000000013fffffe0._4_4_,(int)uVar28 + 0x8cae);
+  InsertMenuItemW((HMENU)pRVar18,0,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
+  uVar23 = (int)uVar28 + 1;
+  uVar28 = (ulonglong)uVar23;
+  if (0x3e6 < (int)uVar23) goto LAB_140020a2c;
+  if ((RECT *)0x7 < pRRam000000013fffff90) {
     FUN_140016a90(&param_10,param_10);
   }
-  FUN_140085440(0x140000140);
+  FUN_140085440(&UNK_140000140);
   FUN_1400175a0(&stack0x00000018);
   goto LAB_140020906;
 LAB_140020a2c:
   FUN_140016770(&param_10);
-  FUN_140085440(0x140000140);
+  FUN_140085440(&UNK_140000140);
 LAB_140020a42:
   FUN_140097640(&DAT_1404e6d80,&param_6,"core_tray_saved_profiles");
   uRam000000013fffffd0 = CONCAT44(0x46,(undefined4)uRam000000013fffffd0);
@@ -372,33 +357,30 @@ LAB_140020a42:
   if (7 < param_9) {
     IMAGE_DOS_HEADER_140000000._8_8_ = (undefined8 *)CONCAT62(param_6._2_6_,(undefined2)param_6);
   }
-  IRam000000013fffffe8 = IVar19;
-  InsertMenuItemW((HMENU)unaff_R12,1,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
+  pRRam000000013fffffe8 = pRVar18;
+  InsertMenuItemW(unaff_R12,1,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
   if (7 < param_9) {
-    lVar20 = CONCAT62(param_6._2_6_,(undefined2)param_6);
-    uVar30 = param_9 * 2 + 2;
-    lVar18 = lVar20;
-    if (0xfff < uVar30) {
-      lVar18 = *(longlong *)(lVar20 + -8);
-      if (0x1f < (lVar20 - lVar18) - 8U) goto LAB_1400219e4;
-      uVar30 = param_9 * 2 + 0x29;
+    lVar19 = CONCAT62(param_6._2_6_,(undefined2)param_6);
+    uVar28 = param_9 * 2 + 2;
+    lVar17 = lVar19;
+    if (0xfff < uVar28) {
+      lVar17 = *(longlong *)(lVar19 + -8);
+      if (0x1f < (lVar19 - lVar17) - 8U) goto LAB_1400219e4;
+      uVar28 = param_9 * 2 + 0x29;
     }
-    thunk_FUN_14028af80(lVar18,uVar30);
+    thunk_FUN_14028af80(lVar17,uVar28);
   }
 LAB_140020ad5:
-  uVar24 = (uint)IMAGE_NT_HEADERS64_140000110.OptionalHeader.SizeOfStackCommit;
-  hmenu.Size = 0;
-  hmenu.VirtualAddress = (uint)IMAGE_NT_HEADERS64_140000110.OptionalHeader.SizeOfStackCommit;
-  if (((char)(uint)IMAGE_NT_HEADERS64_140000110.OptionalHeader.SizeOfStackCommit == '\x06') &&
-     (iVar15 = FUN_1400863a0(0x140000170), iVar15 != 0)) {
-    IVar19 = (IMAGE_DATA_DIRECTORY)CreatePopupMenu();
-    uVar24 = uVar24 & 0xff;
-    iVar15 = 0;
+  uVar23 = _UNK_140000178;
+  hmenu = (RECT *)(ulonglong)_UNK_140000178;
+  if (((char)_UNK_140000178 == '\x06') && (iVar14 = FUN_1400863a0(&UNK_140000170), iVar14 != 0)) {
+    pRVar18 = (RECT *)CreatePopupMenu();
+    uVar23 = uVar23 & 0xff;
+    iVar14 = 0;
     uRam000000013fffffd8 = 0;
     uRam000000013fffffd0 = 0x50;
     uRam000000013fffffe0 = 0;
-    IRam000000013fffffe8.VirtualAddress = 0;
-    IRam000000013fffffe8.Size = 0;
+    pRRam000000013fffffe8 = (RECT *)0x0;
     uRam000000013ffffff0 = 0;
     uRam000000013ffffff8 = 0;
     IMAGE_DOS_HEADER_140000000.e_magic[0] = '\0';
@@ -418,157 +400,140 @@ LAB_140020ad5:
     IMAGE_DOS_HEADER_140000000.e_ovno = 0;
     IMAGE_DOS_HEADER_140000000.e_res_4_[0] = 0;
     IMAGE_DOS_HEADER_140000000.e_res_4_[1] = 0;
-    if (((uVar24 == 6) || (uVar24 == 7)) &&
-       (IMAGE_NT_HEADERS64_140000110.OptionalHeader.SizeOfStackReserve != 0)) {
-      bVar9 = false;
-      hmenu = **(IMAGE_DATA_DIRECTORY **)
-                IMAGE_NT_HEADERS64_140000110.OptionalHeader.SizeOfStackReserve;
-    }
-    else {
-      hmenu.VirtualAddress = 0;
-      hmenu.Size = 0;
-      bVar9 = true;
-    }
-    if (((uVar24 == 6) || (uVar24 == 7)) &&
-       (IMAGE_NT_HEADERS64_140000110.OptionalHeader.SizeOfStackReserve != 0)) {
-      IVar27 = *(IMAGE_DATA_DIRECTORY *)
-                IMAGE_NT_HEADERS64_140000110.OptionalHeader.SizeOfStackReserve;
+    if (((uVar23 == 6) || (uVar23 == 7)) && (_UNK_140000170 != (undefined8 *)0x0)) {
       bVar8 = false;
-      iVar15 = 0;
+      hmenu = *(RECT **)*_UNK_140000170;
     }
     else {
-      IVar27.VirtualAddress = 0;
-      IVar27.Size = 0;
+      hmenu = (RECT *)0x0;
       bVar8 = true;
     }
+    if (((uVar23 == 6) || (uVar23 == 7)) && (_UNK_140000170 != (undefined8 *)0x0)) {
+      pRVar25 = (RECT *)*_UNK_140000170;
+      bVar7 = false;
+      iVar14 = 0;
+    }
+    else {
+      pRVar25 = (RECT *)0x0;
+      bVar7 = true;
+    }
     while( true ) {
-      bVar7 = bVar8;
-      if (!bVar9) {
-        bVar7 = hmenu == IVar27;
+      bVar6 = bVar7;
+      if (!bVar8) {
+        bVar6 = hmenu == pRVar25;
       }
-      if (bVar7) goto LAB_140020d94;
-      FUN_140085090(0x140000140,(longlong)hmenu + 0x30);
-      lVar18 = FUN_140086de0(0x140000140,&DAT_1404748b8,&DAT_1404748bc);
-      if (*(char *)(lVar18 + 8) == '\x04') {
-        uVar32 = (ulonglong)((uint)uVar32 | 2);
-        FUN_140085cc0(lVar18,0x1400001f8);
-        FUN_140005880(&IRam000000013fffffb0);
+      if (bVar6) goto LAB_140020d94;
+      FUN_140085090(&UNK_140000140,hmenu + 3);
+      lVar17 = FUN_140086de0(&UNK_140000140,&DAT_1404748b8,&DAT_1404748bc);
+      if (*(char *)(lVar17 + 8) == '\x04') {
+        uVar30 = (ulonglong)((uint)uVar30 | 2);
+        FUN_140085cc0(lVar17,&UNK_1400001f8);
+        FUN_140005880(&pRRam000000013fffffb0);
       }
       else {
         lRam000000013fffffc0 = 0;
         uRam000000013fffffc8 = 0;
-        IRam000000013fffffb0.VirtualAddress = 0;
-        IRam000000013fffffb0.Size = 0;
-        IRam000000013fffffb8.VirtualAddress = 0;
-        IRam000000013fffffb8.Size = 0;
-        FUN_140016170(&IRam000000013fffffb0,&DAT_140474bc4,2);
+        pRRam000000013fffffb0 = (RECT *)0x0;
+        pRRam000000013fffffb8 = (RECT *)0x0;
+        FUN_140016170(&pRRam000000013fffffb0,&DAT_140474bc4,2);
       }
-      if ((uVar32 & 2) != 0) {
-        uVar32 = 0;
-        if (0xf < CONCAT44(IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xf].Size,
-                           IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xf].
-                           VirtualAddress)) {
-          lVar20 = CONCAT44(IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xc].Size,
-                            IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xc].
-                            VirtualAddress);
-          lVar18 = lVar20;
-          if ((0xfff < CONCAT44(IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xf].Size,
-                                IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xf].
-                                VirtualAddress) + 1) &&
-             (lVar18 = *(longlong *)(lVar20 + -8), 0x1f < (lVar20 - lVar18) - 8U))
+      if ((uVar30 & 2) != 0) {
+        uVar30 = 0;
+        if (0xf < CONCAT44(_UNK_140000214,_UNK_140000210)) {
+          lVar19 = CONCAT44(_UNK_1400001fc,_UNK_1400001f8);
+          lVar17 = lVar19;
+          if ((0xfff < CONCAT44(_UNK_140000214,_UNK_140000210) + 1) &&
+             (lVar17 = *(longlong *)(lVar19 + -8), 0x1f < (lVar19 - lVar17) - 8U))
           goto LAB_1400219e4;
-          thunk_FUN_14028af80(lVar18);
+          thunk_FUN_14028af80(lVar17);
         }
       }
       uRam000000013fffffd0 = CONCAT44(0x42,(undefined4)uRam000000013fffffd0);
-      IMAGE_DOS_HEADER_140000000._8_8_ = &IRam000000013fffffb0;
+      IMAGE_DOS_HEADER_140000000._8_8_ = (RECT *)&pRRam000000013fffffb0;
       if (7 < uRam000000013fffffc8) {
-        IMAGE_DOS_HEADER_140000000._8_8_ = IRam000000013fffffb0;
+        IMAGE_DOS_HEADER_140000000._8_8_ = pRRam000000013fffffb0;
       }
-      uRam000000013fffffe0 = CONCAT44(uRam000000013fffffe0._4_4_,iVar15 + 0x88c6);
-      InsertMenuItemW((HMENU)IVar19,0,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
-      iVar15 = iVar15 + 1;
-      if (0x3e6 < iVar15) break;
+      uRam000000013fffffe0 = CONCAT44(uRam000000013fffffe0._4_4_,iVar14 + 0x88c6);
+      InsertMenuItemW((HMENU)pRVar18,0,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
+      iVar14 = iVar14 + 1;
+      if (0x3e6 < iVar14) break;
       if (7 < uRam000000013fffffc8) {
-        uVar30 = uRam000000013fffffc8 * 2 + 2;
-        IVar26 = IRam000000013fffffb0;
-        if (0xfff < uVar30) {
-          IVar26 = *(IMAGE_DATA_DIRECTORY *)((longlong)IRam000000013fffffb0 + -8);
-          if (0x1f < ((longlong)IRam000000013fffffb0 - (longlong)IVar26) - 8U) goto LAB_1400219e4;
-          uVar30 = uRam000000013fffffc8 * 2 + 0x29;
+        uVar28 = uRam000000013fffffc8 * 2 + 2;
+        pRVar24 = pRRam000000013fffffb0;
+        if (0xfff < uVar28) {
+          pRVar24 = *(RECT **)&pRRam000000013fffffb0[-1].right;
+          if (0x1f < (ulonglong)((longlong)pRRam000000013fffffb0 + (-8 - (longlong)pRVar24)))
+          goto LAB_1400219e4;
+          uVar28 = uRam000000013fffffc8 * 2 + 0x29;
         }
-        thunk_FUN_14028af80(IVar26,uVar30);
+        thunk_FUN_14028af80(pRVar24,uVar28);
       }
-      FUN_140085440(0x140000140);
-      IVar26 = *(IMAGE_DATA_DIRECTORY *)((longlong)hmenu + 0x10);
-      if (*(char *)((longlong)IVar26 + 0x19) == '\0') {
-        cVar12 = *(char *)(*(longlong *)IVar26 + 0x19);
-        hmenu = IVar26;
-        while (cVar12 == '\0') {
-          hmenu = *(IMAGE_DATA_DIRECTORY *)hmenu;
-          cVar12 = *(char *)(*(longlong *)hmenu + 0x19);
+      FUN_140085440(&UNK_140000140);
+      pRVar24 = *(RECT **)(hmenu + 1);
+      if (*(char *)((longlong)&pRVar24[1].right + 1) == '\0') {
+        cVar11 = *(char *)(*(longlong *)pRVar24 + 0x19);
+        hmenu = pRVar24;
+        while (cVar11 == '\0') {
+          hmenu = *(RECT **)hmenu;
+          cVar11 = *(char *)(*(longlong *)hmenu + 0x19);
         }
       }
       else {
-        cVar12 = *(char *)((longlong)*(IMAGE_DATA_DIRECTORY *)((longlong)hmenu + 8) + 0x19);
-        IVar11 = *(IMAGE_DATA_DIRECTORY *)((longlong)hmenu + 8);
-        IVar26 = hmenu;
-        while ((hmenu = IVar11, cVar12 == '\0' &&
-               (IVar26 == *(IMAGE_DATA_DIRECTORY *)((longlong)hmenu + 0x10)))) {
-          cVar12 = *(char *)((longlong)*(IMAGE_DATA_DIRECTORY *)((longlong)hmenu + 8) + 0x19);
-          IVar11 = *(IMAGE_DATA_DIRECTORY *)((longlong)hmenu + 8);
-          IVar26 = hmenu;
+        cVar11 = *(char *)((longlong)&(*(RECT **)&hmenu->right)[1].right + 1);
+        pRVar10 = *(RECT **)&hmenu->right;
+        pRVar24 = hmenu;
+        while ((hmenu = pRVar10, cVar11 == '\0' && (pRVar24 == *(RECT **)(hmenu + 1)))) {
+          cVar11 = *(char *)((longlong)&(*(RECT **)&hmenu->right)[1].right + 1);
+          pRVar10 = *(RECT **)&hmenu->right;
+          pRVar24 = hmenu;
         }
       }
     }
     if (7 < uRam000000013fffffc8) {
-      uVar32 = uRam000000013fffffc8 * 2 + 2;
-      IVar27 = IRam000000013fffffb0;
-      if (0xfff < uVar32) {
-        IVar27 = *(IMAGE_DATA_DIRECTORY *)((longlong)IRam000000013fffffb0 + -8);
-        if (0x1f < ((longlong)IRam000000013fffffb0 - (longlong)IVar27) - 8U) goto LAB_1400219e4;
-        uVar32 = uRam000000013fffffc8 * 2 + 0x29;
+      uVar30 = uRam000000013fffffc8 * 2 + 2;
+      pRVar25 = pRRam000000013fffffb0;
+      if (0xfff < uVar30) {
+        pRVar25 = *(RECT **)&pRRam000000013fffffb0[-1].right;
+        if (0x1f < (ulonglong)((longlong)pRRam000000013fffffb0 + (-8 - (longlong)pRVar25)))
+        goto LAB_1400219e4;
+        uVar30 = uRam000000013fffffc8 * 2 + 0x29;
       }
-      thunk_FUN_14028af80(IVar27,uVar32);
+      thunk_FUN_14028af80(pRVar25,uVar30);
     }
     lRam000000013fffffc0 = 0;
-    IRam000000013fffffb0 =
-         (IMAGE_DATA_DIRECTORY)((ulonglong)IRam000000013fffffb0 & 0xffffffffffff0000);
+    pRRam000000013fffffb0 = (RECT *)((ulonglong)pRRam000000013fffffb0 & 0xffffffffffff0000);
     uRam000000013fffffc8 = 7;
-    FUN_140085440(0x140000140);
+    FUN_140085440(&UNK_140000140);
 LAB_140020d94:
     FUN_140097640(&DAT_1404e6d80,&param_6,"core_tray_saved_playlists");
-    unaff_R12 = IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[5];
+    unaff_R12 = _UNK_1400001c0;
     IMAGE_DOS_HEADER_140000000._8_8_ = &param_6;
     if (7 < param_9) {
       IMAGE_DOS_HEADER_140000000._8_8_ = (undefined8 *)CONCAT62(param_6._2_6_,(undefined2)param_6);
     }
     uRam000000013fffffd0 = CONCAT44(0x46,(undefined4)uRam000000013fffffd0);
-    IRam000000013fffffe8 = IVar19;
-    InsertMenuItemW((HMENU)IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[5],1,1,
-                    (LPCMENUITEMINFOW)&uRam000000013fffffd0);
+    pRRam000000013fffffe8 = pRVar18;
+    InsertMenuItemW(_UNK_1400001c0,1,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
     if (7 < param_9) {
-      lVar20 = CONCAT62(param_6._2_6_,(undefined2)param_6);
-      uVar32 = param_9 * 2 + 2;
-      lVar18 = lVar20;
-      if (0xfff < uVar32) {
-        lVar18 = *(longlong *)(lVar20 + -8);
-        if (0x1f < (lVar20 - lVar18) - 8U) goto LAB_1400219e4;
-        uVar32 = param_9 * 2 + 0x29;
+      lVar19 = CONCAT62(param_6._2_6_,(undefined2)param_6);
+      uVar30 = param_9 * 2 + 2;
+      lVar17 = lVar19;
+      if (0xfff < uVar30) {
+        lVar17 = *(longlong *)(lVar19 + -8);
+        if (0x1f < (lVar19 - lVar17) - 8U) goto LAB_1400219e4;
+        uVar30 = param_9 * 2 + 0x29;
       }
-      thunk_FUN_14028af80(lVar18,uVar32);
+      thunk_FUN_14028af80(lVar17,uVar30);
     }
-    unaff_R13.VirtualAddress = 0;
-    unaff_R13.Size = 0;
+    unaff_R13 = (RECT *)0x0;
   }
-  if ((IMAGE_SECTION_HEADER_140000240.Name[0] == '\x06') &&
-     (iVar15 = FUN_1400863a0(0x140000238), iVar15 != 0)) {
-    hmenu = (IMAGE_DATA_DIRECTORY)CreatePopupMenu();
+  if ((IMAGE_NT_HEADERS64_140000240.Signature[0] == '\x06') &&
+     (iVar14 = FUN_1400863a0(&UNK_140000238), iVar14 != 0)) {
+    hmenu = (RECT *)CreatePopupMenu();
     uRam000000013fffffd8 = 0;
     uRam000000013fffffd0 = 0x50;
     uRam000000013fffffe0 = 0;
-    IRam000000013fffffe8.VirtualAddress = 0;
-    IRam000000013fffffe8.Size = 0;
+    pRRam000000013fffffe8 = (RECT *)0x0;
     uRam000000013ffffff0 = 0;
     uRam000000013ffffff8 = 0;
     IMAGE_DOS_HEADER_140000000.e_magic[0] = '\0';
@@ -588,167 +553,155 @@ LAB_140020d94:
     IMAGE_DOS_HEADER_140000000.e_ovno = 0;
     IMAGE_DOS_HEADER_140000000.e_res_4_[0] = 0;
     IMAGE_DOS_HEADER_140000000.e_res_4_[1] = 0;
-    IVar19 = hmenu;
-    iVar15 = FUN_1400863a0(0x140000238);
-    iVar15 = iVar15 + -1;
-    if (-1 < iVar15) {
+    pRVar18 = hmenu;
+    iVar14 = FUN_1400863a0(&UNK_140000238);
+    iVar14 = iVar14 + -1;
+    if (-1 < iVar14) {
       iRam00000001400006b8 = 1;
       do {
-        uVar36 = FUN_140086540(0x140000238,iVar15);
-        FUN_140085090(0x140000140,uVar36);
-        lVar18 = FUN_140086de0(0x140000140,"title","");
-        if (((*(char *)(lVar18 + 8) == '\x04') &&
-            (lVar18 = FUN_140086de0(0x140000140,"config",""), *(char *)(lVar18 + 8) == '\a')) &&
-           (lVar18 = FUN_140086de0(lVar18,"selectedwallpapers",""), *(char *)(lVar18 + 8) == '\a'))
+        uVar35 = FUN_140086540(&UNK_140000238,iVar14);
+        FUN_140085090(&UNK_140000140,uVar35);
+        lVar17 = FUN_140086de0(&UNK_140000140,"title","");
+        if (((*(char *)(lVar17 + 8) == '\x04') &&
+            (lVar17 = FUN_140086de0(&UNK_140000140,"config",""), *(char *)(lVar17 + 8) == '\a')) &&
+           (lVar17 = FUN_140086de0(lVar17,"selectedwallpapers",""), *(char *)(lVar17 + 8) == '\a'))
         {
-          bVar9 = false;
-          FUN_140088360(lVar18,&IRam000000013fffffb0);
-          IVar26 = IRam000000013fffffb8;
-          IVar27 = IRam000000013fffffb0;
-          for (hmenu = IRam000000013fffffb0; hmenu != IVar26;
-              hmenu = (IMAGE_DATA_DIRECTORY)((longlong)hmenu + 0x20)) {
+          bVar8 = false;
+          FUN_140088360(lVar17,&pRRam000000013fffffb0);
+          pRVar24 = pRRam000000013fffffb8;
+          pRVar25 = pRRam000000013fffffb0;
+          for (hmenu = pRRam000000013fffffb0; hmenu != pRVar24; hmenu = hmenu + 2) {
             FUN_140016fc0(0x140000048,hmenu);
-            lVar20 = 0x140000048;
+            lVar19 = 0x140000048;
             if (0xf < (ulonglong)IMAGE_DOS_HEADER_140000000.e_program._32_8_) {
-              lVar20 = CONCAT62(IMAGE_DOS_HEADER_140000000.e_program._10_6_,
+              lVar19 = CONCAT62(IMAGE_DOS_HEADER_140000000.e_program._10_6_,
                                 IMAGE_DOS_HEADER_140000000.e_program._8_2_);
             }
-            lVar20 = FUN_140086de0(lVar18,lVar20,
-                                   IMAGE_DOS_HEADER_140000000.e_program._24_8_ + lVar20);
-            if ((*(char *)(lVar20 + 8) == '\a') &&
-               (lVar20 = FUN_140086de0(lVar20,&DAT_140473b68,&DAT_140473b6c),
-               *(char *)(lVar20 + 8) == '\x04')) {
-              uVar36 = FUN_140085cc0(lVar20,0x140000120);
-              puVar21 = (undefined4 *)FUN_140005880(0x140000260,uVar36);
-              IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xc].VirtualAddress =
-                   *puVar21;
-              IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xc].Size = puVar21[1];
-              IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xd].VirtualAddress =
-                   puVar21[2];
-              IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xd].Size = puVar21[3];
-              IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xe].VirtualAddress =
-                   puVar21[4];
-              IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xe].Size = puVar21[5];
-              IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xf].VirtualAddress =
-                   puVar21[6];
-              IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[0xf].Size = puVar21[7];
-              *(undefined8 *)(puVar21 + 4) = 0;
-              *(undefined8 *)(puVar21 + 6) = 7;
-              *(undefined2 *)puVar21 = 0;
-              if (7 < (ulonglong)IMAGE_SECTION_HEADER_140000268._16_8_) {
-                uVar32 = IMAGE_SECTION_HEADER_140000268._16_8_ * 2 + 2;
-                lVar20 = IMAGE_SECTION_HEADER_140000240._32_8_;
-                if (0xfff < uVar32) {
-                  lVar20 = *(longlong *)(IMAGE_SECTION_HEADER_140000240._32_8_ + -8);
-                  if (0x1f < (IMAGE_SECTION_HEADER_140000240._32_8_ - lVar20) - 8U)
+            lVar19 = FUN_140086de0(lVar17,lVar19,
+                                   IMAGE_DOS_HEADER_140000000.e_program._24_8_ + lVar19);
+            if ((*(char *)(lVar19 + 8) == '\a') &&
+               (lVar19 = FUN_140086de0(lVar19,&DAT_140473b68,&DAT_140473b6c),
+               *(char *)(lVar19 + 8) == '\x04')) {
+              uVar35 = FUN_140085cc0(lVar19,&UNK_140000120);
+              puVar20 = (undefined4 *)FUN_140005880(0x140000260,uVar35);
+              _UNK_1400001f8 = *puVar20;
+              _UNK_1400001fc = puVar20[1];
+              _UNK_140000200 = puVar20[2];
+              _UNK_140000204 = puVar20[3];
+              _UNK_140000208 = puVar20[4];
+              _UNK_14000020c = puVar20[5];
+              _UNK_140000210 = puVar20[6];
+              _UNK_140000214 = puVar20[7];
+              *(undefined8 *)(puVar20 + 4) = 0;
+              *(undefined8 *)(puVar20 + 6) = 7;
+              *(undefined2 *)puVar20 = 0;
+              if (7 < (ulonglong)IMAGE_NT_HEADERS64_140000240.OptionalHeader._32_8_) {
+                uVar30 = IMAGE_NT_HEADERS64_140000240.OptionalHeader._32_8_ * 2 + 2;
+                lVar19 = IMAGE_NT_HEADERS64_140000240.OptionalHeader._8_8_;
+                if (0xfff < uVar30) {
+                  lVar19 = *(longlong *)(IMAGE_NT_HEADERS64_140000240.OptionalHeader._8_8_ + -8);
+                  if (0x1f < (IMAGE_NT_HEADERS64_140000240.OptionalHeader._8_8_ - lVar19) - 8U)
                   goto LAB_1400219e4;
-                  uVar32 = IMAGE_SECTION_HEADER_140000268._16_8_ * 2 + 0x29;
+                  uVar30 = IMAGE_NT_HEADERS64_140000240.OptionalHeader._32_8_ * 2 + 0x29;
                 }
-                thunk_FUN_14028af80(lVar20,uVar32);
+                thunk_FUN_14028af80(lVar19,uVar30);
               }
-              if (0xf < (ulonglong)IMAGE_NT_HEADERS64_140000110.OptionalHeader._16_8_) {
-                uVar32 = IMAGE_NT_HEADERS64_140000110.OptionalHeader._16_8_ + 1;
-                lVar20 = IMAGE_NT_HEADERS64_140000110.FileHeader._12_8_;
-                if (0xfff < uVar32) {
-                  lVar20 = *(longlong *)(IMAGE_NT_HEADERS64_140000110.FileHeader._12_8_ + -8);
-                  if (0x1f < (IMAGE_NT_HEADERS64_140000110.FileHeader._12_8_ - lVar20) - 8U)
-                  goto LAB_1400219e4;
-                  uVar32 = IMAGE_NT_HEADERS64_140000110.OptionalHeader._16_8_ + 0x28;
+              if (0xf < _UNK_140000138) {
+                uVar30 = _UNK_140000138 + 1;
+                lVar19 = _UNK_140000120;
+                if (0xfff < uVar30) {
+                  lVar19 = *(longlong *)(_UNK_140000120 + -8);
+                  if (0x1f < (_UNK_140000120 - lVar19) - 8U) goto LAB_1400219e4;
+                  uVar30 = _UNK_140000138 + 0x28;
                 }
-                thunk_FUN_14028af80(lVar20,uVar32);
+                thunk_FUN_14028af80(lVar19,uVar30);
               }
-              if ((bVar9) || (cVar12 = FUN_140018f30(0x1400001f8), cVar12 != '\0')) {
-                bVar9 = true;
+              if ((bVar8) || (cVar11 = FUN_140018f30(&UNK_1400001f8), cVar11 != '\0')) {
+                bVar8 = true;
               }
-              FUN_140016770(0x1400001f8);
+              FUN_140016770(&UNK_1400001f8);
             }
             if (0xf < (ulonglong)IMAGE_DOS_HEADER_140000000.e_program._32_8_) {
-              lVar6 = CONCAT62(IMAGE_DOS_HEADER_140000000.e_program._10_6_,
+              lVar5 = CONCAT62(IMAGE_DOS_HEADER_140000000.e_program._10_6_,
                                IMAGE_DOS_HEADER_140000000.e_program._8_2_);
-              uVar32 = IMAGE_DOS_HEADER_140000000.e_program._32_8_ + 1;
-              lVar20 = lVar6;
-              if (0xfff < uVar32) {
-                lVar20 = *(longlong *)(lVar6 + -8);
-                if (0x1f < (lVar6 - lVar20) - 8U) goto LAB_1400219e4;
-                uVar32 = IMAGE_DOS_HEADER_140000000.e_program._32_8_ + 0x28;
+              uVar30 = IMAGE_DOS_HEADER_140000000.e_program._32_8_ + 1;
+              lVar19 = lVar5;
+              if (0xfff < uVar30) {
+                lVar19 = *(longlong *)(lVar5 + -8);
+                if (0x1f < (lVar5 - lVar19) - 8U) goto LAB_1400219e4;
+                uVar30 = IMAGE_DOS_HEADER_140000000.e_program._32_8_ + 0x28;
               }
-              thunk_FUN_14028af80(lVar20,uVar32);
+              thunk_FUN_14028af80(lVar19,uVar30);
             }
           }
-          IVar11 = IVar27;
-          if (IVar27 != (IMAGE_DATA_DIRECTORY)0x0) {
-            while (IVar11 != IVar26) {
-              FUN_140017240(IVar11);
-              hmenu = (IMAGE_DATA_DIRECTORY)((longlong)IVar11 + 0x20);
-              IVar11 = hmenu;
+          pRVar10 = pRVar25;
+          if (pRVar25 != (RECT *)0x0) {
+            while (pRVar10 != pRVar24) {
+              FUN_140017240(pRVar10);
+              hmenu = pRVar10 + 2;
+              pRVar10 = hmenu;
             }
-            uVar32 = lRam000000013fffffc0 - (longlong)IVar27 & 0xffffffffffffffe0;
-            if (0xfff < uVar32) {
-              if (0x1f < ((longlong)IVar27 -
-                         (longlong)*(IMAGE_DATA_DIRECTORY *)((longlong)IVar27 + -8)) - 8U)
+            uVar30 = lRam000000013fffffc0 - (longlong)pRVar25 & 0xffffffffffffffe0;
+            if (0xfff < uVar30) {
+              if (0x1f < (ulonglong)
+                         ((longlong)pRVar25 + (-8 - (longlong)*(RECT **)&pRVar25[-1].right)))
               goto LAB_1400219e4;
-              uVar32 = uVar32 + 0x27;
-              IVar27 = *(IMAGE_DATA_DIRECTORY *)((longlong)IVar27 + -8);
+              uVar30 = uVar30 + 0x27;
+              pRVar25 = *(RECT **)&pRVar25[-1].right;
             }
-            thunk_FUN_14028af80(IVar27,uVar32);
+            thunk_FUN_14028af80(pRVar25,uVar30);
           }
-          hmenu = IVar19;
-          IVar19 = hmenu;
-          if (bVar9) {
-            lVar18 = FUN_140086de0(0x140000140,"playlist","");
-            IMAGE_NT_HEADERS64_140000110.FileHeader.TimeDateStamp = 7;
-            IMAGE_NT_HEADERS64_140000110.FileHeader.PointerToSymbolTable = 0;
-            IMAGE_NT_HEADERS64_140000110.Signature[0] = '\0';
-            IMAGE_NT_HEADERS64_140000110.Signature[1] = '\0';
-            IMAGE_NT_HEADERS64_140000110.Signature[2] = '\0';
-            IMAGE_NT_HEADERS64_140000110.Signature[3] = '\0';
-            IMAGE_NT_HEADERS64_140000110.FileHeader.Machine = 0;
-            IMAGE_NT_HEADERS64_140000110.FileHeader.NumberOfSections = 0;
+          hmenu = pRVar18;
+          pRVar18 = hmenu;
+          if (bVar8) {
+            lVar17 = FUN_140086de0(&UNK_140000140,"playlist","");
+            _UNK_140000118 = 7;
+            _UNK_140000110 = 0;
             UNK_140000080._136_8_ = 0;
             UNK_140000080._128_8_ = 0;
-            IVar19 = hmenu;
-            if ((*(char *)(lVar18 + 8) == '\x05') &&
-               (cVar12 = FUN_140086300(lVar18), IVar19 = hmenu, cVar12 != '\0')) {
-              uVar36 = FUN_140097640(&DAT_1404e6d80,0x140000120,"core_tray_playlist_prefix");
-              puVar22 = (undefined8 *)FUN_1400164d0(uVar36,&DAT_140474c1c,1);
-              uVar36 = *puVar22;
-              uVar3 = puVar22[1];
-              uVar4 = puVar22[2];
-              uVar5 = puVar22[3];
-              puVar22[2] = 0;
-              puVar22[3] = 7;
-              *(undefined2 *)puVar22 = 0;
-              IVar19 = hmenu;
-              if (7 < (ulonglong)IMAGE_NT_HEADERS64_140000110.FileHeader._4_8_) {
+            pRVar18 = hmenu;
+            if ((*(char *)(lVar17 + 8) == '\x05') &&
+               (cVar11 = FUN_140086300(lVar17), pRVar18 = hmenu, cVar11 != '\0')) {
+              uVar35 = FUN_140097640(&DAT_1404e6d80,&UNK_140000120,"core_tray_playlist_prefix");
+              puVar21 = (undefined8 *)FUN_1400164d0(uVar35,&DAT_140474c1c,1);
+              uVar35 = *puVar21;
+              uVar3 = puVar21[1];
+              uVar4 = puVar21[2];
+              uVar30 = puVar21[3];
+              puVar21[2] = 0;
+              puVar21[3] = 7;
+              *(undefined2 *)puVar21 = 0;
+              pRVar18 = hmenu;
+              if (7 < _UNK_140000118) {
                 FUN_140016a90(0x140000100,UNK_140000080._128_8_);
-                IVar19 = hmenu;
+                pRVar18 = hmenu;
               }
-              UNK_140000080._128_8_ = uVar36;
+              UNK_140000080._128_8_ = uVar35;
               UNK_140000080._136_8_ = uVar3;
-              IMAGE_NT_HEADERS64_140000110._0_8_ = uVar4;
-              IMAGE_NT_HEADERS64_140000110.FileHeader._4_8_ = uVar5;
-              FUN_140016770(0x140000120);
+              _UNK_140000110 = uVar4;
+              _UNK_140000118 = uVar30;
+              FUN_140016770(&UNK_140000120);
             }
             FUN_14000df80(0x140000280);
-            uVar36 = FUN_140086de0(0x140000140,"title","");
-            uVar36 = FUN_140085cc0(uVar36,0x140000120);
-            hmenu = (IMAGE_DATA_DIRECTORY)FUN_140005880(0x140000048,uVar36);
-            iVar10 = iRam00000001400006b8;
-            uVar36 = FUN_14000ea80(&IMAGE_SECTION_HEADER_140000290,iRam00000001400006b8);
-            uVar36 = FUN_1400300a0(uVar36,&DAT_140474c3c);
-            uVar36 = FUN_14000d440(uVar36,0x140000100);
-            FUN_14000d440(uVar36,hmenu);
+            uVar35 = FUN_140086de0(&UNK_140000140,"title","");
+            uVar35 = FUN_140085cc0(uVar35,&UNK_140000120);
+            hmenu = (RECT *)FUN_140005880(0x140000048,uVar35);
+            iVar9 = iRam00000001400006b8;
+            uVar35 = FUN_14000ea80(0x140000290,iRam00000001400006b8);
+            uVar35 = FUN_1400300a0(uVar35,&DAT_140474c3c);
+            uVar35 = FUN_14000d440(uVar35,0x140000100);
+            FUN_14000d440(uVar35,hmenu);
             if (7 < (ulonglong)IMAGE_DOS_HEADER_140000000.e_program._32_8_) {
-              lVar20 = CONCAT62(IMAGE_DOS_HEADER_140000000.e_program._10_6_,
+              lVar19 = CONCAT62(IMAGE_DOS_HEADER_140000000.e_program._10_6_,
                                 IMAGE_DOS_HEADER_140000000.e_program._8_2_);
-              uVar32 = IMAGE_DOS_HEADER_140000000.e_program._32_8_ * 2 + 2;
-              lVar18 = lVar20;
-              if (0xfff < uVar32) {
-                lVar18 = *(longlong *)(lVar20 + -8);
-                if (0x1f < (lVar20 - lVar18) - 8U) goto LAB_1400219e4;
-                uVar32 = IMAGE_DOS_HEADER_140000000.e_program._32_8_ * 2 + 0x29;
+              uVar30 = IMAGE_DOS_HEADER_140000000.e_program._32_8_ * 2 + 2;
+              lVar17 = lVar19;
+              if (0xfff < uVar30) {
+                lVar17 = *(longlong *)(lVar19 + -8);
+                if (0x1f < (lVar19 - lVar17) - 8U) goto LAB_1400219e4;
+                uVar30 = IMAGE_DOS_HEADER_140000000.e_program._32_8_ * 2 + 0x29;
               }
-              thunk_FUN_14028af80(lVar18,uVar32);
+              thunk_FUN_14028af80(lVar17,uVar30);
             }
             IMAGE_DOS_HEADER_140000000.e_program[0x18] = 0;
             IMAGE_DOS_HEADER_140000000.e_program[0x19] = 0;
@@ -768,109 +721,104 @@ LAB_140020d94:
             IMAGE_DOS_HEADER_140000000.e_program[0x27] = 0;
             IMAGE_DOS_HEADER_140000000.e_program[8] = 0;
             IMAGE_DOS_HEADER_140000000.e_program[9] = 0;
-            if (0xf < (ulonglong)IMAGE_NT_HEADERS64_140000110.OptionalHeader._16_8_) {
-              uVar32 = IMAGE_NT_HEADERS64_140000110.OptionalHeader._16_8_ + 1;
-              lVar18 = IMAGE_NT_HEADERS64_140000110.FileHeader._12_8_;
-              if (0xfff < uVar32) {
-                lVar18 = *(longlong *)(IMAGE_NT_HEADERS64_140000110.FileHeader._12_8_ + -8);
-                if (0x1f < (IMAGE_NT_HEADERS64_140000110.FileHeader._12_8_ - lVar18) - 8U)
-                goto LAB_1400219e4;
-                uVar32 = IMAGE_NT_HEADERS64_140000110.OptionalHeader._16_8_ + 0x28;
+            if (0xf < _UNK_140000138) {
+              uVar30 = _UNK_140000138 + 1;
+              lVar17 = _UNK_140000120;
+              if (0xfff < uVar30) {
+                lVar17 = *(longlong *)(_UNK_140000120 + -8);
+                if (0x1f < (_UNK_140000120 - lVar17) - 8U) goto LAB_1400219e4;
+                uVar30 = _UNK_140000138 + 0x28;
               }
-              thunk_FUN_14028af80(lVar18,uVar32);
+              thunk_FUN_14028af80(lVar17,uVar30);
             }
-            hmenu = IVar19;
+            hmenu = pRVar18;
             lRam000000013fffffc0 = 0;
-            IRam000000013fffff88.VirtualAddress = 0;
-            IRam000000013fffff88.Size = 0;
-            IRam000000013fffff90.VirtualAddress = 7;
-            IRam000000013fffff90.Size = 0;
+            pRRam000000013fffff88 = (RECT *)0x0;
+            pRRam000000013fffff90 = (RECT *)0x7;
             param_11 = 0;
             param_10 = (undefined8 *)0x0;
-            IRam000000013fffffb0.VirtualAddress = 0;
-            IRam000000013fffffb0.Size = 0;
-            IRam000000013fffffb8.VirtualAddress = 0;
-            IRam000000013fffffb8.Size = 0;
-            if (((IMAGE_SECTION_HEADER_140000308.Name[0] & 0x22) == 2) ||
-               (uVar32 = *(ulonglong *)IMAGE_SECTION_HEADER_1400002b8._32_8_, uVar32 == 0)) {
-              if ((IMAGE_SECTION_HEADER_140000308.Name._0_4_ & 4) == 0) {
-                if (*(longlong *)IMAGE_SECTION_HEADER_1400002b8._24_8_ == 0) {
-                  lVar20 = 0;
-                  lVar18 = 0;
+            pRRam000000013fffffb0 = (RECT *)0x0;
+            pRRam000000013fffffb8 = (RECT *)0x0;
+            if ((((byte)IMAGE_NT_HEADERS64_140000240.OptionalHeader.DataDirectory[8].VirtualAddress
+                 & 0x22) == 2) ||
+               (IVar32 = *(IMAGE_DATA_DIRECTORY *)
+                          IMAGE_NT_HEADERS64_140000240.OptionalHeader.DataDirectory[2],
+               IVar32 == (IMAGE_DATA_DIRECTORY)0x0)) {
+              if ((IMAGE_NT_HEADERS64_140000240.OptionalHeader.DataDirectory[8].VirtualAddress & 4)
+                  == 0) {
+                if (*(longlong *)IMAGE_NT_HEADERS64_140000240.OptionalHeader.DataDirectory[1] == 0)
+                {
+                  lVar19 = 0;
+                  lVar17 = 0;
                 }
                 else {
-                  lVar18 = *(longlong *)IMAGE_SECTION_HEADER_140000290._32_8_;
-                  lVar20 = (*(longlong *)IMAGE_SECTION_HEADER_1400002b8._24_8_ +
-                           (longlong)*(int *)IMAGE_SECTION_HEADER_1400002e0._8_8_ * 2) - lVar18 >> 1
-                  ;
+                  lVar17 = *(longlong *)
+                            IMAGE_NT_HEADERS64_140000240.OptionalHeader.SizeOfHeapReserve;
+                  lVar19 = (*(longlong *)
+                             IMAGE_NT_HEADERS64_140000240.OptionalHeader.DataDirectory[1] +
+                           (longlong)
+                           *(int *)IMAGE_NT_HEADERS64_140000240.OptionalHeader.DataDirectory[4] * 2)
+                           - lVar17 >> 1;
                 }
                 goto LAB_1400213d2;
               }
             }
             else {
-              lVar18 = *(longlong *)IMAGE_SECTION_HEADER_1400002b8.Name;
-              if (uVar32 < (ulonglong)IMAGE_SECTION_HEADER_1400002e0._32_8_) {
-                uVar32 = IMAGE_SECTION_HEADER_1400002e0._32_8_;
+              lVar17 = *(longlong *)IMAGE_NT_HEADERS64_140000240.OptionalHeader.SizeOfHeapCommit;
+              if ((ulonglong)IVar32 <
+                  (ulonglong)IMAGE_NT_HEADERS64_140000240.OptionalHeader.DataDirectory[7]) {
+                IVar32 = IMAGE_NT_HEADERS64_140000240.OptionalHeader.DataDirectory[7];
               }
-              lVar20 = (longlong)(uVar32 - lVar18) >> 1;
+              lVar19 = (longlong)IVar32 - lVar17 >> 1;
 LAB_1400213d2:
-              if (lVar18 != 0) {
-                FUN_140016ae0(&param_10,lVar18,lVar20);
+              if (lVar17 != 0) {
+                FUN_140016ae0(&param_10,lVar17,lVar19);
               }
             }
             uRam000000013fffffd0 = CONCAT44(0x42,(undefined4)uRam000000013fffffd0);
             IMAGE_DOS_HEADER_140000000._8_8_ = &param_10;
-            if (7 < (ulonglong)IRam000000013fffff90) {
+            if ((RECT *)0x7 < pRRam000000013fffff90) {
               IMAGE_DOS_HEADER_140000000._8_8_ = param_10;
             }
-            uRam000000013fffffe0 = CONCAT44(uRam000000013fffffe0._4_4_,iVar15 + 0x88bb);
-            IVar19 = hmenu;
+            uRam000000013fffffe0 = CONCAT44(uRam000000013fffffe0._4_4_,iVar14 + 0x88bb);
+            pRVar18 = hmenu;
             InsertMenuItemW((HMENU)hmenu,10,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
-            if (7 < (ulonglong)IRam000000013fffff90) {
-              uVar32 = (longlong)IRam000000013fffff90 * 2 + 2;
-              puVar22 = param_10;
-              if (0xfff < uVar32) {
-                puVar22 = (undefined8 *)param_10[-1];
-                if (0x1f < (ulonglong)((longlong)param_10 + (-8 - (longlong)puVar22)))
+            if ((RECT *)0x7 < pRRam000000013fffff90) {
+              uVar30 = (longlong)pRRam000000013fffff90 * 2 + 2;
+              puVar21 = param_10;
+              if (0xfff < uVar30) {
+                puVar21 = (undefined8 *)param_10[-1];
+                if (0x1f < (ulonglong)((longlong)param_10 + (-8 - (longlong)puVar21)))
                 goto LAB_1400219e4;
-                uVar32 = (longlong)IRam000000013fffff90 * 2 + 0x29;
+                uVar30 = (longlong)pRRam000000013fffff90 * 2 + 0x29;
               }
-              thunk_FUN_14028af80(puVar22,uVar32);
+              thunk_FUN_14028af80(puVar21,uVar30);
             }
-            IRam000000013fffff88.VirtualAddress = 0;
-            IRam000000013fffff88.Size = 0;
-            IRam000000013fffff90.VirtualAddress = 7;
-            IRam000000013fffff90.Size = 0;
+            pRRam000000013fffff88 = (RECT *)0x0;
+            pRRam000000013fffff90 = (RECT *)0x7;
             param_10 = (undefined8 *)((ulonglong)param_10 & 0xffffffffffff0000);
             FUN_140005b50(0x140000280);
-            if (7 < (ulonglong)IMAGE_NT_HEADERS64_140000110.FileHeader._4_8_) {
-              uVar32 = IMAGE_NT_HEADERS64_140000110.FileHeader._4_8_ * 2 + 2;
-              lVar18 = UNK_140000080._128_8_;
-              if (0xfff < uVar32) {
-                lVar18 = *(longlong *)(UNK_140000080._128_8_ + -8);
-                if (0x1f < (UNK_140000080._128_8_ - lVar18) - 8U) goto LAB_1400219e4;
-                uVar32 = IMAGE_NT_HEADERS64_140000110.FileHeader._4_8_ * 2 + 0x29;
+            if (7 < _UNK_140000118) {
+              uVar30 = _UNK_140000118 * 2 + 2;
+              lVar17 = UNK_140000080._128_8_;
+              if (0xfff < uVar30) {
+                lVar17 = *(longlong *)(UNK_140000080._128_8_ + -8);
+                if (0x1f < (UNK_140000080._128_8_ - lVar17) - 8U) goto LAB_1400219e4;
+                uVar30 = _UNK_140000118 * 2 + 0x29;
               }
-              thunk_FUN_14028af80(lVar18,uVar32);
+              thunk_FUN_14028af80(lVar17,uVar30);
             }
-            iRam00000001400006b8 = iVar10 + 1;
-            IMAGE_NT_HEADERS64_140000110.Signature[0] = '\0';
-            IMAGE_NT_HEADERS64_140000110.Signature[1] = '\0';
-            IMAGE_NT_HEADERS64_140000110.Signature[2] = '\0';
-            IMAGE_NT_HEADERS64_140000110.Signature[3] = '\0';
-            IMAGE_NT_HEADERS64_140000110.FileHeader.Machine = 0;
-            IMAGE_NT_HEADERS64_140000110.FileHeader.NumberOfSections = 0;
-            IMAGE_NT_HEADERS64_140000110.FileHeader.TimeDateStamp = 7;
-            IMAGE_NT_HEADERS64_140000110.FileHeader.PointerToSymbolTable = 0;
+            iRam00000001400006b8 = iVar9 + 1;
+            _UNK_140000110 = 0;
+            _UNK_140000118 = 7;
             UNK_140000080._128_8_ = UNK_140000080._128_8_ & 0xffffffffffff0000;
           }
         }
-        FUN_140085440(0x140000140);
-        iVar15 = iVar15 + -1;
-      } while (-1 < iVar15);
+        FUN_140085440(&UNK_140000140);
+        iVar14 = iVar14 + -1;
+      } while (-1 < iVar14);
     }
-    unaff_R13.VirtualAddress = 0;
-    unaff_R13.Size = 0;
+    unaff_R13 = (RECT *)0x0;
     InsertMenuW((HMENU)hmenu,0xb,0xc00,0,(LPCWSTR)0x0);
     FUN_140097640(&DAT_1404e6d80,0x140000088,"core_tray_recent_wallpapers_clear");
     uRam000000013fffffd0 = CONCAT44(0x42,(undefined4)uRam000000013fffffd0);
@@ -886,41 +834,40 @@ LAB_1400213d2:
     if (7 < param_9) {
       IMAGE_DOS_HEADER_140000000._8_8_ = (undefined8 *)CONCAT62(param_6._2_6_,(undefined2)param_6);
     }
-    IRam000000013fffffe8 = hmenu;
-    InsertMenuItemW((HMENU)unaff_R12,1,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
+    pRRam000000013fffffe8 = hmenu;
+    InsertMenuItemW(unaff_R12,1,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
     if (7 < param_9) {
-      lVar20 = CONCAT62(param_6._2_6_,(undefined2)param_6);
-      uVar32 = param_9 * 2 + 2;
-      lVar18 = lVar20;
-      if (0xfff < uVar32) {
-        lVar18 = *(longlong *)(lVar20 + -8);
-        if (0x1f < (lVar20 - lVar18) - 8U) goto LAB_1400219e4;
-        uVar32 = param_9 * 2 + 0x29;
+      lVar19 = CONCAT62(param_6._2_6_,(undefined2)param_6);
+      uVar30 = param_9 * 2 + 2;
+      lVar17 = lVar19;
+      if (0xfff < uVar30) {
+        lVar17 = *(longlong *)(lVar19 + -8);
+        if (0x1f < (lVar19 - lVar17) - 8U) goto LAB_1400219e4;
+        uVar30 = param_9 * 2 + 0x29;
       }
-      thunk_FUN_14028af80(lVar18,uVar32);
+      thunk_FUN_14028af80(lVar17,uVar30);
     }
     param_8 = 0;
     param_9 = 7;
     param_6._0_2_ = 0;
     if (7 < (ulonglong)UNK_140000080._32_8_) {
-      uVar32 = UNK_140000080._32_8_ * 2 + 2;
-      lVar18 = UNK_140000080._8_8_;
-      if (0xfff < uVar32) {
-        lVar18 = *(longlong *)(UNK_140000080._8_8_ + -8);
-        if (0x1f < (UNK_140000080._8_8_ - lVar18) - 8U) goto LAB_1400219e4;
-        uVar32 = UNK_140000080._32_8_ * 2 + 0x29;
+      uVar30 = UNK_140000080._32_8_ * 2 + 2;
+      lVar17 = UNK_140000080._8_8_;
+      if (0xfff < uVar30) {
+        lVar17 = *(longlong *)(UNK_140000080._8_8_ + -8);
+        if (0x1f < (UNK_140000080._8_8_ - lVar17) - 8U) goto LAB_1400219e4;
+        uVar30 = UNK_140000080._32_8_ * 2 + 0x29;
       }
-      thunk_FUN_14028af80(lVar18,uVar32);
+      thunk_FUN_14028af80(lVar17,uVar30);
     }
   }
-  for (puVar22 = (undefined8 *)*DAT_1404e5330; puVar22 != DAT_1404e5330;
-      puVar22 = (undefined8 *)*puVar22) {
-    if ((puVar22[7] != puVar22[8]) && (1 < *(int *)(puVar22 + 0xe) - 2U)) {
+  for (puVar21 = (undefined8 *)*DAT_1404e5330; puVar21 != DAT_1404e5330;
+      puVar21 = (undefined8 *)*puVar21) {
+    if ((puVar21[7] != puVar21[8]) && (1 < *(int *)(puVar21 + 0xe) - 2U)) {
       uRam000000013fffffd8 = 0;
       uRam000000013fffffd0 = 0x50;
       uRam000000013fffffe0 = 0;
-      IRam000000013fffffe8.VirtualAddress = 0;
-      IRam000000013fffffe8.Size = 0;
+      pRRam000000013fffffe8 = (RECT *)0x0;
       uRam000000013ffffff0 = 0;
       uRam000000013ffffff8 = 0;
       IMAGE_DOS_HEADER_140000000.e_magic[0] = '\0';
@@ -947,16 +894,16 @@ LAB_1400213d2:
         IMAGE_DOS_HEADER_140000000._8_8_ = UNK_140000080._8_8_;
       }
       uRam000000013fffffe0 = CONCAT44(uRam000000013fffffe0._4_4_,0x9c5d);
-      InsertMenuItemW((HMENU)unaff_R12,1,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
+      InsertMenuItemW(unaff_R12,1,1,(LPCMENUITEMINFOW)&uRam000000013fffffd0);
       if (7 < (ulonglong)UNK_140000080._32_8_) {
-        uVar32 = UNK_140000080._32_8_ * 2 + 2;
-        lVar18 = UNK_140000080._8_8_;
-        if (0xfff < uVar32) {
-          lVar18 = *(longlong *)(UNK_140000080._8_8_ + -8);
-          if (0x1f < (UNK_140000080._8_8_ - lVar18) - 8U) goto LAB_1400219e4;
-          uVar32 = UNK_140000080._32_8_ * 2 + 0x29;
+        uVar30 = UNK_140000080._32_8_ * 2 + 2;
+        lVar17 = UNK_140000080._8_8_;
+        if (0xfff < uVar30) {
+          lVar17 = *(longlong *)(UNK_140000080._8_8_ + -8);
+          if (0x1f < (UNK_140000080._8_8_ - lVar17) - 8U) goto LAB_1400219e4;
+          uVar30 = UNK_140000080._32_8_ * 2 + 0x29;
         }
-        thunk_FUN_14028af80(lVar18,uVar32);
+        thunk_FUN_14028af80(lVar17,uVar30);
       }
       break;
     }
@@ -970,84 +917,81 @@ LAB_1400213d2:
     GetCursorPos((LPPOINT)IMAGE_DOS_HEADER_140000000.e_program);
   }
   hWnd = pHRam00000001400006b0;
-  if (((pHRam00000001400006b0 != DAT_1404e8f10) && (cVar12 = FUN_140015180(10,0,0), cVar12 != '\0'))
-     && (DVar16 = GetVersion(), DVar16 + 0xb8460000 < 0x38460000)) {
+  if (((pHRam00000001400006b0 != DAT_1404e8f10) && (cVar11 = FUN_140015180(10,0,0), cVar11 != '\0'))
+     && (DVar15 = GetVersion(), DVar15 + 0xb8460000 < 0x38460000)) {
     DAT_1404e8f10 = hWnd;
     hModule = LoadLibraryW(L"uxtheme.dll");
-    pFVar23 = GetProcAddress(hModule,(LPCSTR)0x87);
-    (*pFVar23)(1);
+    pFVar22 = GetProcAddress(hModule,(LPCSTR)0x87);
+    (*pFVar22)(1);
     FreeLibrary(hModule);
   }
   SetForegroundWindow(hWnd);
-  TrackPopupMenu((HMENU)unaff_R12,0x22,IMAGE_DOS_HEADER_140000000.e_program._0_4_ + 1,
-                 IMAGE_DOS_HEADER_140000000.e_program._4_4_,unaff_R13.VirtualAddress,DAT_1404e5280,
-                 (RECT *)unaff_R13);
+  TrackPopupMenu(unaff_R12,0x22,IMAGE_DOS_HEADER_140000000.e_program._0_4_ + 1,
+                 IMAGE_DOS_HEADER_140000000.e_program._4_4_,(int)unaff_R13,DAT_1404e5280,unaff_R13);
   PostMessageW(hWnd,0,0,0);
-  IVar19 = IRam000000013fffffa0;
-  for (hmenu = IRam000000013fffff98; hmenu != IVar19;
-      hmenu = (IMAGE_DATA_DIRECTORY)((longlong)hmenu + 8)) {
-    DeleteObject(*(HGDIOBJ *)hmenu);
+  pRVar18 = pRRam000000013fffffa0;
+  for (hmenu = pRRam000000013fffff98; hmenu != pRVar18; hmenu = (RECT *)&hmenu->right) {
+    DeleteObject(*(RECT **)hmenu);
   }
-  FUN_140085440(0x1400001d0);
-  FUN_140085440(0x140000170);
-  FUN_140085440(0x140000238);
-  if (IRam000000013fffff98 != (IMAGE_DATA_DIRECTORY)0x0) {
-    uVar32 = ((longlong)IRam000000013fffffa8 - (longlong)IRam000000013fffff98 >> 3) * 8;
-    IVar19 = IRam000000013fffff98;
-    if (0xfff < uVar32) {
-      if (0x1f < ((longlong)IRam000000013fffff98 -
-                 (longlong)*(IMAGE_DATA_DIRECTORY *)((longlong)IRam000000013fffff98 + -8)) - 8U)
-      goto LAB_1400219e4;
-      uVar32 = uVar32 + 0x27;
-      IVar19 = *(IMAGE_DATA_DIRECTORY *)((longlong)IRam000000013fffff98 + -8);
+  FUN_140085440(&UNK_1400001d0);
+  FUN_140085440(&UNK_140000170);
+  FUN_140085440(&UNK_140000238);
+  if (pRRam000000013fffff98 != (RECT *)0x0) {
+    uVar30 = ((longlong)pRRam000000013fffffa8 - (longlong)pRRam000000013fffff98 >> 3) * 8;
+    pRVar18 = pRRam000000013fffff98;
+    if (0xfff < uVar30) {
+      if (0x1f < (ulonglong)
+                 ((longlong)pRRam000000013fffff98 +
+                 (-8 - (longlong)*(RECT **)&pRRam000000013fffff98[-1].right))) goto LAB_1400219e4;
+      uVar30 = uVar30 + 0x27;
+      pRVar18 = *(RECT **)&pRRam000000013fffff98[-1].right;
     }
-    thunk_FUN_14028af80(IVar19,uVar32);
-    IRam000000013fffff98.VirtualAddress = 0;
-    IRam000000013fffff98.Size = 0;
-    IRam000000013fffffa0.VirtualAddress = 0;
-    IRam000000013fffffa0.Size = 0;
-    IRam000000013fffffa8 = unaff_R13;
+    thunk_FUN_14028af80(pRVar18,uVar30);
+    pRRam000000013fffff98 = (RECT *)0x0;
+    pRRam000000013fffffa0 = (RECT *)0x0;
+    pRRam000000013fffffa8 = unaff_R13;
   }
   if (7 < (ulonglong)UNK_140000080._0_8_) {
-    lVar20 = CONCAT62(IMAGE_DOS_HEADER_140000000.e_program._42_6_,
+    lVar19 = CONCAT62(IMAGE_DOS_HEADER_140000000.e_program._42_6_,
                       IMAGE_DOS_HEADER_140000000.e_program._40_2_);
-    uVar32 = UNK_140000080._0_8_ * 2 + 2;
-    lVar18 = lVar20;
-    if (0xfff < uVar32) {
-      lVar18 = *(longlong *)(lVar20 + -8);
-      if (0x1f < (lVar20 - lVar18) - 8U) goto LAB_1400219e4;
-      uVar32 = UNK_140000080._0_8_ * 2 + 0x29;
+    uVar30 = UNK_140000080._0_8_ * 2 + 2;
+    lVar17 = lVar19;
+    if (0xfff < uVar30) {
+      lVar17 = *(longlong *)(lVar19 + -8);
+      if (0x1f < (lVar19 - lVar17) - 8U) goto LAB_1400219e4;
+      uVar30 = UNK_140000080._0_8_ * 2 + 0x29;
     }
-    thunk_FUN_14028af80(lVar18,uVar32);
+    thunk_FUN_14028af80(lVar17,uVar30);
   }
   UNK_140000080._0_8_ = 7;
-  IMAGE_DOS_HEADER_140000000.e_program._40_2_ = unaff_R13.VirtualAddress._0_2_;
+  IMAGE_DOS_HEADER_140000000.e_program._40_2_ = SUB82(unaff_R13,0);
   IMAGE_DOS_HEADER_140000000.e_program._56_8_ = unaff_R13;
-  if (7 < (ulonglong)IMAGE_SECTION_HEADER_140000218._24_8_) {
-    uVar32 = IMAGE_SECTION_HEADER_140000218._24_8_ * 2 + 2;
-    acVar28 = IMAGE_SECTION_HEADER_140000218.Name;
-    if (0xfff < uVar32) {
-      acVar28 = *(char (*) [8])((longlong)IMAGE_SECTION_HEADER_140000218.Name + -8);
-      if (0x1f < ((longlong)IMAGE_SECTION_HEADER_140000218.Name - (longlong)acVar28) - 8U) {
+  if (7 < _UNK_140000230) {
+    uVar30 = _UNK_140000230 * 2 + 2;
+    puVar26 = _UNK_140000218;
+    if (0xfff < uVar30) {
+      puVar26 = *(undefined **)(_UNK_140000218 + -8);
+      if ((undefined *)0x1f < _UNK_140000218 + (-8 - (longlong)puVar26)) {
 LAB_1400219e4:
         pcVar2 = (code *)swi(0x29);
         (*pcVar2)(5);
-        IMAGE_SECTION_HEADER_140000268.PointerToLinenumbers = 0;
+        IMAGE_NT_HEADERS64_140000240.OptionalHeader.MajorImageVersion = 0;
+        IMAGE_NT_HEADERS64_140000240.OptionalHeader.MinorImageVersion = 0;
         FUN_1404217a0(0x140000294,0,0x3bc);
-        IMAGE_SECTION_HEADER_140000290.Name[0] = -0x18;
-        IMAGE_SECTION_HEADER_140000290.Name[1] = '\x03';
-        IMAGE_SECTION_HEADER_140000290.Name[2] = '\0';
-        IMAGE_SECTION_HEADER_140000290.Name[3] = '\0';
-        IMAGE_SECTION_HEADER_140000268.PointerToRelocations = 0x3d0;
-        IMAGE_SECTION_HEADER_140000268._32_8_ = hmenu;
-        Shell_NotifyIconW(2,(PNOTIFYICONDATAW)&IMAGE_SECTION_HEADER_140000268.PointerToRelocations);
+        IMAGE_NT_HEADERS64_140000240.OptionalHeader.SizeOfImage = 1000;
+        IMAGE_NT_HEADERS64_140000240.OptionalHeader.MajorOperatingSystemVersion = 0x3d0;
+        IMAGE_NT_HEADERS64_140000240.OptionalHeader.MinorOperatingSystemVersion = 0;
+        IMAGE_NT_HEADERS64_140000240.OptionalHeader._48_8_ = hmenu;
+        Shell_NotifyIconW(2,(PNOTIFYICONDATAW)
+                            &IMAGE_NT_HEADERS64_140000240.OptionalHeader.MajorOperatingSystemVersion
+                         );
         return 0;
       }
-      uVar32 = IMAGE_SECTION_HEADER_140000218._24_8_ * 2 + 0x29;
+      uVar30 = _UNK_140000230 * 2 + 0x29;
     }
-    thunk_FUN_14028af80(acVar28,uVar32);
+    thunk_FUN_14028af80(puVar26,uVar30);
   }
-  DestroyMenu((HMENU)IMAGE_NT_HEADERS64_140000110.OptionalHeader.DataDirectory[6]);
+  DestroyMenu(_UNK_1400001c8);
   DAT_1404e8f18 = 0;
   return 0;
 }
