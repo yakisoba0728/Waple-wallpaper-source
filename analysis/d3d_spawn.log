@@ -10,19 +10,19 @@
   requested feature levels: 11_1, 11_0, 10_1, 10_0
   -> HRESULT=0x0
 [vtable setup err] Error: access violation accessing 0x0 stack: Error: access violation accessing 0x0
-    at onLeave (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:47)
+    at onLeave (C:\Users\<user>\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:47)
 
 [D3D11CreateDevice] flags=0x81 nlevels=1
   requested feature levels: 11_0
   -> HRESULT=0x0
 [vtable setup err] Error: access violation accessing 0x0 stack: Error: access violation accessing 0x0
-    at onLeave (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:47)
+    at onLeave (C:\Users\<user>\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:47)
 
 [D3D11CreateDevice] flags=0x81 nlevels=1
   requested feature levels: 11_0
   -> HRESULT=0x0
 [vtable setup err] Error: access violation accessing 0x0 stack: Error: access violation accessing 0x0
-    at onLeave (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:45)
+    at onLeave (C:\Users\<user>\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:45)
   -> HRESULT=0x0
 [vtable setup err] Error: access violation accessing 0x0 stack: Error: access violation accessing 0x0
-    at onLeave (C:\Users\yakihyuk0728\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:45)
+    at onLeave (C:\Users\<user>\Desktop\wallpaper_source\scripts\hook_d3d11_v17.js:45)

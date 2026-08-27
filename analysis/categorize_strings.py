@@ -4,7 +4,7 @@ Each themed file starts with a count header and lists `offset  string` lines.
 """
 import json, os, re
 
-OUTDIR = r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\analysis\strings"
+OUTDIR = r"C:\Users\<user>\Desktop\wallpaper_source\analysis\strings"
 allhits = json.load(open(os.path.join(OUTDIR, "_all.json"), "r", encoding="utf-8"))
 ascii_hits = [(int(o,16) if isinstance(o,str) else o, s) for o,s in allhits["ascii"]]
 utf16_hits = [(int(o,16) if isinstance(o,str) else o, s) for o,s in allhits["utf16"]]

@@ -32,7 +32,7 @@ We additionally scan .text for references to vtable RVAs to find constructors.
 """
 import struct, json, os, re
 
-SRC = r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\binaries\wallpaper64_rich.exe"
+SRC = r"C:\Users\<user>\Desktop\wallpaper_source\binaries\wallpaper64_rich.exe"
 with open(SRC, 'rb') as f: d = f.read()
 
 e_lfanew = struct.unpack_from('<I', d, 0x3C)[0]
@@ -158,7 +158,7 @@ for cls in sorted(vtables.keys()):
                     print(f"    [{i}] VA=0x{va:x} RVA=0x{rva:x}")
 
 # save full
-with open(r"C:\Users\yakihyuk0728\Desktop\wallpaper_source\analysis\rtti-vtables.json", "w") as f:
+with open(r"C:\Users\<user>\Desktop\wallpaper_source\analysis\rtti-vtables.json", "w") as f:
     json.dump(result, f, indent=2)
 print(f"\n=== Saved rtti-vtables.json: {len(result)} classes ===")
 
