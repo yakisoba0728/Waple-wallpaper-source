@@ -6,9 +6,9 @@
 void FUN_140422bf0(undefined8 param_1,longlong param_2)
 
 {
-  if ((*(uint *)(param_2 + 0x34) & 8) != 0) {
-    *(uint *)(param_2 + 0x34) = *(uint *)(param_2 + 0x34) & 0xfffffff7;
-    FUN_14029de10(param_2 + 0x108);
+  if ((*(uint *)(param_2 + 0x34) & 2) != 0) {
+    *(uint *)(param_2 + 0x34) = *(uint *)(param_2 + 0x34) & 0xfffffffd;
+    thunk_FUN_140016770(param_2 + 0x168);
   }
   return;
 }

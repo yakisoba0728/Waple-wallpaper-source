@@ -1,42 +1,46 @@
 // Function: FUN_14019ed60
 // Addr: 14019ed60
-// Size: 205 bytes
+// Size: 252 bytes
 
 
-longlong * FUN_14019ed60(longlong param_1,longlong *param_2,byte *param_3)
+longlong * FUN_14019ed60(longlong param_1,longlong *param_2,longlong *param_3)
 
 {
   longlong lVar1;
-  longlong lVar2;
-  ulonglong uVar3;
+  longlong *plVar2;
+  undefined8 uVar3;
+  ulonglong uVar4;
   
-  lVar1 = *(longlong *)(param_1 + 8);
-  uVar3 = *(ulonglong *)(param_1 + 0x30) &
-          (((((((((ulonglong)*param_3 ^ 0xcbf29ce484222325) * 0x100000001b3 ^ (ulonglong)param_3[1])
-                * 0x100000001b3 ^ (ulonglong)param_3[2]) * 0x100000001b3 ^ (ulonglong)param_3[3]) *
-              0x100000001b3 ^ (ulonglong)param_3[4]) * 0x100000001b3 ^ (ulonglong)param_3[5]) *
-            0x100000001b3 ^ (ulonglong)param_3[6]) * 0x100000001b3 ^ (ulonglong)param_3[7]) *
-          0x100000001b3;
-  lVar2 = *(longlong *)(*(longlong *)(param_1 + 0x18) + 8 + uVar3 * 0x10);
-  if (lVar2 != lVar1) {
-    if (*(longlong *)param_3 == *(longlong *)(lVar2 + 0x10)) goto LAB_14019ee1f;
-    while (lVar2 != *(longlong *)(*(longlong *)(param_1 + 0x18) + uVar3 * 0x10)) {
-      lVar2 = *(longlong *)(lVar2 + 8);
-      if (*(longlong *)param_3 == *(longlong *)(lVar2 + 0x10)) {
-        if (lVar2 == 0) {
-          lVar2 = lVar1;
-        }
-        *param_2 = lVar2;
-        return param_2;
-      }
+  lVar1 = *(longlong *)(param_1 + 0x18);
+  uVar4 = *(ulonglong *)(param_1 + 0x30) &
+          (((((((((ulonglong)*(byte *)(param_3 + 2) ^ 0xcbf29ce484222325) * 0x100000001b3 ^
+                (ulonglong)*(byte *)((longlong)param_3 + 0x11)) * 0x100000001b3 ^
+               (ulonglong)*(byte *)((longlong)param_3 + 0x12)) * 0x100000001b3 ^
+              (ulonglong)*(byte *)((longlong)param_3 + 0x13)) * 0x100000001b3 ^
+             (ulonglong)*(byte *)((longlong)param_3 + 0x14)) * 0x100000001b3 ^
+            (ulonglong)*(byte *)((longlong)param_3 + 0x15)) * 0x100000001b3 ^
+           (ulonglong)*(byte *)((longlong)param_3 + 0x16)) * 0x100000001b3 ^
+          (ulonglong)*(byte *)((longlong)param_3 + 0x17)) * 0x100000001b3;
+  plVar2 = *(longlong **)(lVar1 + uVar4 * 0x10);
+  if (*(longlong **)(lVar1 + 8 + uVar4 * 0x10) == param_3) {
+    if (plVar2 == param_3) {
+      uVar3 = *(undefined8 *)(param_1 + 8);
+      *(undefined8 *)(lVar1 + uVar4 * 0x10) = uVar3;
+      *(undefined8 *)(lVar1 + 8 + uVar4 * 0x10) = uVar3;
+    }
+    else {
+      *(longlong *)(lVar1 + 8 + uVar4 * 0x10) = param_3[1];
     }
   }
-  lVar2 = 0;
-LAB_14019ee1f:
-  if (lVar2 == 0) {
-    lVar2 = lVar1;
+  else if (plVar2 == param_3) {
+    *(longlong *)(lVar1 + uVar4 * 0x10) = *param_3;
   }
-  *param_2 = lVar2;
+  lVar1 = *param_3;
+  *(longlong *)(param_1 + 0x10) = *(longlong *)(param_1 + 0x10) + -1;
+  *(longlong *)param_3[1] = lVar1;
+  *(longlong *)(lVar1 + 8) = param_3[1];
+  thunk_FUN_14028af80(param_3,0x18);
+  *param_2 = lVar1;
   return param_2;
 }
 

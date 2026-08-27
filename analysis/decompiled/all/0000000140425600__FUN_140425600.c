@@ -1,0 +1,15 @@
+// Function: FUN_140425600
+// Addr: 140425600
+// Size: 56 bytes
+
+
+void FUN_140425600(void)
+
+{
+  FUN_14000d9e0(&DAT_1404e8a38);
+  FUN_14015a700(&DAT_1404e8a28);
+  FUN_14000d9e0(&DAT_1404e89f8);
+  FUN_14015a780(&DAT_1404e89e8);
+  return;
+}
+

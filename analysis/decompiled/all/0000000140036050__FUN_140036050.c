@@ -1,15 +1,15 @@
 // Function: FUN_140036050
 // Addr: 140036050
-// Size: 5 bytes
+// Size: 15 bytes
 
 
-void FUN_140036050(void)
+void FUN_140036050(undefined8 param_1,char param_2)
 
 {
-  code *pcVar1;
-  
-  pcVar1 = (code *)swi(3);
-  (*pcVar1)();
+  if (param_2 != '\0') {
+    thunk_FUN_14028af80(param_1,0x10);
+    return;
+  }
   return;
 }
 

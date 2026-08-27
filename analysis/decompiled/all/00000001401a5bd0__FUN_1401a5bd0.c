@@ -1,21 +1,16 @@
 // Function: FUN_1401a5bd0
 // Addr: 1401a5bd0
-// Size: 26 bytes
+// Size: 100 bytes
 
 
-longlong FUN_1401a5bd0(longlong param_1,int param_2)
+longlong FUN_1401a5bd0(longlong param_1,longlong param_2,longlong param_3)
 
 {
-  longlong lVar1;
-  
-  if (1 < param_2) {
-    func_0x0001402cba34(L"(i) >= 0 && (i) < (this->length())",
-                        L"D:\\dev\\we\\windows\\src\\lib\\include\\glm\\detail\\type_vec2.inl",0x6c)
-    ;
+  for (; param_1 != param_2; param_1 = param_1 + 0x40) {
+    *(undefined8 *)(param_3 + 0x38) = 0;
+    FUN_140037830(param_3,param_1);
+    param_3 = param_3 + 0x40;
   }
-  if ((param_2 == 0) || (lVar1 = param_1 + 4, param_2 != 1)) {
-    lVar1 = param_1;
-  }
-  return lVar1;
+  return param_3;
 }
 

@@ -38,9 +38,9 @@
 |---|---|
 | PKGV/TEX/MDL/JSON formats fully decoded (446 scenes, 0 errors) | ✅ §2-4 |
 | 9/9 subsystems identified with byte-level evidence | ✅ §5 |
-| ~~11,252 functions decompiled to C pseudocode (45 MB)~~ | ❌ **INVALID — see §6 correction.** Built by loading a displaced binary, so every address in it is wrong. Needs regeneration |
+| **7,748 functions decompiled to C pseudocode (45 MB)** | ✅ **REGENERATED 2026-08-27 — see §6.** 1차 함수 6,824/6,824 (100%) 일치. 종전 11,252개 판본은 변위 바이너리에서 나온 것이라 폐기했다 |
 | GLSL→HLSL shim table extracted (port directly to GLSL→MSL) | ✅ §5 |
-| MDL decoder entry point pinned at ~~`FUN_140261950`~~ **`0x140261880`** (corrected 2026-08-26 — the old value was a displaced corpus coordinate) | ⚠️ §4 |
+| MDL decoder entry point pinned at ~~`FUN_140261950`~~ **`0x140261880`** (corrected 2026-08-26; **재생성 코퍼스로 확증 2026-08-27** — `0x140261880` 은 새 코퍼스와 `.pdata` 1차 집합에 둘 다 있고, `0x140261950` 은 함수 시작으로 존재하지 않는다) | ✅ §4 |
 | Rich-Header-injection recipe to make Ghidra recognize WE binaries | ✅ §6 |
 
 | Partial / open | Status |
@@ -180,7 +180,7 @@ DATA SECTION: contiguous blobs, offsets strictly increasing.
 >    several `.pdata` entries, so **whether these two are one function or two can only be
 >    settled by reloading the pristine binary.**
 >
-> Do not cite this anchor as-is until the corpus is regenerated. If you must cite it, use
+> ~~Do not cite this anchor as-is until the corpus is regenerated.~~ **[2026-08-27] 코퍼스는 재생성됐다(§6 RESOLVED).** 이 앵커를 새 코퍼스에서 다시 확인한 뒤 인용하라. If you must cite it, use
 > `0x140261880` and give no size.
 
 **Open question**: vertex-format flag word (`0x0900` vs `0x0f00`) gates vertex stride; `0x8000` hi-bit gates a puppet/bone-weight block. Per-bit attribute mapping and index width (u16 vs u32) need dump of engine `CModel`/`CPuppet` structs.
@@ -227,7 +227,7 @@ DATA SECTION: contiguous blobs, offsets strictly increasing.
 |---|---|---|---|
 | 1 | Package parser | ✅ | `PKGV` absent (0 hits, both encodings); real magics `PLPV0005`@0x476eb8, `SHDV0069`@0x485748, `MDLVS001`@0x483b80, `core_balloon_pkg_version_error`@0x473e98 |
 | 2 | scene.json / project.json loader | ✅ | `project.json`@0x476e78; **RapidJSON UTF-16LE** `rapidjson\internal\p`@0x4756e6; jsoncpp `Json::Value`@0x477393 |
-| 3 | TEX decoder | ✅ | `TEXV0005`/`TEXI0001`/`TEXB0003/4`; `LZ4 error.`@0x4851f8; ~~decoder `FUN_140261950`~~ **← UNKNOWN**: this names the same function as MDL in row 4, so a copy-paste error is suspected. `subsystems-identified.md` puts the TEX entry at `Texture::ReadTextureData` (RTTI @0x4e02d3). Re-adjudicate after regeneration |
+| 3 | TEX decoder | ✅ | `TEXV0005`/`TEXI0001`/`TEXB0003/4`; `LZ4 error.`@0x4851f8; ~~decoder `FUN_140261950`~~ **← UNKNOWN**: this names the same function as MDL in row 4, so a copy-paste error is suspected. `subsystems-identified.md` puts the TEX entry at `Texture::ReadTextureData` (RTTI @0x4e02d3). **[2026-08-27] 재생성이 끝났으므로 이제 판정 가능하다** — `0x140261950` 은 새 코퍼스에 함수 시작으로 없다(즉 이 행의 구 좌표는 폐기). 새 코퍼스에서 다시 지목할 것 |
 | 4 | MDL decoder | ✅ | `MDLV0023`/`MDLA0006`/`MDAT0001`/`MDMP0001`/`MDLE0002`/`MDLS0004`; ~~`FUN_140261950`~~ **`0x140261880`** (corrected 2026-08-26, §4) |
 | 5 | Particle system | ✅ | `ParticleVbo` RTTI; `emitParticles`; `showparticlecollision` |
 | 6 | D3D11 render pipeline | ✅ | `d3d11.dll!D3D11CreateDevice` import; DXGI recovery strings `DXGI device lost in render loop.`@0x488040; `--disable-d3d11` fallback flag |
@@ -319,6 +319,60 @@ A complete compatibility shim is **statically embedded** in the binary (UTF-16/A
 > the damaged copy. Every coordinate cited in this document in `FUN_…` form is stated in
 > old-corpus terms; do not trust any of them until the corpus is regenerated.
 
+> ## ✅ RESOLVED (2026-08-27) — the corpus was regenerated
+>
+> Ghidra **12.1.2 PUBLIC build 20260605** (the version `docker/Dockerfile.re` pins) on JDK 21,
+> fed `binaries/wallpaper64_rich.exe` rebuilt from the pristine original with the fixed
+> script (md5 `5c7114bd…`, self-check `.pdata` 14,792/14,792). Analysis 381 s, no timeout.
+>
+> **The oracle above was wrong, and this is the correction that matters most.** The 14,792
+> `.pdata` entries are **not** 14,792 functions: **7,968 of them carry `UNW_FLAG_CHAININFO`**
+> and are additional fragments of a function already listed. The real count of primary
+> function starts is **6,824**. Measuring a corpus against 14,792 understates it by half —
+> that mistake was made once during this regeneration and caught by the unwind census.
+>
+> Against the corrected oracle (6,824 primary starts):
+>
+> ```
+>                        as-is      +0xD0     −0xD0
+>   damaged  (11,252)     1.26%      2.01%    48.21%
+>   regenerated (7,748) 100.00%      4.85%     4.65%
+> ```
+>
+> **Every primary function is present: 6,824 / 6,824.** No shift is needed any more and
+> `±0xD0` has fallen to noise. The 924 corpus entries outside the primary set overlap the
+> chained fragments in **0** cases and are absent from `.pdata` altogether — leaf functions
+> and thunks that need no unwind data. A 400-address capstone sample decodes 16 consecutive
+> instructions without a break at **400/400**.
+>
+> **Concrete cross-check.** `0x140261880` — the corrected MDL decoder start from §4 — is
+> present both in the regenerated corpus and in the primary `.pdata` set, while the old
+> displaced coordinate `0x140261950` exists as no function start at all. The 2026-08-26
+> correction is confirmed independently.
+>
+> So the sentence above — *"do not trust any of them until the corpus is regenerated"* —
+> is now discharged **for coordinates re-derived from the new corpus**. It still stands for
+> every `FUN_…` string left in this document that has not been re-checked against it:
+> those were written in old-corpus terms and are individually stale until re-read.
+>
+> ### Two defects found while doing this — read before re-running
+>
+> 1. **`DecompileAll.java` never clears its output directory** (`:48` is `mkdirs()` only).
+>    Run it over an existing `analysis/decompiled/all/` and the old files survive alongside
+>    the new ones. With the damaged corpus that would have left ~11,000 phantom functions
+>    in place (the address sets overlap by only 1.26%). **Clear `all/` before every run.**
+> 2. **`inject_rich_header.py` breaks `FileAlignment`.** It shifts file offsets by the stub
+>    length (`0xD0`), but the PE format requires every `PointerToRawData` to be a multiple
+>    of `FileAlignment` — `0x200` here. The output therefore violates alignment in **8 of 8
+>    sections** (the pristine original satisfies 8/8). Padding the stub to a `FileAlignment`
+>    multiple instead of 8 bytes would fix it.
+>
+>    **This did not affect the result**, which was established by control experiment rather
+>    than assumed: analysing the pristine binary directly yields **7,702** functions against
+>    the injected file's **7,748** — effectively the same. The alignment violation was first
+>    suspected as the cause of an apparent coverage shortfall; that hypothesis was measured
+>    and rejected. It remains a real spec violation worth fixing on its own merits.
+
 ---
 
 ## 7. RTTI limitations
@@ -389,7 +443,7 @@ Ranked by Waple-defect impact × ease. Items 1-3 use only the static artifacts a
 
 2. **Port the §5 GLSL→HLSL shim to GLSL→MSL.** The aliasing philosophy (`vec2`→`float4`, `mix`→`lerp`, `gl_FragColor`→output) transfers directly; MSL shares HLSL's `float4`/`SamplerState` vocabulary. This is the highest-leverage fix for Waple's compile-rate deficit cases.
 
-3. ~~**Pin MDL decoder against `FUN_140261950` (RVA 0x260950).** Read its decompilation in `analysis/decompiled/all/0000000140261950__FUN_140261950.c` and match Waple's MDL parser field-by-field.~~ **CORRECTION (2026-08-26): do not run this step as written.** That `.c` file is a displaced-corpus artifact, so its contents are not the real function (§6). **First regenerate the corpus from a pristine original**, then read the decompilation at the true start address **`0x140261880`** and match it field-by-field against Waple's MDL parser. That resolves the vertex-format-flag question (§4) for most cases.
+3. ~~**Pin MDL decoder against `FUN_140261950` (RVA 0x260950).** Read its decompilation in `analysis/decompiled/all/0000000140261950__FUN_140261950.c` and match Waple's MDL parser field-by-field.~~ **CORRECTION (2026-08-26): do not run this step as written.** That `.c` file is a displaced-corpus artifact, so its contents are not the real function (§6). **UPDATE (2026-08-27): the corpus has been regenerated, so this step is now runnable as written below.** Read `analysis/decompiled/all/0000000140261880__FUN_140261880.c` — that file exists in the new corpus, and `0x140261950` exists as no function start at all — and match it field-by-field against Waple's MDL parser. That resolves the vertex-format-flag question (§4) for most cases.
 
 4. **Drive the 12 defect clusters from `evidence-index.tsv`.** For each cluster's class name (e.g. `SceneWallpaper`, `MaterialSystem`), grep the evidence index → get the functions that reference it → read those decompilations. This is how to convert `FUN_*` pseudocode into role-identified engine logic without RTTI.
 
@@ -539,7 +593,16 @@ MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*' docker run --rm \
 ```
 
 ### A.3 Regenerate the full decompilation + evidence index
+
+> **⚠️ Clear `analysis/decompiled/all/` first — `DecompileAll.java` does not.** It only
+> calls `mkdirs()` (`:48`), so anything already in that directory survives the run and is
+> silently mixed into the "regenerated" corpus. Skipping this step during the 2026-08-27
+> regeneration would have left ~11,000 phantom functions in place: the damaged and real
+> address sets overlap by only 1.26%, so almost nothing would have been overwritten.
+
 ```bash
+rm -rf analysis/decompiled/all && mkdir -p analysis/decompiled/all   # <- mandatory
+
 MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*' docker run --rm \
   -v "$REPO:/work" \
   we-re:latest /opt/ghidra/support/analyzeHeadless \
@@ -548,6 +611,11 @@ MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*' docker run --rm \
     -postScript DecompileAll.java \
     -postScript BuildEvidenceIndex.java
 ```
+
+Verify the output against `.pdata` before trusting it. **The oracle is the 6,824 primary
+function starts, not the 14,792 `.pdata` entries** — 7,968 entries carry
+`UNW_FLAG_CHAININFO` and are fragments of functions already counted (§6). The 2026-08-27
+run scored 6,824/6,824 (100%) with no shift.
 
 ### A.4 Re-scan the scene.pkg corpus
 ```bash

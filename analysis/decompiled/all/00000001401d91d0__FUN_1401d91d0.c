@@ -1,40 +1,25 @@
 // Function: FUN_1401d91d0
 // Addr: 1401d91d0
-// Size: 34 bytes
+// Size: 118 bytes
 
 
 void FUN_1401d91d0(longlong *param_1)
 
 {
-  longlong lVar1;
-  code *pcVar2;
-  longlong lVar3;
-  undefined1 *puVar4;
-  undefined1 auStack_28 [8];
-  undefined1 auStack_20 [24];
+  undefined8 *puVar1;
+  undefined8 *puVar2;
   
-  lVar1 = *param_1;
-  if (lVar1 != 0) {
-    if (lVar1 != param_1[1]) {
-                    /* WARNING: Subroutine does not return */
-      FUN_140017310(lVar1);
-    }
-    lVar1 = *param_1;
-    lVar3 = lVar1;
-    puVar4 = auStack_28;
-    if ((0xfff < (ulonglong)((param_1[2] - lVar1 >> 3) * 8)) &&
-       (lVar3 = *(longlong *)(lVar1 + -8), puVar4 = auStack_28, 0x1f < (lVar1 - lVar3) - 8U)) {
-      lVar3 = 5;
-      pcVar2 = (code *)swi(0x29);
-      (*pcVar2)(5);
-      puVar4 = auStack_20;
-    }
-    *(undefined8 *)(puVar4 + -8) = 0x1401d925f;
-    func_0x00014028b040(lVar3);
-    *param_1 = 0;
-    param_1[1] = 0;
-    param_1[2] = 0;
+  puVar1 = (undefined8 *)*param_1;
+  *(undefined8 *)puVar1[1] = 0;
+  puVar1 = (undefined8 *)*puVar1;
+  while (puVar1 != (undefined8 *)0x0) {
+    puVar2 = (undefined8 *)*puVar1;
+    FUN_14000d9e0(puVar1 + 6);
+    FUN_1400d2120(puVar1 + 4);
+    thunk_FUN_14028af80(puVar1,0x58);
+    puVar1 = puVar2;
   }
+  thunk_FUN_14028af80(*param_1,0x58);
   return;
 }
 

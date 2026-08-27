@@ -1,0 +1,126 @@
+// Function: FUN_14026be00
+// Addr: 14026be00
+// Size: 725 bytes
+
+
+undefined8 * FUN_14026be00(undefined8 *param_1,undefined8 *param_2)
+
+{
+  undefined8 uVar1;
+  undefined8 uVar2;
+  undefined8 uVar3;
+  
+  *param_1 = *param_2;
+  param_1[1] = 0;
+  param_1[2] = 0;
+  param_1[3] = 0;
+  param_1[4] = 0;
+  uVar1 = param_2[2];
+  param_1[1] = param_2[1];
+  param_1[2] = uVar1;
+  uVar1 = param_2[4];
+  param_1[3] = param_2[3];
+  param_1[4] = uVar1;
+  *(undefined1 *)(param_2 + 1) = 0;
+  param_2[3] = 0;
+  param_2[4] = 0xf;
+  param_1[5] = 0;
+  param_1[6] = 0;
+  param_1[7] = 0;
+  param_1[8] = 0;
+  uVar1 = param_2[6];
+  param_1[5] = param_2[5];
+  param_1[6] = uVar1;
+  uVar1 = param_2[8];
+  param_1[7] = param_2[7];
+  param_1[8] = uVar1;
+  *(undefined1 *)(param_2 + 5) = 0;
+  param_2[7] = 0;
+  param_2[8] = 0xf;
+  *(undefined4 *)(param_1 + 9) = *(undefined4 *)(param_2 + 9);
+  *(undefined4 *)((longlong)param_1 + 0x4c) = *(undefined4 *)((longlong)param_2 + 0x4c);
+  *(undefined4 *)(param_1 + 10) = *(undefined4 *)(param_2 + 10);
+  *(undefined8 *)((longlong)param_1 + 0x54) = *(undefined8 *)((longlong)param_2 + 0x54);
+  *(undefined4 *)((longlong)param_1 + 0x5c) = *(undefined4 *)((longlong)param_2 + 0x5c);
+  param_1[0xc] = param_2[0xc];
+  *(undefined4 *)(param_1 + 0xd) = *(undefined4 *)(param_2 + 0xd);
+  param_1[0xe] = param_2[0xe];
+  param_1[0xf] = param_2[0xf];
+  param_1[0x10] = param_2[0x10];
+  param_1[0x11] = param_2[0x11];
+  uVar1 = param_2[0x14];
+  uVar2 = param_2[0x13];
+  uVar3 = param_2[0x12];
+  param_2[0x14] = 0;
+  param_2[0x13] = 0;
+  param_2[0x12] = 0;
+  param_1[0x12] = uVar3;
+  param_1[0x13] = uVar2;
+  param_1[0x14] = uVar1;
+  uVar1 = param_2[0x17];
+  uVar2 = param_2[0x16];
+  uVar3 = param_2[0x15];
+  param_2[0x17] = 0;
+  param_2[0x16] = 0;
+  param_2[0x15] = 0;
+  param_1[0x15] = uVar3;
+  param_1[0x16] = uVar2;
+  param_1[0x17] = uVar1;
+  uVar1 = param_2[0x1a];
+  uVar2 = param_2[0x19];
+  uVar3 = param_2[0x18];
+  param_2[0x1a] = 0;
+  param_2[0x19] = 0;
+  param_2[0x18] = 0;
+  param_1[0x18] = uVar3;
+  param_1[0x19] = uVar2;
+  param_1[0x1a] = uVar1;
+  uVar1 = param_2[0x1d];
+  uVar2 = param_2[0x1c];
+  uVar3 = param_2[0x1b];
+  param_2[0x1d] = 0;
+  param_2[0x1c] = 0;
+  param_2[0x1b] = 0;
+  param_1[0x1b] = uVar3;
+  param_1[0x1c] = uVar2;
+  param_1[0x1d] = uVar1;
+  uVar1 = param_2[0x20];
+  uVar2 = param_2[0x1f];
+  uVar3 = param_2[0x1e];
+  param_2[0x20] = 0;
+  param_2[0x1f] = 0;
+  param_2[0x1e] = 0;
+  param_1[0x1e] = uVar3;
+  param_1[0x1f] = uVar2;
+  param_1[0x20] = uVar1;
+  uVar1 = param_2[0x23];
+  uVar2 = param_2[0x22];
+  uVar3 = param_2[0x21];
+  param_2[0x23] = 0;
+  param_2[0x22] = 0;
+  param_2[0x21] = 0;
+  param_1[0x21] = uVar3;
+  param_1[0x22] = uVar2;
+  param_1[0x23] = uVar1;
+  uVar1 = param_2[0x26];
+  uVar2 = param_2[0x25];
+  uVar3 = param_2[0x24];
+  param_2[0x26] = 0;
+  param_2[0x25] = 0;
+  param_2[0x24] = 0;
+  param_1[0x24] = uVar3;
+  param_1[0x25] = uVar2;
+  param_1[0x26] = uVar1;
+  uVar1 = param_2[0x27];
+  uVar2 = param_2[0x29];
+  uVar3 = param_2[0x28];
+  param_2[0x29] = 0;
+  param_2[0x28] = 0;
+  param_2[0x27] = 0;
+  param_1[0x27] = uVar1;
+  param_1[0x28] = uVar3;
+  param_1[0x29] = uVar2;
+  param_1[0x2a] = param_2[0x2a];
+  return param_1;
+}
+

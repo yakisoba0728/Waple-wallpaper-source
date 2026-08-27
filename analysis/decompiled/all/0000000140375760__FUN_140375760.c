@@ -1,0 +1,37 @@
+// Function: FUN_140375760
+// Addr: 140375760
+// Size: 194 bytes
+
+
+undefined1 FUN_140375760(undefined8 param_1,byte *param_2)
+
+{
+  char cVar1;
+  uint uVar2;
+  ulonglong uVar3;
+  uint uVar4;
+  
+  cVar1 = FUN_140407b60(param_2,param_1);
+  if (cVar1 == '\0') {
+    return 0;
+  }
+  uVar3 = 0;
+  uVar4 = (uint)*param_2 * 0x100 + (uint)param_2[1];
+  if (uVar4 != 0) {
+    do {
+      cVar1 = FUN_140409580(param_2 + uVar3 * 4 + 2,param_1,param_2);
+      if (cVar1 == '\0') {
+        return 0;
+      }
+      uVar2 = (uint)param_2[uVar3 * 4 + 3] * 0x10000 + (uint)param_2[uVar3 * 4 + 4] * 0x100 +
+              (uint)param_2[uVar3 * 4 + 2] * 0x1000000 + (uint)param_2[uVar3 * 4 + 5];
+      if ((uVar2 != 0) && (cVar1 = FUN_140408570(param_2 + uVar2,param_1), cVar1 == '\0')) {
+        return 0;
+      }
+      uVar2 = (int)uVar3 + 1;
+      uVar3 = (ulonglong)uVar2;
+    } while (uVar2 < uVar4);
+  }
+  return 1;
+}
+

@@ -1,44 +1,40 @@
 // Function: FUN_140135f50
 // Addr: 140135f50
-// Size: 22 bytes
+// Size: 175 bytes
 
 
-longlong * FUN_140135f50(longlong param_1)
+void FUN_140135f50(longlong *param_1)
 
 {
-  longlong *plVar1;
-  longlong *plVar2;
-  longlong *in_RAX;
-  ulonglong uVar3;
+  code *pcVar1;
+  longlong lVar2;
+  longlong lVar3;
+  undefined1 *puVar4;
+  undefined1 auStack_28 [8];
+  undefined1 auStack_20 [24];
   
-  if (*(ulonglong *)(param_1 + 0x10) != 0) {
-    plVar1 = *(longlong **)(param_1 + 8);
-    if (*(ulonglong *)(param_1 + 0x10) < *(ulonglong *)(param_1 + 0x38) >> 3) {
-      plVar2 = (longlong *)*plVar1;
-      if (plVar2 != plVar1) {
-        uVar3 = 0;
-        if (plVar2[4] * 2 != 0) {
-          do {
-            uVar3 = uVar3 + 1;
-          } while (uVar3 < (ulonglong)(plVar2[4] * 2));
-        }
-                    /* WARNING: Subroutine does not return */
-        FUN_140016840(plVar2 + 2);
-      }
-      return plVar1;
+  lVar3 = *param_1;
+  if (lVar3 != 0) {
+    lVar2 = param_1[1];
+    for (; lVar3 != lVar2; lVar3 = lVar3 + 0x28) {
+      FUN_140016770(lVar3);
     }
-    *(undefined8 *)plVar1[1] = 0;
-    if (*plVar1 != 0) {
-                    /* WARNING: Subroutine does not return */
-      FUN_140016840(*plVar1 + 0x10);
+    lVar3 = *param_1;
+    lVar2 = lVar3;
+    puVar4 = auStack_28;
+    if ((0xfff < (ulonglong)((param_1[2] - lVar3 >> 3) * 8)) &&
+       (lVar2 = *(longlong *)(lVar3 + -8), puVar4 = auStack_28, 0x1f < (lVar3 - lVar2) - 8U)) {
+      lVar2 = 5;
+      pcVar1 = (code *)swi(0x29);
+      (*pcVar1)(5);
+      puVar4 = auStack_20;
     }
-    *(undefined8 *)*(undefined8 *)(param_1 + 8) = *(undefined8 *)(param_1 + 8);
-    *(longlong *)(*(longlong *)(param_1 + 8) + 8) = *(longlong *)(param_1 + 8);
-    *(undefined8 *)(param_1 + 0x10) = 0;
-    in_RAX = (longlong *)
-             func_0x00014000f8a0(*(undefined8 *)(param_1 + 0x18),*(undefined8 *)(param_1 + 0x20),
-                                 &stack0x00000008);
+    *(undefined8 *)(puVar4 + -8) = 0x140135fe7;
+    thunk_FUN_14028af80(lVar2);
+    *param_1 = 0;
+    param_1[1] = 0;
+    param_1[2] = 0;
   }
-  return in_RAX;
+  return;
 }
 

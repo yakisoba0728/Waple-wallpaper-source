@@ -1,79 +1,190 @@
 // Function: FUN_1401a32e0
 // Addr: 1401a32e0
-// Size: 204 bytes
+// Size: 366 bytes
 
 
-void FUN_1401a32e0(byte *param_1,byte *param_2,byte *param_3)
+void FUN_1401a32e0(undefined8 *param_1,undefined8 *param_2,undefined8 *param_3,code *param_4)
 
 {
-  undefined8 uVar1;
-  undefined8 uVar2;
-  undefined8 uVar3;
-  undefined8 uVar4;
-  bool bVar5;
-  bool bVar6;
+  undefined4 uVar1;
+  undefined4 uVar2;
+  undefined4 uVar3;
+  undefined4 uVar4;
+  undefined4 uVar5;
+  undefined4 uVar6;
+  undefined4 uVar7;
+  undefined4 uVar8;
+  undefined4 uVar9;
+  undefined4 uVar10;
+  undefined4 uVar11;
+  undefined8 uVar12;
+  undefined8 uVar13;
+  undefined8 uVar14;
+  undefined8 uVar15;
+  undefined8 uVar16;
+  undefined8 uVar17;
+  undefined8 uVar18;
+  undefined8 uVar19;
+  undefined8 uVar20;
+  undefined8 uVar21;
+  undefined8 uVar22;
+  undefined8 uVar23;
+  undefined8 uVar24;
+  char cVar25;
   
-  bVar5 = *param_2 < *param_1;
-  if (*param_2 == *param_1) {
-    bVar6 = *(uint *)(param_2 + 4) < *(uint *)(param_1 + 4);
-    bVar5 = false;
-    if (*(uint *)(param_2 + 4) == *(uint *)(param_1 + 4)) {
-      bVar5 = *(float *)(param_1 + 8) == *(float *)(param_2 + 8);
-      bVar6 = *(float *)(param_1 + 8) < *(float *)(param_2 + 8);
-    }
-    bVar5 = !bVar6 && !bVar5;
+  cVar25 = (*param_4)(param_2,param_1);
+  if (cVar25 != '\0') {
+    uVar12 = param_1[1];
+    uVar13 = *param_2;
+    uVar14 = param_2[1];
+    uVar15 = param_2[2];
+    uVar16 = param_2[3];
+    uVar17 = param_2[4];
+    uVar18 = param_2[5];
+    uVar19 = param_2[6];
+    uVar20 = param_2[7];
+    uVar21 = param_2[8];
+    uVar22 = param_2[9];
+    uVar23 = param_2[10];
+    uVar24 = param_2[0xb];
+    *param_2 = *param_1;
+    param_2[1] = uVar12;
+    uVar12 = param_1[3];
+    param_2[2] = param_1[2];
+    param_2[3] = uVar12;
+    uVar12 = param_1[5];
+    param_2[4] = param_1[4];
+    param_2[5] = uVar12;
+    uVar12 = param_1[7];
+    param_2[6] = param_1[6];
+    param_2[7] = uVar12;
+    uVar1 = *(undefined4 *)((longlong)param_1 + 0x44);
+    uVar2 = *(undefined4 *)(param_1 + 9);
+    uVar3 = *(undefined4 *)((longlong)param_1 + 0x4c);
+    *(undefined4 *)(param_2 + 8) = *(undefined4 *)(param_1 + 8);
+    *(undefined4 *)((longlong)param_2 + 0x44) = uVar1;
+    *(undefined4 *)(param_2 + 9) = uVar2;
+    *(undefined4 *)((longlong)param_2 + 0x4c) = uVar3;
+    uVar12 = param_1[0xb];
+    param_2[10] = param_1[10];
+    param_2[0xb] = uVar12;
+    *param_1 = uVar13;
+    param_1[1] = uVar14;
+    param_1[2] = uVar15;
+    param_1[3] = uVar16;
+    param_1[4] = uVar17;
+    param_1[5] = uVar18;
+    param_1[6] = uVar19;
+    param_1[7] = uVar20;
+    param_1[8] = uVar21;
+    param_1[9] = uVar22;
+    param_1[10] = uVar23;
+    param_1[0xb] = uVar24;
   }
-  if (bVar5) {
-    uVar2 = *(undefined8 *)(param_1 + 8);
-    uVar3 = *(undefined8 *)param_2;
-    uVar4 = *(undefined8 *)(param_2 + 8);
-    uVar1 = *(undefined8 *)(param_2 + 0x10);
-    *(undefined8 *)param_2 = *(undefined8 *)param_1;
-    *(undefined8 *)(param_2 + 8) = uVar2;
-    *(undefined8 *)(param_2 + 0x10) = *(undefined8 *)(param_1 + 0x10);
-    *(undefined8 *)param_1 = uVar3;
-    *(undefined8 *)(param_1 + 8) = uVar4;
-    *(undefined8 *)(param_1 + 0x10) = uVar1;
-  }
-  bVar5 = *param_3 < *param_2;
-  if (*param_3 == *param_2) {
-    bVar6 = *(uint *)(param_3 + 4) < *(uint *)(param_2 + 4);
-    bVar5 = false;
-    if (*(uint *)(param_3 + 4) == *(uint *)(param_2 + 4)) {
-      bVar5 = *(float *)(param_2 + 8) == *(float *)(param_3 + 8);
-      bVar6 = *(float *)(param_2 + 8) < *(float *)(param_3 + 8);
-    }
-    bVar5 = !bVar6 && !bVar5;
-  }
-  if (bVar5) {
-    uVar2 = *(undefined8 *)(param_2 + 8);
-    uVar3 = *(undefined8 *)param_3;
-    uVar4 = *(undefined8 *)(param_3 + 8);
-    uVar1 = *(undefined8 *)(param_3 + 0x10);
-    *(undefined8 *)param_3 = *(undefined8 *)param_2;
-    *(undefined8 *)(param_3 + 8) = uVar2;
-    *(undefined8 *)(param_3 + 0x10) = *(undefined8 *)(param_2 + 0x10);
-    *(undefined8 *)param_2 = uVar3;
-    *(undefined8 *)(param_2 + 8) = uVar4;
-    *(undefined8 *)(param_2 + 0x10) = uVar1;
-    bVar5 = *param_2 < *param_1;
-    if (*param_2 == *param_1) {
-      bVar6 = *(uint *)(param_2 + 4) < *(uint *)(param_1 + 4);
-      bVar5 = false;
-      if (*(uint *)(param_2 + 4) == *(uint *)(param_1 + 4)) {
-        bVar5 = *(float *)(param_1 + 8) == *(float *)(param_2 + 8);
-        bVar6 = *(float *)(param_1 + 8) < *(float *)(param_2 + 8);
-      }
-      bVar5 = !bVar6 && !bVar5;
-    }
-    if (bVar5) {
-      uVar2 = *(undefined8 *)(param_1 + 8);
-      *(undefined8 *)param_2 = *(undefined8 *)param_1;
-      *(undefined8 *)(param_2 + 8) = uVar2;
-      *(undefined8 *)(param_2 + 0x10) = *(undefined8 *)(param_1 + 0x10);
-      *(undefined8 *)param_1 = uVar3;
-      *(undefined8 *)(param_1 + 8) = uVar4;
-      *(undefined8 *)(param_1 + 0x10) = uVar1;
+  cVar25 = (*param_4)(param_3,param_2);
+  if (cVar25 != '\0') {
+    uVar12 = param_2[1];
+    uVar1 = *(undefined4 *)param_3;
+    uVar2 = *(undefined4 *)((longlong)param_3 + 4);
+    uVar3 = *(undefined4 *)(param_3 + 1);
+    uVar4 = *(undefined4 *)((longlong)param_3 + 0xc);
+    uVar5 = *(undefined4 *)(param_3 + 2);
+    uVar6 = *(undefined4 *)((longlong)param_3 + 0x14);
+    uVar7 = *(undefined4 *)(param_3 + 3);
+    uVar8 = *(undefined4 *)((longlong)param_3 + 0x1c);
+    uVar13 = param_3[4];
+    uVar14 = param_3[5];
+    uVar15 = param_3[6];
+    uVar16 = param_3[7];
+    uVar17 = param_3[8];
+    uVar18 = param_3[9];
+    uVar19 = param_3[10];
+    uVar20 = param_3[0xb];
+    *param_3 = *param_2;
+    param_3[1] = uVar12;
+    uVar12 = param_2[3];
+    param_3[2] = param_2[2];
+    param_3[3] = uVar12;
+    uVar12 = param_2[5];
+    param_3[4] = param_2[4];
+    param_3[5] = uVar12;
+    uVar12 = param_2[7];
+    param_3[6] = param_2[6];
+    param_3[7] = uVar12;
+    uVar9 = *(undefined4 *)((longlong)param_2 + 0x44);
+    uVar10 = *(undefined4 *)(param_2 + 9);
+    uVar11 = *(undefined4 *)((longlong)param_2 + 0x4c);
+    *(undefined4 *)(param_3 + 8) = *(undefined4 *)(param_2 + 8);
+    *(undefined4 *)((longlong)param_3 + 0x44) = uVar9;
+    *(undefined4 *)(param_3 + 9) = uVar10;
+    *(undefined4 *)((longlong)param_3 + 0x4c) = uVar11;
+    uVar9 = *(undefined4 *)((longlong)param_2 + 0x54);
+    uVar10 = *(undefined4 *)(param_2 + 0xb);
+    uVar11 = *(undefined4 *)((longlong)param_2 + 0x5c);
+    *(undefined4 *)(param_3 + 10) = *(undefined4 *)(param_2 + 10);
+    *(undefined4 *)((longlong)param_3 + 0x54) = uVar9;
+    *(undefined4 *)(param_3 + 0xb) = uVar10;
+    *(undefined4 *)((longlong)param_3 + 0x5c) = uVar11;
+    *(undefined4 *)param_2 = uVar1;
+    *(undefined4 *)((longlong)param_2 + 4) = uVar2;
+    *(undefined4 *)(param_2 + 1) = uVar3;
+    *(undefined4 *)((longlong)param_2 + 0xc) = uVar4;
+    *(undefined4 *)(param_2 + 2) = uVar5;
+    *(undefined4 *)((longlong)param_2 + 0x14) = uVar6;
+    *(undefined4 *)(param_2 + 3) = uVar7;
+    *(undefined4 *)((longlong)param_2 + 0x1c) = uVar8;
+    param_2[4] = uVar13;
+    param_2[5] = uVar14;
+    param_2[6] = uVar15;
+    param_2[7] = uVar16;
+    param_2[8] = uVar17;
+    param_2[9] = uVar18;
+    param_2[10] = uVar19;
+    param_2[0xb] = uVar20;
+    cVar25 = (*param_4)(param_2,param_1);
+    if (cVar25 != '\0') {
+      uVar12 = param_1[1];
+      uVar13 = *param_2;
+      uVar14 = param_2[1];
+      uVar15 = param_2[2];
+      uVar16 = param_2[3];
+      uVar17 = param_2[4];
+      uVar18 = param_2[5];
+      uVar19 = param_2[6];
+      uVar20 = param_2[7];
+      uVar21 = param_2[8];
+      uVar22 = param_2[9];
+      uVar23 = param_2[10];
+      uVar24 = param_2[0xb];
+      *param_2 = *param_1;
+      param_2[1] = uVar12;
+      uVar12 = param_1[3];
+      param_2[2] = param_1[2];
+      param_2[3] = uVar12;
+      uVar12 = param_1[5];
+      param_2[4] = param_1[4];
+      param_2[5] = uVar12;
+      uVar12 = param_1[7];
+      param_2[6] = param_1[6];
+      param_2[7] = uVar12;
+      uVar12 = param_1[9];
+      param_2[8] = param_1[8];
+      param_2[9] = uVar12;
+      uVar12 = param_1[0xb];
+      param_2[10] = param_1[10];
+      param_2[0xb] = uVar12;
+      *param_1 = uVar13;
+      param_1[1] = uVar14;
+      param_1[2] = uVar15;
+      param_1[3] = uVar16;
+      param_1[4] = uVar17;
+      param_1[5] = uVar18;
+      param_1[6] = uVar19;
+      param_1[7] = uVar20;
+      param_1[8] = uVar21;
+      param_1[9] = uVar22;
+      param_1[10] = uVar23;
+      param_1[0xb] = uVar24;
     }
   }
   return;

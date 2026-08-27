@@ -1,0 +1,21 @@
+// Function: FUN_140015420
+// Addr: 140015420
+// Size: 61 bytes
+
+
+longlong * FUN_140015420(longlong *param_1,ulonglong param_2)
+
+{
+  if ((ulonglong)param_1[2] < param_2) {
+                    /* WARNING: Subroutine does not return */
+    FUN_140012940();
+  }
+  param_1[2] = param_2;
+  if (7 < (ulonglong)param_1[3]) {
+    *(undefined2 *)(*param_1 + param_2 * 2) = 0;
+    return param_1;
+  }
+  *(undefined2 *)((longlong)param_1 + param_2 * 2) = 0;
+  return param_1;
+}
+

@@ -1,15 +1,36 @@
 // Function: FUN_140017390
 // Addr: 140017390
-// Size: 20 bytes
+// Size: 88 bytes
 
 
-undefined8 * FUN_140017390(undefined8 *param_1)
+ulonglong FUN_140017390(ulonglong param_1)
 
 {
-  *param_1 = 0;
-  param_1[1] = 0;
-  param_1[2] = 0;
-  param_1[3] = 0;
-  return param_1;
+  code *pcVar1;
+  longlong lVar2;
+  ulonglong uVar3;
+  longlong lVar4;
+  
+  if (param_1 == 0) {
+    return 0;
+  }
+  if (0xfff < param_1) {
+    if (param_1 < param_1 + 0x27) {
+      lVar2 = FUN_14028af20(param_1 + 0x27);
+      lVar4 = lVar2;
+      if (lVar2 == 0) {
+        lVar4 = 5;
+        pcVar1 = (code *)swi(0x29);
+        lVar2 = (*pcVar1)();
+      }
+      uVar3 = lVar2 + 0x27U & 0xffffffffffffffe0;
+      *(longlong *)(uVar3 - 8) = lVar4;
+      return uVar3;
+    }
+                    /* WARNING: Subroutine does not return */
+    FUN_140017370();
+  }
+  uVar3 = FUN_14028af20();
+  return uVar3;
 }
 

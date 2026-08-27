@@ -1,23 +1,16 @@
 // Function: FUN_14013d130
 // Addr: 14013d130
-// Size: 52 bytes
+// Size: 54 bytes
 
 
-undefined8 FUN_14013d130(longlong param_1,longlong param_2,longlong param_3)
+undefined8 * FUN_14013d130(undefined8 *param_1,ulonglong param_2)
 
 {
-  undefined1 local_a8 [32];
-  undefined1 auStack_88 [48];
-  undefined1 local_58 [80];
-  
-  if ((param_2 != 0) && (param_3 != 0)) {
-    FUN_14013b5e0(local_58);
-    FUN_14013b5e0(local_a8,param_3);
-    (**(code **)(**(longlong **)(param_1 + 0x18) + 0x20))
-              (*(longlong **)(param_1 + 0x18),local_58,local_a8);
-                    /* WARNING: Subroutine does not return */
-    FUN_140017310(auStack_88);
+  *param_1 = &PTR_FUN_14048af20;
+  param_1[1] = &PTR_FUN_14048b128;
+  if ((param_2 & 1) != 0) {
+    thunk_FUN_14028af80(param_1,0x38);
   }
-  return 0;
+  return param_1;
 }
 

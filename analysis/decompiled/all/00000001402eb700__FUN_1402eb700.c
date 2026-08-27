@@ -1,21 +1,46 @@
 // Function: FUN_1402eb700
 // Addr: 1402eb700
-// Size: 97 bytes
+// Size: 195 bytes
 
 
-bool FUN_1402eb700(int *param_1)
+double FUN_1402eb700(void)
 
 {
-  int iVar1;
-  undefined8 local_res8;
+  double dVar1;
+  double dVar2;
+  ulonglong uVar3;
+  double dVar4;
+  undefined1 in_XMM0 [16];
+  undefined1 auVar5 [16];
   
-  FUN_1402ea2d0(*param_1);
-  func_0x0001402ea400(param_1[1]);
-  local_res8 = 0;
-  iVar1 = FUN_1402eb6e0(&local_res8);
-  if ((iVar1 == 0) && (*param_1 == (int)local_res8)) {
-    return param_1[1] != local_res8._4_4_;
+  dVar4 = in_XMM0._0_8_;
+  if (1 < DAT_1404dc008) {
+    auVar5 = roundsd(in_XMM0,in_XMM0,10);
+    return auVar5._0_8_;
   }
-  return true;
+  dVar1 = ABS(dVar4);
+  uVar3 = (ulonglong)dVar1 >> 0x34;
+  dVar2 = dVar4;
+  if (uVar3 < 0x433) {
+    if (uVar3 < 0x3ff) {
+      if (dVar1 != 0.0) {
+        if (dVar4 != dVar1) {
+          return -0.0;
+        }
+        return DAT_140492778;
+      }
+    }
+    else {
+      dVar2 = (double)(~((1L << (0x33U - (char)uVar3 & 0x3f)) - 1U) & (ulonglong)dVar4);
+      if ((dVar4 == dVar1) && (dVar2 != dVar4)) {
+        dVar2 = dVar2 + DAT_140492778;
+      }
+    }
+  }
+  else if (0x7ff0000000000000 < (ulonglong)dVar1) {
+    dVar4 = (double)FUN_1402ecc80();
+    return dVar4;
+  }
+  return dVar2;
 }
 

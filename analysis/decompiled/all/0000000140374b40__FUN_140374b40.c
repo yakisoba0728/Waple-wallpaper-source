@@ -1,37 +1,43 @@
 // Function: FUN_140374b40
 // Addr: 140374b40
-// Size: 194 bytes
+// Size: 254 bytes
 
 
-undefined1 FUN_140374b40(undefined8 param_1,byte *param_2)
+ulonglong FUN_140374b40(int *param_1,byte *param_2)
 
 {
-  char cVar1;
-  uint uVar2;
+  byte *pbVar1;
+  char *pcVar2;
   ulonglong uVar3;
-  uint uVar4;
+  int iVar4;
+  int iVar5;
+  ulonglong uVar6;
+  ulonglong uVar7;
+  ulonglong uVar8;
   
-  cVar1 = FUN_140407c30(param_2,param_1);
-  if (cVar1 == '\0') {
-    return 0;
+  pbVar1 = param_2 + 2;
+  uVar7 = (ulonglong)(uint)param_1[6];
+  pcVar2 = "OUT-OF-RANGE";
+  uVar8 = (longlong)pbVar1 - *(longlong *)(param_1 + 2);
+  uVar6 = 1;
+  if (uVar8 <= uVar7) {
+    pcVar2 = "OK";
   }
-  uVar3 = 0;
-  uVar4 = (uint)*param_2 * 0x100 + (uint)param_2[1];
-  if (uVar4 != 0) {
-    do {
-      cVar1 = func_0x000140409650(param_2 + uVar3 * 4 + 2,param_1,param_2);
-      if (cVar1 == '\0') {
-        return 0;
-      }
-      uVar2 = (uint)param_2[uVar3 * 4 + 3] * 0x10000 + (uint)param_2[uVar3 * 4 + 4] * 0x100 +
-              (uint)param_2[uVar3 * 4 + 2] * 0x1000000 + (uint)param_2[uVar3 * 4 + 5];
-      if ((uVar2 != 0) && (cVar1 = func_0x000140402e40(param_2 + uVar2,param_1), cVar1 == '\0')) {
-        return 0;
-      }
-      uVar2 = (int)uVar3 + 1;
-      uVar3 = (ulonglong)uVar2;
-    } while (uVar2 < uVar4);
+  uVar3 = FUN_1402fc370("SANITIZE",pbVar1,0,1,*param_1 + 1,0,"check_point [%p] in [%p..%p] -> %s",
+                        pbVar1,*(longlong *)(param_1 + 2),*(undefined8 *)(param_1 + 4),pcVar2);
+  if (uVar7 < uVar8) {
+    return uVar3 & 0xffffffffffffff00;
   }
-  return 1;
+  iVar4 = (uint)*param_2 * 0x100 + (uint)param_2[1];
+  iVar5 = (int)uVar6;
+  if (iVar4 == iVar5) {
+    uVar6 = FUN_1404078b0(pbVar1,param_1);
+    return uVar6;
+  }
+  if (iVar4 - iVar5 != iVar5) {
+    return uVar6 & 0xff;
+  }
+  uVar6 = FUN_140407340(pbVar1,param_1);
+  return uVar6;
 }
 

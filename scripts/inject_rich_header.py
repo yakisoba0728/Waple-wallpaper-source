@@ -28,6 +28,31 @@
 #   * Parsing .pdata at the offset the header states yields 0 entries inside
 #     .text; parsing at +0xD0 yields 14,792, all 14,792 inside .text (100%).
 #
+# =============================================================================
+# UPDATE 2026-08-27 - the corpus was regenerated, and a second defect was found here
+# =============================================================================
+#
+# The corpus described below has been rebuilt with Ghidra 12.1.2 from an output of this
+# (fixed) script. Measured against the .pdata ground truth it now scores 6,824/6,824
+# primary function starts (100%), with no shift; the damaged corpus scored 1.26%.
+#
+#   NOTE ON THE ORACLE: the 14,792 .pdata entries are NOT 14,792 functions. 7,968 of them
+#   carry UNW_FLAG_CHAININFO and are additional fragments of a function already listed.
+#   The real primary-start count is 6,824. Scoring a corpus against 14,792 halves the
+#   apparent coverage - that error was made once during the regeneration.
+#
+# **STILL BROKEN HERE: this script violates FileAlignment.** It shifts file offsets by the
+# stub length (0xD0), but the PE format requires every PointerToRawData to be a multiple of
+# OptionalHeader.FileAlignment (0x200 for these binaries). The output therefore breaks
+# alignment in 8 of 8 sections, where the pristine input satisfies 8/8. The fix is to pad
+# the donor stub to a FileAlignment multiple rather than to 8 bytes, so that `growth`
+# itself is aligned.
+#
+# This was NOT the cause of anything observed so far, and that was established by control
+# experiment rather than assumed: analysing the pristine binary directly yields 7,702
+# functions versus 7,748 from the injected file - effectively identical. It is a spec
+# violation worth fixing on its own merits, not a known-bad output.
+#
 # **Any Ghidra corpus built with the old revision is invalid** — every address in
 # it is displaced. The direction is: an address the corpus calls X actually holds
 # the content of X - 0xD0. Measured against the 14,792 real function starts in

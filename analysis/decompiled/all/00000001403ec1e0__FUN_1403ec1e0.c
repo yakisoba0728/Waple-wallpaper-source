@@ -1,20 +1,44 @@
 // Function: FUN_1403ec1e0
 // Addr: 1403ec1e0
-// Size: 62 bytes
+// Size: 147 bytes
 
 
-bool FUN_1403ec1e0(undefined4 *param_1,uint param_2,undefined8 param_3)
+void FUN_1403ec1e0(double *param_1,double *param_2)
 
 {
-  uint uVar1;
+  double dVar1;
   
-  uVar1 = (uint)*(byte *)((longlong)param_1 + 0xf);
-  if (*(byte *)((longlong)param_1 + 0xf) == 0xff) {
-    uVar1 = func_0x0001403c6850(param_3,*param_1);
-    if (uVar1 < 0xff) {
-      *(char *)((longlong)param_1 + 0xf) = (char)uVar1;
+  if (*param_1 < param_1[2]) {
+    dVar1 = param_1[1];
+    if (dVar1 < param_1[3]) {
+      if (param_2[2] <= *param_2) {
+        return;
+      }
+      if (param_2[3] < param_2[1] || param_2[3] == param_2[1]) {
+        return;
+      }
+      if (*param_2 < *param_1) {
+        *param_1 = *param_2;
+      }
+      if (param_1[2] < param_2[2]) {
+        param_1[2] = param_2[2];
+      }
+      if (param_2[1] <= dVar1 && dVar1 != param_2[1]) {
+        param_1[1] = param_2[1];
+      }
+      if (param_2[3] <= param_1[3]) {
+        return;
+      }
+      param_1[3] = param_2[3];
+      return;
     }
   }
-  return uVar1 == param_2;
+  dVar1 = param_2[1];
+  *param_1 = *param_2;
+  param_1[1] = dVar1;
+  dVar1 = param_2[3];
+  param_1[2] = param_2[2];
+  param_1[3] = dVar1;
+  return;
 }
 

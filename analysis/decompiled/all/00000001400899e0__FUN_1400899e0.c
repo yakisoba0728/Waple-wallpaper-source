@@ -1,36 +1,21 @@
 // Function: FUN_1400899e0
 // Addr: 1400899e0
-// Size: 89 bytes
+// Size: 91 bytes
 
 
-void FUN_1400899e0(longlong *param_1,longlong *param_2)
+int FUN_1400899e0(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4)
 
 {
-  longlong lVar1;
-  longlong *plVar2;
+  int iVar1;
+  ulonglong *puVar2;
+  undefined8 local_res20;
   
-  lVar1 = *param_2;
-  *param_2 = *(longlong *)(lVar1 + 0x10);
-  if (*(char *)(*(longlong *)(lVar1 + 0x10) + 0x19) == '\0') {
-    *(longlong **)(*(longlong *)(lVar1 + 0x10) + 8) = param_2;
+  local_res20 = param_4;
+  puVar2 = (ulonglong *)FUN_140016300();
+  iVar1 = FUN_1402c7b38(*puVar2 | 2,param_1,param_2,param_3,0,&local_res20);
+  if (iVar1 < 0) {
+    iVar1 = -1;
   }
-  *(longlong *)(lVar1 + 8) = param_2[1];
-  if (param_2 == *(longlong **)(*param_1 + 8)) {
-    *(longlong *)(*param_1 + 8) = lVar1;
-    *(longlong **)(lVar1 + 0x10) = param_2;
-    param_2[1] = lVar1;
-    return;
-  }
-  plVar2 = (longlong *)param_2[1];
-  if (param_2 == (longlong *)plVar2[2]) {
-    plVar2[2] = lVar1;
-    *(longlong **)(lVar1 + 0x10) = param_2;
-    param_2[1] = lVar1;
-    return;
-  }
-  *plVar2 = lVar1;
-  *(longlong **)(lVar1 + 0x10) = param_2;
-  param_2[1] = lVar1;
-  return;
+  return iVar1;
 }
 

@@ -1,0 +1,143 @@
+// Function: FUN_1402290d0
+// Addr: 1402290d0
+// Size: 584 bytes
+
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_1402290d0(float *param_1,float *param_2)
+
+{
+  float fVar1;
+  float fVar3;
+  float fVar4;
+  float fVar5;
+  undefined1 auVar2 [16];
+  float fVar6;
+  float fVar7;
+  float fVar8;
+  float fVar9;
+  float fVar10;
+  float fVar11;
+  float fVar12;
+  float fVar13;
+  float fVar14;
+  float fVar15;
+  float fVar16;
+  float fVar17;
+  float fVar18;
+  float fVar19;
+  float fVar20;
+  float fVar21;
+  float fVar22;
+  float fVar23;
+  float fVar24;
+  float fVar25;
+  float fVar26;
+  float fVar27;
+  float fVar28;
+  float fVar29;
+  float fVar30;
+  float fVar31;
+  float fVar32;
+  float fVar33;
+  float fVar34;
+  float fVar35;
+  float fVar36;
+  float fVar37;
+  float fVar38;
+  float fVar39;
+  float fVar40;
+  
+  fVar23 = param_1[0xc];
+  fVar21 = param_1[0xd];
+  fVar24 = param_1[0xe];
+  fVar10 = param_1[0xf];
+  fVar1 = *param_1;
+  fVar3 = param_1[1];
+  fVar4 = param_1[2];
+  fVar5 = param_1[3];
+  fVar7 = param_1[4];
+  fVar9 = param_1[5];
+  fVar11 = param_1[6];
+  fVar13 = param_1[7];
+  fVar14 = param_1[8];
+  fVar15 = param_1[9];
+  fVar16 = param_1[10];
+  fVar12 = param_1[0xb];
+  fVar29 = fVar10 * fVar16 - fVar12 * fVar24;
+  fVar30 = fVar10 * fVar16 - fVar12 * fVar24;
+  fVar31 = fVar10 * fVar11 - fVar13 * fVar24;
+  fVar32 = fVar12 * fVar11 - fVar13 * fVar16;
+  fVar25 = fVar15 * fVar10 - fVar21 * fVar12;
+  fVar26 = fVar15 * fVar10 - fVar21 * fVar12;
+  fVar27 = fVar9 * fVar10 - fVar21 * fVar13;
+  fVar28 = fVar9 * fVar12 - fVar15 * fVar13;
+  fVar33 = fVar15 * fVar24 - fVar21 * fVar16;
+  fVar34 = fVar15 * fVar24 - fVar21 * fVar16;
+  fVar35 = fVar9 * fVar24 - fVar21 * fVar11;
+  fVar36 = fVar9 * fVar16 - fVar15 * fVar11;
+  fVar6 = fVar14 * fVar10 - fVar23 * fVar12;
+  fVar8 = fVar14 * fVar10 - fVar23 * fVar12;
+  fVar10 = fVar7 * fVar10 - fVar23 * fVar13;
+  fVar12 = fVar7 * fVar12 - fVar14 * fVar13;
+  fVar37 = fVar14 * fVar21 - fVar23 * fVar15;
+  fVar38 = fVar14 * fVar21 - fVar23 * fVar15;
+  fVar39 = fVar7 * fVar21 - fVar23 * fVar9;
+  fVar40 = fVar7 * fVar15 - fVar14 * fVar9;
+  fVar21 = fVar14 * fVar24 - fVar23 * fVar16;
+  fVar22 = fVar14 * fVar24 - fVar23 * fVar16;
+  fVar23 = fVar7 * fVar24 - fVar23 * fVar11;
+  fVar24 = fVar7 * fVar16 - fVar14 * fVar11;
+  fVar17 = ((fVar9 * fVar29 - fVar11 * fVar25) + fVar13 * fVar33) * _DAT_140493030;
+  fVar18 = ((fVar3 * fVar30 - fVar4 * fVar26) + fVar5 * fVar34) * _UNK_140493034;
+  fVar19 = ((fVar3 * fVar31 - fVar4 * fVar27) + fVar5 * fVar35) * _UNK_140493038;
+  fVar20 = ((fVar3 * fVar32 - fVar4 * fVar28) + fVar5 * fVar36) * _UNK_14049303c;
+  fVar14 = ((fVar7 * fVar29 - fVar11 * fVar6) + fVar13 * fVar21) * _DAT_140492e60;
+  fVar15 = ((fVar1 * fVar30 - fVar4 * fVar8) + fVar5 * fVar22) * _UNK_140492e64;
+  fVar16 = ((fVar1 * fVar31 - fVar4 * fVar10) + fVar5 * fVar23) * _UNK_140492e68;
+  fVar29 = ((fVar1 * fVar32 - fVar4 * fVar12) + fVar5 * fVar24) * _UNK_140492e6c;
+  fVar30 = ((fVar7 * fVar33 - fVar9 * fVar21) + fVar11 * fVar37) * _DAT_140492e60;
+  fVar22 = ((fVar1 * fVar34 - fVar3 * fVar22) + fVar4 * fVar38) * _UNK_140492e64;
+  fVar31 = ((fVar1 * fVar35 - fVar3 * fVar23) + fVar4 * fVar39) * _UNK_140492e68;
+  fVar32 = ((fVar1 * fVar36 - fVar3 * fVar24) + fVar4 * fVar40) * _UNK_140492e6c;
+  fVar7 = ((fVar7 * fVar25 - fVar9 * fVar6) + fVar13 * fVar37) * _DAT_140493030;
+  fVar9 = ((fVar1 * fVar26 - fVar3 * fVar8) + fVar5 * fVar38) * _UNK_140493034;
+  fVar11 = ((fVar1 * fVar27 - fVar3 * fVar10) + fVar5 * fVar39) * _UNK_140493038;
+  fVar13 = ((fVar1 * fVar28 - fVar3 * fVar12) + fVar5 * fVar40) * _UNK_14049303c;
+  fVar1 = fVar17 * fVar1;
+  fVar3 = fVar14 * fVar3;
+  fVar4 = fVar7 * fVar4;
+  fVar5 = fVar30 * fVar5;
+  fVar23 = fVar3 + fVar1;
+  fVar1 = fVar1 + fVar3;
+  fVar21 = fVar5 + fVar4;
+  fVar4 = fVar4 + fVar5;
+  auVar2._4_4_ = fVar21 + fVar1;
+  auVar2._0_4_ = fVar4 + fVar23;
+  auVar2._8_4_ = fVar1 + fVar21;
+  auVar2._12_4_ = fVar23 + fVar4;
+  auVar2 = divps(_DAT_140492e30,auVar2);
+  fVar23 = auVar2._0_4_;
+  fVar21 = auVar2._4_4_;
+  fVar24 = auVar2._8_4_;
+  fVar10 = auVar2._12_4_;
+  *param_2 = fVar23 * fVar17;
+  param_2[1] = fVar21 * fVar18;
+  param_2[2] = fVar24 * fVar19;
+  param_2[3] = fVar10 * fVar20;
+  param_2[4] = fVar23 * fVar14;
+  param_2[5] = fVar21 * fVar15;
+  param_2[6] = fVar24 * fVar16;
+  param_2[7] = fVar10 * fVar29;
+  param_2[0xc] = fVar23 * fVar30;
+  param_2[0xd] = fVar21 * fVar22;
+  param_2[0xe] = fVar24 * fVar31;
+  param_2[0xf] = fVar10 * fVar32;
+  param_2[8] = fVar23 * fVar7;
+  param_2[9] = fVar21 * fVar9;
+  param_2[10] = fVar24 * fVar11;
+  param_2[0xb] = fVar10 * fVar13;
+  return;
+}
+
