@@ -4,13 +4,24 @@
 Format (little-endian), reverse-engineered from corpus bytes:
 
   HEADER
-    [u32 magic_len]            -> always 8
-    [8 bytes magic]            -> b"PKGV" + 4 ascii chars, e.g. "PKGV0017".
-                                   "PKGV" is constant; the trailing 4 chars
-                                   encode a per-file version/serial that varies
-                                   per pkg (observed: 0007,0008,0011,0012,0016,
-                                   0017,0023,...). It is ascii digits, NOT a
-                                   binary version word.
+    [u32 magic_len]            -> length prefix; the reader caps it at 8 and skips
+                                   the version check entirely when len <= 4.
+                                   Not the constant 8 the earlier note claimed.
+    [8 bytes magic]            -> b"PKGV" + 4 ascii DIGITS = the format VERSION,
+                                   e.g. "PKGV0017" (observed: 0007,0008,0011,0012,
+                                   0016,0017,0023,...).
+
+                                   [CORRECTION 2026-08-27] This said "a per-file
+                                   version/serial ... NOT a binary version word",
+                                   inferred from the spread of observed values
+                                   alone. The loader reverses it: it runs
+                                   atoi(magic + 4) at 0x14027695f and rejects
+                                   anything > 24 at 0x140276964 ("Cannot open %s,
+                                   version %i not supported."). A serial has no
+                                   ceiling. The writer side agrees — wallpaperui.exe
+                                   hardcodes "PKGV0024" next to the packer CLI and
+                                   exports checkWallpaperPKGVersions. It is ascii
+                                   digits AND a version; those were never exclusive.
     [u32 entry_count]          -> number of index entries (this resolves the
                                    "0x14 ambiguity": the byte at offset 0x0c is
                                    the entry COUNT, e.g. 0x14 = 20 entries in

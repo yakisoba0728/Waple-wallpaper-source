@@ -95,8 +95,8 @@
 
 ```
 HEADER
-  0x00  u32  magic_len = 8
-  0x04  8B   "PKGV" + 4 ASCII digits (per-file serial, NOT a binary version)
+  0x00  u32  magic_len            (length-prefixed string, reader caps at 8; NOT a constant)
+  0x04  8B   "PKGV" + 4 ASCII digits = VERSION, read via atoi (engine rejects > 24)
   0x0c  u32  entry_count
 
 INDEX (entry_count × 16-byte records):
@@ -108,7 +108,32 @@ INDEX (entry_count × 16-byte records):
 DATA SECTION: contiguous blobs, offsets strictly increasing.
 ```
 
-**⚠️ Waple impact**: The 4-digit suffix after `PKGV` is a per-file serial (observed: `PKGV0017`), not a version. The `entry_count` field at offset 0x0c is the former ambiguous `0x14` byte. Waple's parser must read entry_count and not treat the suffix as a version gate.
+~~**⚠️ Waple impact**: The 4-digit suffix after `PKGV` is a per-file serial (observed: `PKGV0017`), not a version. The `entry_count` field at offset 0x0c is the former ambiguous `0x14` byte. Waple's parser must read entry_count and not treat the suffix as a version gate.~~
+
+**CORRECTION (2026-08-27): the suffix IS a version. Reversed by engine bytes.** The
+"per-file serial" reading was inferred from the corpus magic distribution alone; it does not
+survive reading the loader. In the pristine `binaries/wallpaper64.exe`:
+
+```
+0x140276941  e8 da 9d de ff        call  <ReadLengthPrefixedString(maxLen=8)>
+0x140276946  48 83 7d 0f 04        cmp   qword [rbp+0xf], 4
+0x14027694b  76 33                 jbe   +0x33            ; len<=4 -> skip version check
+0x14027695f  e8 5c 19 05 00        call  <atoi>           ; atoi(magic + 4)
+0x140276964  83 f8 18              cmp   eax, 0x18        ; 24
+0x140276967  7e 17                 jle   ok               ; > 24 -> reject
+0x1404922e8  "Cannot open %s, version %i not supported.\n"
+```
+
+A per-file serial cannot have an upper bound. Two independent confirmations: the writer side
+hardcodes the current version as a single literal next to the packer CLI
+(`binaries/wallpaperui.exe` file offset `0xad0898` — `"-o\0-i\0PKGV0024\0packProject\0"`), and
+`checkWallpaperPKGVersions`@`0xab2876` is called from `ui/dist/scripts/scripts.js` to compare
+each wallpaper against the device support level. That literal `0024` equals both the corpus
+maximum and the reader's ceiling.
+
+`entry_count` at 0x0c is still authoritative for the index — that part of the original note
+holds. What is withdrawn is the "not a version" judgement and the Waple action item it
+generated (§9 Tier 1 item 1).
 
 **Distinct internal file types** (by magic, across corpus):
 
@@ -350,7 +375,7 @@ DATA SECTION: contiguous blobs, offsets strictly increasing.
 
 | # | Subsystem | Verdict | Evidence (direct) |
 |---|---|---|---|
-| 1 | Package parser | ✅ | `PKGV` absent (0 hits, both encodings); real magics `PLPV0005`@0x476eb8, `SHDV0069`@0x485748, `MDLVS001`@0x483b80, `core_balloon_pkg_version_error`@0x473e98 |
+| 1 | Package parser | ✅ | `PKGV` absent **in `wallpaper64.exe`** (0 hits, both encodings) — but present in `wallpaperui.exe`: `PKGV0024`@0xad0898 (packer CLI literal) and `checkWallpaperPKGVersions`@0xab2876. The reader compares no prefix; it runs `atoi(magic+4)` (§2). Real magics `PLPV0005`@0x476eb8, `SHDV0069`@0x485748, `MDLVS001`@0x483b80, `core_balloon_pkg_version_error`@0x473e98 |
 | 2 | scene.json / project.json loader | ✅ | `project.json`@0x476e78; **RapidJSON UTF-16LE** `rapidjson\internal\p`@0x4756e6; jsoncpp `Json::Value`@0x477393 |
 | 3 | TEX decoder | ✅ | `TEXV0005`/`TEXV0004`/`TEXI0001`/`TEXB0001..0004`/**`TEXS0003`**; `LZ4 error.`@0x4851f8 (VA `0x1404863f8`); ~~decoder `FUN_140261950`~~ → **`0x14015e580`** (re-adjudicated 2026-08-27, see the block below) |
 | 4 | MDL decoder | ✅ | `MDLV0023`/`MDLA0006`/`MDAT0001`/`MDMP0001`/`MDLE0002`/`MDLS0004`; ~~`FUN_140261950`~~ **`0x140261880`** (corrected 2026-08-26, §4). **Confirmed 2026-08-27 by rip-relative xref scan of the pristine binary: all five MDL sub-chunk magics are referenced from this one function and nowhere else** (`0x140263970`/`0x1402655d7`/`0x1402656a6`/`0x1402658c2`/`0x1402624af`) |
@@ -637,7 +662,7 @@ Ranked by Waple-defect impact × ease. Items 1-3 use only the static artifacts a
      cstring, not 8 raw bytes), and `tex-format.md` made a conditional TEXI field
      unconditional. **Waple's own parser was already right on both counts**; the specs were
      the stale artefact. See `analysis/reports/mdl-tex-decoders-2026-08-27.md`.
-   - **PKGV gotcha** (§2): the 4 ASCII digits after `PKGV` are a per-file serial, not a version. The `entry_count` field at offset 0x0c is authoritative. Fix Waple's parser if it gates on the suffix.
+   - ~~**PKGV gotcha** (§2): the 4 ASCII digits after `PKGV` are a per-file serial, not a version. The `entry_count` field at offset 0x0c is authoritative. Fix Waple's parser if it gates on the suffix.~~ **WITHDRAWN (2026-08-27) — do not run this step.** The suffix is a version: the loader does `atoi(magic+4)` and rejects `> 24` (`0x14027695f`/`0x140276964`, bytes quoted in §2). Waple had already disproved this note twice from its own side (`Sources/WapleCore/ScenePackage.swift:129`, first by corpus magic distribution 2026-07-27, then by the same disassembly plus the writer-side literal 2026-08-21) and deliberately kept its parser as-is with that reasoning recorded. **Acting on this item would have reverted a measured fact.** `entry_count` at 0x0c remains authoritative for the index.
    - **TEX gotcha** (§3): `alloc_width/height` (GPU-padded power-of-two) ≠ `orig_width/height` (source). Allocate `alloc_dim`, place `orig_dim` content.
 
 2. **Port the §5 GLSL→HLSL shim to GLSL→MSL.** The aliasing philosophy (`vec2`→`float4`, `mix`→`lerp`, `gl_FragColor`→output) transfers directly; MSL shares HLSL's `float4`/`SamplerState` vocabulary. This is the highest-leverage fix for Waple's compile-rate deficit cases.
