@@ -32,27 +32,63 @@ The two-section split (TEXI = metadata, TEXB = pixels) is consistent across all
 4,679 samples. TEXB version 0003 (1,933 samples) and 0004 (2,746 samples) are
 both present; 0004 adds one extra leading field.
 
-## TEXI payload (metadata) — starts at offset 0x11
+> **CORRECTION (2026-08-27) — there are more section tags than this.** Read out of the
+> container walker `0x14015e580` in `wallpaper64.exe` and re-measured on the 440 `.tex`
+> files shipped in this repository:
+>
+> - **The engine compares only the 4-character tag** (`_strnicmp(tag, "TEXB0004", 4)`) and
+>   turns the 4 digits into a number with `atoi(tag+4)`, which it passes to the sub-parser
+>   as a version. That is why the binary contains only the `TEXB0004` literal while the
+>   wild carries four body versions: **`TEXB0001` 42, `TEXB0002` 29, `TEXB0003` 242,
+>   `TEXB0004` 127** in this repository's 440 files.
+> - A fifth tag exists, **`TEXS0003`**, and it *terminates* the section loop.
+> - A second container magic exists, **`TEXV0004`**, handled by a fallback that calls the
+>   TEXI and TEXB parsers directly with version 0 and **no section tags at all**. (All 440
+>   files here are `TEXV0005`.)
+> - Any tag that is none of TEXI/TEXB/TEXS goes to a fourth handler, `0x14015e1d0`
+>   (**[UNRESOLVED]** what it parses — "frames/sequence" is a guess).
+>
+> Detail: `analysis/reports/mdl-tex-decoders-2026-08-27.md` §3. Reproduce:
+> `python3 scripts/verify_mdl_tex.py`.
+
+## TEXI payload (metadata) — starts at offset 0x12
 
 Immediately after `TEXI0001` there is one `0x00` byte (index 0x11), then a run
-of little-endian u32 fields starting at **offset 0x12 (decimal 18)**:
+of little-endian u32 fields starting at **offset 0x12 (decimal 18)**.
+
+**The last two fields are NOT both unconditional** — corrected 2026-08-27 against
+the TEXI parser `0x14015c760`, and re-checked on all 440 `.tex` files here
+(440/440 land exactly on the next section tag):
 
 ```
 off   type   field           meaning / evidence
 ----  ----   --------------  -----------------------------------------------
 0x12  u32    format          pixel-format enum (see table below)
-0x16  u32    flags           bitfield; observed values 0, 2, 4. flags=2 on the
-                              overwhelming majority (sRGB? mip-mapped?).
-0x1A  u32    alloc_width     GPU texture width. Often padded to power-of-two
-                              (e.g. 4096 for a 3840-wide source image).
-0x1E  u32    alloc_height    GPU texture height (e.g. 4096 for 2160-tall source).
-0x22  u32    orig_width?     original/source width (matches PNG IHDR when fmt=0
-                              embeds a PNG). For Hu Tao's main tex: 3840.
-0x26  u32    orig_height?    original/source height (Hu Tao: 2160).
-0x2A  u32    field6          small integer, often 1; possibly mip count or array size.
-0x2E  u32    field7          observed 0x00000000 mostly; sometimes 0xFFxxxxxx
-                              (looks like a border/background color, e.g. 0xFF000000).
+0x16  u32    flags           bitfield. bit 6 (0x40) = 3D/volume texture.
+                              Observed here: 0,1,2,3,4,5,6,7,0x12,0x42,
+                              0x80000,0x80002,0x80004 — wider than "0/2/4".
+0x1A  u32    tex_width       GPU allocation width (power-of-two padded).
+0x1E  u32    tex_height      GPU allocation height.
+0x22  u32    image_width     stored image width.
+0x26  u32    image_height    stored image height.
+ --   u32    tex_depth       *** ONLY IF (flags & 0x40) *** volume depth.
+ --   u32    border_color    *** ONLY IF TEXI version > 0 *** (so: always, for
+                              TEXI0001). ARGB, e.g. 0xFF000000, 0xFFBD7603.
 ```
+
+~~`field6` (mip count)~~ **does not exist.** With `flags & 0x40` clear — 412 of the 440
+files here — there is exactly **one** u32 after the four dimensions, and it is the
+colour. The old table listed two unconditional trailing fields and its own worked
+example contradicted itself about where the next tag begins.
+
+**`flags & 0x40` = 3D texture.** The 28 files here that set it are all colour-grading
+LUTs: `format=0, flags=0x42, tex=32x32, tex_depth=32, image=1024x32` — a 32-cubed LUT
+flattened into a 1024x32 2D image (`lutx32_*.tex`, and the filename says so).
+
+**The alloc-vs-source reading is confirmed for 2D**: of the 440 files, 72 have
+`(tex_w,tex_h) != (image_w,image_h)`; 44 of those have `tex >= image` (power-of-two
+padding), and the remaining 28 are exactly the LUTs above, where the pair means
+something else. So the old "Caveat" about 0x22/0x26 is discharged for 2D textures.
 
 **Evidence for the width/height split:** Hu Tao `materials/FY38OR9UsAAnUC6_digital_art_custom.tex`
 has `alloc_width=4096, alloc_height=4096, orig_width=3840, orig_height=2160`, and
@@ -60,10 +96,12 @@ the PNG embedded later in the same blob has IHDR `width=0x0F00=3840, height=0x08
 The 4096 is the next-power-of-two bound on 3840. The 1×1 mask
 `opacity_mask_b795512d.tex` has all four = 1.
 
-**Caveat (needs dynamic confirmation):** the field at 0x22/0x26 could equally be
+~~**Caveat (needs dynamic confirmation):** the field at 0x22/0x26 could equally be
 a second dimension pair (e.g. tile size) rather than "orig" dims; for non-PNG
 formats they sometimes equal alloc_width/height and sometimes don't. Flagged as
-an unknown.
+an unknown.~~ **Discharged 2026-08-27** — see the measurement in the block above.
+The one case where the pair does mean something else is the volume texture
+(`flags & 0x40`).
 
 ## Format enum (offset 0x12)
 
@@ -125,27 +163,27 @@ level. **Exact mip-entry layout needs dynamic confirmation.**
 
 ## Canonical byte-layout summary (annotated hex)
 
-`opacity_mask_b795512d.tex` (92 bytes, 1×1 R8, fmt=9):
+~~`opacity_mask_b795512d.tex`~~ — that example was self-contradictory (it placed the
+next tag at both 0x32 and 0x33). Replaced 2026-08-27 with a file present in this
+repository, decoded with the corrected TEXI framing:
+
+`demon_core/.../opacity_mask_ee0d9bbc….tex` (TEXV0005, fmt=0, flags=0):
 
 ```
-00: 54 45 58 56 30 30 30 35   "TEXV0005"            container magic
-08: 00                         separator
-09: 54 45 58 49 30 30 30 31   "TEXI0001"            image-info tag
-11: 00                         separator
-12: 09 00 00 00                format = 9 (R8 mask)
-16: 02 00 00 00                flags = 2
-1A: 01 00 00 00                alloc_width = 1
-1E: 01 00 00 00                alloc_height = 1
-22: 01 00 00 00                orig_width = 1
-26: 01 00 00 00                orig_height = 1
-2A: 01 00 00 00                field6 = 1
-2E: 00 00 00 00                field7 = 0
-   --- next section ---
-32: ff                         single R8 pixel (0xFF = opaque white)
-   ... actually the 0xFF sits just before TEXB; see byte 0x2D in the full file
-33: 54 45 58 42 30 30 30 34   "TEXB0004"            body tag (version 0004)
-3B: 00 01 00 00 00 ff ff ff ff ff 00   TEXB header + (empty) body
+00: 54 45 58 56 30 30 30 35 00   "TEXV0005\0"       container magic (NUL-terminated)
+09: 54 45 58 49 30 30 30 31 00   "TEXI0001\0"       image-info tag; version = atoi("0001") = 1
+12: 00 00 00 00                  format = 0
+16: 00 00 00 00                  flags  = 0        -> bit 6 clear, so NO tex_depth field
+1A: 00 01 00 00                  tex_width    = 256
+1E: 00 01 00 00                  tex_height   = 256
+22: 00 01 00 00                  image_width  = 256
+26: 00 01 00 00                  image_height = 256
+2A: 00 00 00 ff                  border_color = 0xFF000000   (version > 0)
+2E: 54 45 58 42 30 30 30 31 00   "TEXB0001\0"       body tag -> version 1 to the body parser
 ```
+
+Every section tag is a NUL-terminated string, so the "separator" byte described
+earlier in this file is really each tag's own terminator.
 
 (See the per-sample evidence in `chunk-type-census.md` for magics of each format.)
 
@@ -159,5 +197,14 @@ level. **Exact mip-entry layout needs dynamic confirmation.**
    `[u32 compressed_size][LZ4 block]`.
 3. **TEXB header exact layout.** The mip-table tuple ordering and the meaning of
    the leading flags/mode u32 pair.
-4. **`flags` (0x16) bitfield semantics** (sRGB / alpha-premultiplied / etc.).
-5. **TEXI fields at 0x22/0x26** — "orig dims" vs "tile dims".
+4. **`flags` (0x16) bitfield semantics** — bit 6 (`0x40`) is now known to mean
+   3D/volume texture (and to add a `tex_depth` u32). The other bits
+   (`0x1,0x2,0x4,0x10,0x80000`) are still **[UNRESOLVED]**.
+5. ~~**TEXI fields at 0x22/0x26** — "orig dims" vs "tile dims".~~ ✅ **RESOLVED** — stored
+   image dims, versus the GPU allocation at 0x1A/0x1E. Measured over 440 files.
+6. **[UNRESOLVED]** The TEXB body itself. The decoder entry point is now pinned —
+   `0x14015c8d0` (6,388 B), one of only two functions in the binary that reference
+   `LZ4 error.` (VA `0x1404863f8`) — but **that function was not read**. The mip-table
+   layout and the per-mip compression scheme in this file remain inference.
+7. **[UNRESOLVED]** `0x14015e1d0`, the handler for section tags that are none of
+   TEXI/TEXB/TEXS.
