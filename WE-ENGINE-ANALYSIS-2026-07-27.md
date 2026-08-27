@@ -361,17 +361,31 @@ A complete compatibility shim is **statically embedded** in the binary (UTF-16/A
 >    Run it over an existing `analysis/decompiled/all/` and the old files survive alongside
 >    the new ones. With the damaged corpus that would have left ~11,000 phantom functions
 >    in place (the address sets overlap by only 1.26%). **Clear `all/` before every run.**
-> 2. **`inject_rich_header.py` breaks `FileAlignment`.** It shifts file offsets by the stub
->    length (`0xD0`), but the PE format requires every `PointerToRawData` to be a multiple
->    of `FileAlignment` — `0x200` here. The output therefore violates alignment in **8 of 8
->    sections** (the pristine original satisfies 8/8). Padding the stub to a `FileAlignment`
->    multiple instead of 8 bytes would fix it.
+> 2. ~~**`inject_rich_header.py` breaks `FileAlignment`.**~~ → **FIXED, same day.** It shifted
+>    file offsets by the stub length (`0xD0`), but the PE format requires every
+>    `PointerToRawData` to be a multiple of `FileAlignment` — `0x200` here — so the output
+>    violated alignment in **8 of 8 sections** while the pristine original satisfies 8/8.
+>    The stub is now padded to a `FileAlignment` multiple (`0xD0` → `0x200`, `e_lfanew`
+>    `0x40` → `0x240`). Zero padding between the Rich Header and the PE signature is what
+>    MSVC emits anyway, so widening the gap is faithful rather than a hack.
 >
->    **This did not affect the result**, which was established by control experiment rather
->    than assumed: analysing the pristine binary directly yields **7,702** functions against
->    the injected file's **7,748** — effectively the same. The alignment violation was first
->    suspected as the cause of an apparent coverage shortfall; that hypothesis was measured
->    and rejected. It remains a real spec violation worth fixing on its own merits.
+>    **The self-check passing its own broken output is the sharper lesson.** `verify()`
+>    looked only at *content* — is `.text` zero padding, does `.pdata` land inside `.text` —
+>    and never at *structure*, so an 8/8-violating file printed "passed". It now checks
+>    alignment too: the pristine original scores 8/8 and the old injected file 0/8.
+>
+>    **Regenerating from the aligned build changed effectively nothing, and that is measured,
+>    not assumed.** Same 7,748 functions, same 6,824/6,824 primary-start match, and
+>    **7,747 of the 7,748 decompiled files are byte-identical** to the misaligned build.
+>    The single file that differs, `FUN_1402ed040`, references PE header structures ~160
+>    times — the region the padding moved. Its `Unable to read bytes at ram:143020103`
+>    warning appears in **both** builds, so the difference is in symbol/type resolution over
+>    the header area, not a repair of that warning.
+>
+>    The violation was first *suspected* as the cause of an apparent coverage shortfall.
+>    That hypothesis was measured and rejected — analysing the pristine binary directly
+>    yields **7,702** functions against the injected file's **7,748**. It was fixed on its
+>    own merits, not because it explained anything.
 
 ---
 

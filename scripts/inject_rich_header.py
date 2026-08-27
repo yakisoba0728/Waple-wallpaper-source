@@ -41,17 +41,24 @@
 #   The real primary-start count is 6,824. Scoring a corpus against 14,792 halves the
 #   apparent coverage - that error was made once during the regeneration.
 #
-# **STILL BROKEN HERE: this script violates FileAlignment.** It shifts file offsets by the
-# stub length (0xD0), but the PE format requires every PointerToRawData to be a multiple of
-# OptionalHeader.FileAlignment (0x200 for these binaries). The output therefore breaks
-# alignment in 8 of 8 sections, where the pristine input satisfies 8/8. The fix is to pad
-# the donor stub to a FileAlignment multiple rather than to 8 bytes, so that `growth`
-# itself is aligned.
+# **FIXED (later the same day): the FileAlignment violation.** The 2026-08-26 revision
+# shifted file offsets by the stub length (0xD0), but the PE format requires every
+# PointerToRawData to be a multiple of OptionalHeader.FileAlignment (0x200 for these
+# binaries), so its output broke alignment in 8 of 8 sections while the pristine input
+# satisfies 8/8. The stub is now padded to a FileAlignment multiple (0xD0 -> 0x200), and
+# verify() gained an alignment check - it previously looked only at content and therefore
+# passed its own broken output.
 #
-# This was NOT the cause of anything observed so far, and that was established by control
-# experiment rather than assumed: analysing the pristine binary directly yields 7,702
-# functions versus 7,748 from the injected file - effectively identical. It is a spec
-# violation worth fixing on its own merits, not a known-bad output.
+# The corpus was regenerated from the aligned build and the outcome is unchanged: same
+# 7,748 functions, same 6,824/6,824 primary-start match, and 7,747 of the 7,748 decompiled
+# files are byte-identical to the misaligned build. The one that differs, FUN_1402ed040,
+# references PE header structures ~160 times - the region the padding changed. Its
+# "Unable to read bytes at ram:143020103" warning is present in BOTH builds, so this is a
+# difference in symbol/type resolution over the header area, not a repair of that warning.
+#
+# That the violation changed nothing was established by control experiment rather than
+# assumed: analysing the pristine binary directly yields 7,702 functions versus 7,748 from
+# the injected file - effectively identical. It was fixed on its own merits.
 #
 # **Any Ghidra corpus built with the old revision is invalid** — every address in
 # it is displaced. The direction is: an address the corpus calls X actually holds
@@ -129,6 +136,7 @@ import struct
 import sys
 
 # Offsets inside IMAGE_OPTIONAL_HEADER (same for PE32 and PE32+)
+OPT_FILEALIGNMENT = 36
 OPT_SIZEOFHEADERS = 60
 OPT_CHECKSUM = 64
 # DataDirectory start offset, per optional-header magic
@@ -286,6 +294,23 @@ def verify(path):
         if pct <= 95.0:
             ok = False
 
+    # Alignment: every PointerToRawData must be a multiple of FileAlignment. The
+    # 2026-08-26 revision shifted offsets by the stub length (0xD0) and broke this in 8 of 8
+    # sections, and *this function passed it anyway* because it only looked at content.
+    # Checking structure as well as content is the point.
+    file_alignment = _u32(buf, pe.opt + OPT_FILEALIGNMENT)
+    if file_alignment:
+        bad = [n for _i, n, _va, _vs, rp, _rs in pe.sections()
+               if rp and rp % file_alignment]
+        total = sum(1 for _ in pe.sections())
+        if bad:
+            print(f"  [!] {len(bad)}/{total} sections violate FileAlignment "
+                  f"0x{file_alignment:x}: {', '.join(bad)}")
+            ok = False
+        else:
+            print(f"  [ok] {total}/{total} sections aligned to FileAlignment "
+                  f"0x{file_alignment:x}")
+
     csum = _u32(buf, pe.opt + OPT_CHECKSUM)
     if csum:
         print(f"  [note] OptionalHeader.CheckSum = 0x{csum:x}. In an injected file this"
@@ -312,6 +337,25 @@ def inject(target_path, donor_path, out_path):
     if growth <= 0:
         raise SystemExit(f"target e_lfanew (0x{old_lfanew:x}) is already >= stub "
                          f"length (0x{new_lfanew:x}) - no injection needed")
+
+    # `growth` is added to every PointerToRawData below, and the PE format requires each of
+    # those to stay a multiple of OptionalHeader.FileAlignment. An 8-byte-aligned stub
+    # therefore is not enough: pad it until `growth` itself is a FileAlignment multiple.
+    #
+    # [2026-08-27] Omitting this is what made the 2026-08-26 output violate alignment in
+    # 8 of 8 sections while its own self-check still passed - the check looked at content
+    # (is .text zero padding? does .pdata land inside .text?) and never at alignment.
+    # Zero padding between the Rich Header and the PE signature is what MSVC emits anyway,
+    # so growing the gap is faithful, not a hack.
+    tgt = PE(bytearray(target))
+    file_alignment = _u32(tgt.b, tgt.opt + OPT_FILEALIGNMENT)
+    if file_alignment and growth % file_alignment:
+        padded = ((growth + file_alignment - 1) // file_alignment) * file_alignment
+        donor_stub = donor_stub + b'\0' * (padded - growth)
+        print(f"padding stub 0x{growth:x} -> 0x{padded:x} to keep "
+              f"FileAlignment 0x{file_alignment:x}")
+        growth = padded
+        new_lfanew = old_lfanew + growth
 
     out = bytearray()
     out += target[0:0x3C]                    # MZ header up to the e_lfanew field
