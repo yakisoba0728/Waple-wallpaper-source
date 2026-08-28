@@ -41,12 +41,32 @@ both present; 0004 adds one extra leading field.
 >   as a version. That is why the binary contains only the `TEXB0004` literal while the
 >   wild carries four body versions: **`TEXB0001` 42, `TEXB0002` 29, `TEXB0003` 242,
 >   `TEXB0004` 127** in this repository's 440 files.
-> - A fifth tag exists, **`TEXS0003`**, and it *terminates* the section loop.
+> - A fifth tag exists, **`TEXS0003`**. **[CORRECTED 2026-08-28 — this entry had the
+>   dispatch backwards.]** It does *not* terminate the loop: it is **parsed**, by
+>   `0x14015e1d0`, and that handler is the **sprite-sheet parser**, not a catch-all.
+>   Read the bytes:
+>
+>   ```
+>   0x14015e7e0  41 b8 04 00 00 00      mov  r8d, 4
+>   0x14015e7e6  48 8d 15 f3 d0 32 00   lea  rdx, [rip+0x32d0f3]  ; 0x14048B8E0 = "TEXS0003\0"
+>   0x14015e7f2  e8 ..                  call 0x1402c9e60          ; _strnicmp(tag, "TEXS0003", 4)
+>   0x14015e7f9  75 ..                  jnz  0x14015e86b          ; MISMATCH -> leave
+>   0x14015e811  e8 ..                  call 0x14015e1d0          ; MATCH    -> parse
+>   ```
+>
+>   So the branch that "leaves" is the **mismatch** arm and the branch that calls
+>   `0x14015e1d0` is the **match** arm — the opposite of what this file said. The layout
+>   `0x14015e1d0` parses (`i32 frameCount`, then per-frame geometry, with `v>=3` carrying
+>   explicit gif width/height) is documented in the Waple repo at
+>   `docs/re/tex-format.md` §1.3, and `Sources/WapleCore/TexImage.swift:866-868` carries
+>   the same three-way dispatch with the same three `mov r8d, 4` call sites. **The Swift
+>   decoder is right and this document was wrong** — do not "fix" the decoder to match it.
 > - A second container magic exists, **`TEXV0004`**, handled by a fallback that calls the
 >   TEXI and TEXB parsers directly with version 0 and **no section tags at all**. (All 440
 >   files here are `TEXV0005`.)
-> - Any tag that is none of TEXI/TEXB/TEXS goes to a fourth handler, `0x14015e1d0`
->   (**[UNRESOLVED]** what it parses — "frames/sequence" is a guess).
+> - Only the first 4 characters of a tag are ever compared (all three call sites pass
+>   `r8d = 4`), so the trailing digits select a *version* via `atoi(tag+4)` and never a
+>   *branch*. A tag matching none of TEXI/TEXB/TEXS falls through the chain.
 >
 > Detail: `analysis/reports/mdl-tex-decoders-2026-08-27.md` §3. Reproduce:
 > `python3 scripts/verify_mdl_tex.py`.

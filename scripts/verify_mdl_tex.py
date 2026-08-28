@@ -27,6 +27,17 @@ VA_ATTR_NAME = 0x140484A90   # char*[26] 속성 이름
 VA_ATTR_DESC = 0x140482AF0   # D3D11_INPUT_ELEMENT_DESC[26] (엔트리 32B)
 DXGI_SIZE = {2: 16, 3: 16, 6: 12, 16: 8}
 
+# 이 저장소의 wallpaper_engine/ 이 실제로 담고 있는 개수. 아래로 떨어지면 무회귀가 아니라
+# **입력을 못 찾은 것**이다(--root 오지정 · 에셋 미동봉 · 레이아웃 변경).
+# 실측 2026-08-27: .mdl 28 · .tex 440. 하한만 건다 — 자산이 늘 수는 있어도 줄면 이 검증기가
+# 재는 대상이 사라진 것이다.
+MIN_MDL = 28
+MIN_TEX = 440
+
+# 26엔트리 정점 속성 표의 마스크 OR. mdl-format.md 의 "상위 6비트는 0에 기여" 주장의
+# 유일한 코드 근거다.
+EXPECTED_MASK_OR = 0x03FFFFFF
+
 
 class PE:
     def __init__(self, path):
@@ -171,7 +182,14 @@ def main():
                     help="무손상 원본(md5 438cb215f20a8f6c38f57fbc3d9da588)")
     a = ap.parse_args()
     root = a.root
-    pe = PE(os.path.join(root, a.exe))
+    exe = os.path.join(root, a.exe)
+    # 입구에서 원인을 말한다. 종전엔 여기서 FileNotFoundError 트레이스백으로 죽어
+    # "무엇을 못 찾았는지" 가 스택 밑에 묻혔다.
+    if not os.path.isfile(exe):
+        print("[환경 오류] 원본 바이너리를 못 찾았다: %s" % exe, file=sys.stderr)
+        print("  --root 로 저장소 루트를, --exe 로 경로를 지정해라.", file=sys.stderr)
+        return 2
+    pe = PE(exe)
     table = attr_table(pe)
 
     print("== 정점 속성 표 (mask@0x140484a20 / size@0x1404849b0 / name@0x140484a90 / "
@@ -183,7 +201,7 @@ def main():
     for i, (m, sz, nm, sem, si, dx) in enumerate(table):
         print("  %2d 0x%08x %2d  %-18s %s%d  DXGI=%d" % (i, m, sz, nm, sem, si, dx))
     print("  size == DXGI 크기: %s (불일치 %d)" % (not bad_size, len(bad_size)))
-    print("  마스크 OR = 0x%08X (기대 0x03FFFFFF)" % known)
+    print("  마스크 OR = 0x%08X (기대 0x%08X)" % (known, EXPECTED_MASK_OR))
 
     print("\n== .mdl 전수 ==")
     mdls = sorted(glob.glob(os.path.join(root, "wallpaper_engine/**/*.mdl"), recursive=True))
@@ -248,7 +266,34 @@ def main():
     for f in tex_fails[:10]:
         print("    FAIL", f)
 
-    return 1 if (fails or tex_fails or bad_size) else 0
+    # [2026-08-27] 하한과 마스크 판정을 반환 조건에 넣는다.
+    #
+    # 종전에는 **파일 0개를 검사해도 exit 0** 이었다:
+    #     $ python3 scripts/verify_mdl_tex.py --root <빈 디렉터리>
+    #       .mdl 파일 0  메시 0 / .tex 파일 0  실패 0        EXIT=0
+    # mdl-format.md 와 tex-format.md 가 "이걸 돌려 재현하라" 고 안내하는 유일한 검증기인데,
+    # 에셋이 없거나 경로가 바뀐 머신에서 초록이 뜨면 "28/28, 440/440 통과" 라는 문서 주장이
+    # 검증된 것처럼 보인다. 경로 오지정과 무회귀가 종료코드로 구분돼야 한다.
+    #
+    # 마스크 OR 도 종전엔 기대값을 **출력만** 하고 판정에 안 썼다. mdl-format.md 의
+    # "상위 6비트는 0에 기여" 주장의 유일한 코드 근거인데 값이 달라져도 조용히 통과했다.
+    short = []
+    if len(mdls) < MIN_MDL:
+        short.append(".mdl %d개 < 하한 %d" % (len(mdls), MIN_MDL))
+    if len(texs) < MIN_TEX:
+        short.append(".tex %d개 < 하한 %d" % (len(texs), MIN_TEX))
+    if short:
+        print("\n[환경 오류] 입력을 못 찾았다 — %s" % " · ".join(short), file=sys.stderr)
+        print("  탐색 루트: %s/wallpaper_engine/**" % root, file=sys.stderr)
+        print("  이건 '실패 0' 이 아니라 '안 봤다' 다. --root 를 확인해라.", file=sys.stderr)
+        return 2
+
+    bad_mask = known != EXPECTED_MASK_OR
+    if bad_mask:
+        print("\n[실패] 정점 마스크 OR = 0x%08X, 기대 0x%08X — 상위 비트 기여 전제가 바뀌었다"
+              % (known, EXPECTED_MASK_OR), file=sys.stderr)
+
+    return 1 if (fails or tex_fails or bad_size or bad_mask) else 0
 
 
 if __name__ == "__main__":

@@ -186,4 +186,16 @@ effect files in the corpus: `effects/opacity/effect.json` (1,332),
 4. **Object type is implicit** — infer from presence of `image`/`particle`/`model`/`text`/`sound`.
 5. **Layer order** = array order (painter's algorithm, back to front).
 6. `image` paths point at `models/*.json` (the model json), not directly at textures.
-7. `version` gating: pre-v3 scenes lack HDR/zoom; pre-v4 lack wind/gravity.
+7. ~~`version` gating: pre-v3 scenes lack HDR/zoom; pre-v4 lack wind/gravity.~~
+   **[CORRECTED 2026-08-28 — the corpus refutes this, and a consumer was built on it.]**
+   `version` does **not** gate those keys. Counted over the 162-scene workshop summary
+   (`spec/corpus/scene-schema.json` in the Waple repo), `version` is
+   `{5: 63, 1: 33, 4: 32, 3: 31, absent: 3}` while `hdr`/`zoom` appear in **159** scenes
+   and `wind`/`gravity` in **109**. By pigeonhole that forces at least **30** pre-v3
+   scenes carrying HDR/zoom and at least **13** pre-v4 scenes carrying wind/gravity —
+   the gate cannot hold in either direction.
+
+   This matters beyond the document: `Sources/WapleCore/SceneDocument.swift:3988-4005`
+   built a real version gate and **cited this line as its evidence**. Reading a key should
+   depend on whether the key is there, not on a version number the corpus does not
+   corroborate.

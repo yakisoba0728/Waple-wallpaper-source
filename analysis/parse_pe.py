@@ -11,6 +11,16 @@ BIN = r"C:\Users\<user>\Desktop\wallpaper_source\..\..\..\..\..\..\z\SteamLibrar
 BIN = r"Z:\SteamLibrary\steamapps\common\wallpaper_engine\wallpaper64.exe"
 OUT_DIR = Path(r"C:\Users\<user>\Desktop\wallpaper_source\analysis")
 
+# [2026-08-28] argv 폴백을 붙인다. 위 두 경로는 최초 작성 환경의 절대 경로라 이 리포를
+# 클론한 어디에서도 안 돌았고, 그래서 `pe-structure.json` 을 **재생성해 검증할 수 없었다**.
+# 실제로 이 파일의 옵션 헤더 언팩 두 줄이 틀린 채 남아 있었다(아래 [FIX 2026-08-28]).
+# 돌릴 수 없는 생성기는 그 산출물이 정본이 되는 순간 검증 밖에 놓인다.
+#   py analysis/parse_pe.py [binaries/wallpaper64.exe] [out_dir]
+if len(sys.argv) > 1:
+    BIN = sys.argv[1]
+if len(sys.argv) > 2:
+    OUT_DIR = Path(sys.argv[2])
+
 data = open(BIN, "rb").read()
 print(f"[*] File size: {len(data)} bytes (0x{len(data):x})", file=sys.stderr)
 
@@ -41,12 +51,33 @@ print(f"[*] PE32+ confirmed, {num_sections} sections, opt header size {sz_opt}",
 #  SizeOfImage(4) SizeOfHeaders(4) CheckSum(4) Subsystem(2) DllChars(2)
 #  Stack Reserve/Commit(8/8) Heap Reserve/Commit(8/8) LoaderFlags(4) NumDataDirs(4)
 # Then NumDataDirs * 8 bytes of [RVA, Size]
-(magic, maj_link, min_link, sz_code, sz_init, sz_uninit, entry_rva, base_code) = struct.unpack_from("<HBHIIIII", data, opt_off)
+# [FIX 2026-08-28] Two struct strings here were misaligned. Verified against
+# binaries/wallpaper64.exe (PE32+, e_lfanew 0x40):
+#
+#   was "<HBHIIIII" -> MinorLinkerVersion read as u16, shifting every field after
+#       it by one byte. AddressOfEntryPoint came out 0x28b7; the real value is
+#       0x28b710 (VA 0x14028b710), and BaseOfCode came out 0x10 instead of 0x1000.
+#       MinorLinkerVersion is a **u8**.
+#
+#   was "<HHH" @ +40 plus a u32 @ +46 -> the version block is SIX u16s
+#       (MajorOS, MinorOS, MajorImage, MinorImage, MajorSubsystem, MinorSubsystem)
+#       spanning +40..+52, then Win32VersionValue is a u32 at **+52**. Reading three
+#       u16s at +40 grabs MajorOS/MinorOS/MajorImage and mislabels them, and the
+#       "win32_ver" at +46 is actually MinorImageVersion|MajorSubsystemVersion.
+#       Observed: current code printed subsys_ver=0 and win32_ver=393216; correct is
+#       OS 6.0 / Image 0.0 / Subsystem 6.0 / Win32VersionValue 0.
+#
+# Everything from SizeOfImage(+56) onward was already right, which is why this went
+# unnoticed -- the fields the script is usually asked for happened to sit past the gap.
+(magic, maj_link, min_link, sz_code, sz_init, sz_uninit, entry_rva, base_code) = struct.unpack_from("<HBBIIIII", data, opt_off)
 (image_base,) = struct.unpack_from("<Q", data, opt_off + 24)
 (section_align, file_align) = struct.unpack_from("<II", data, opt_off + 32)
-# OsVer(2) ImgVer(2) SubsysVer(2) Win32Ver(4) = 10 bytes
-(os_ver, img_ver, subsys_ver) = struct.unpack_from("<HHH", data, opt_off + 40)
-win32_ver = struct.unpack_from("<I", data, opt_off + 46)[0]
+# OsVer(2+2) ImageVer(2+2) SubsysVer(2+2) = 12 bytes, then Win32VersionValue(4) at +52
+(os_maj, os_min, img_maj, img_min, subsys_maj, subsys_min) = struct.unpack_from("<HHHHHH", data, opt_off + 40)
+os_ver = (os_maj, os_min)
+img_ver = (img_maj, img_min)
+subsys_ver = (subsys_maj, subsys_min)
+win32_ver = struct.unpack_from("<I", data, opt_off + 52)[0]
 (size_of_image, size_of_headers, checksum) = struct.unpack_from("<III", data, opt_off + 56)
 (subsystem, dll_chars) = struct.unpack_from("<HH", data, opt_off + 68)
 (stack_reserve, stack_commit) = struct.unpack_from("<QQ", data, opt_off + 72)
@@ -271,9 +302,12 @@ result = {
         "image_base": image_base,
         "section_alignment": section_align,
         "file_alignment": file_align,
-        "os_version": f"{(os_ver>>8)&0xff}.{os_ver&0xff}",
-        "image_version": f"{(img_ver>>8)&0xff}.{img_ver&0xff}",
-        "subsystem_version": f"{(subsys_ver>>8)&0xff}.{subsys_ver&0xff}",
+        # [FIX 2026-08-28] These unpacked a u16 as major<<8|minor. PE32+ stores each
+        # version as **two separate u16 fields**, so the shift produced garbage
+        # (wallpaper64.exe reported subsystem_version "0.0"; the real value is 6.0).
+        "os_version": f"{os_ver[0]}.{os_ver[1]}",
+        "image_version": f"{img_ver[0]}.{img_ver[1]}",
+        "subsystem_version": f"{subsys_ver[0]}.{subsys_ver[1]}",
         "win32_version_value": win32_ver,
         "size_of_image": size_of_image,
         "size_of_headers": size_of_headers,

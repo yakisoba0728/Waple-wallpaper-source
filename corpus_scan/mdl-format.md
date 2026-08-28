@@ -161,13 +161,34 @@ bytes). Vertex count is therefore `vertex_blob_len / stride`, not a stored field
 Vertex data is uncompressed little-endian float32 (plus uint32 for
 `a_BlendIndices`).
 
-**Index width is u16** — ✅ settled, no dynamic analysis needed. Across the 28
-`.mdl` assets / 45 meshes every `index_blob_len % 6 == 0` (u16 triangles), and
-**5 meshes have `index_blob_len % 12 != 0`**, which makes 32-bit indices
-impossible for them (`camera.mdl` 3342, `pistols.mdl` 8082, `body.mdl` 12630,
-`ricepod.mdl` 3450 and 49998). The smallest case is explicit:
-`audiophile/models/audiophile/glow.mdl` has 4 vertices and a 12-byte index blob
-reading `00 00 01 00 02 00 | 00 00 02 00 03 00` = `0,1,2, 0,2,3`.
+~~**Index width is u16** — ✅ settled, no dynamic analysis needed.~~
+**[CORRECTED 2026-08-28 — this conflated a corpus correlation with the engine's rule.]**
+
+The measurement below is all true and reproduces exactly, but it only says *these 28
+files happen to use u16*. The engine's actual rule is a **per-mesh flag**:
+
+```
+index_width = 2 + 2 * (gateWord & 1)
+```
+
+read from `[mesh + 0x18]` — `0x1401d784c movzx ecx,[rdi+0x18]` / `0x1401d7853 and cl,1`
+/ `0x1401d7870 lea r9d,[r10*2+2]` / `0x1401d7878 idiv r9d`, with the parallel site at
+`0x14009a997/99c/9a1`. The struct base is set at `0x14026192c lea rcx,[rbp+0x70]` and
+the flag stored at `0x14026198c mov [rbp+0x88],eax` (delta 0x18). The wild does carry
+u32 meshes — the canon counts **17 of them, the smallest with 69,396 vertices**, which
+is exactly the regime where 16-bit indices stop fitting.
+
+Full write-up, including that caveat verbatim, is in the Waple repo at
+`spec/formats/mdl-deep.json` → `format.mdl.indexWidth` (status 확정, committed
+2026-08-22). `Sources/WapleCore/Model3D.swift:745` implements the flag. **Do not
+reimplement from the correlation below.**
+
+The original measurement, kept because it is a good corpus fact: across the 28 `.mdl`
+assets / 45 meshes every `index_blob_len % 6 == 0` (u16 triangles), and **5 meshes have
+`index_blob_len % 12 != 0`**, which makes 32-bit indices impossible *for those five*
+(`camera.mdl` 3342, `pistols.mdl` 8082, `body.mdl` 12630, `ricepod.mdl` 3450 and 49998).
+The smallest case is explicit: `audiophile/models/audiophile/glow.mdl` has 4 vertices and
+a 12-byte index blob reading `00 00 01 00 02 00 | 00 00 02 00 03 00` = `0,1,2, 0,2,3`.
 
 ## Bone / puppet data
 
@@ -182,7 +203,15 @@ after all meshes (version >= 13). The decoder matches it on the **4-character
 prefix only** (`strncmp(tag, "MDLS0004", 4)`) and takes the version from
 `atoi(tag+4)`, so `MDLS0002`/`0003`/`0004` are all accepted. Bone count is read as
 a u32 and has a **hard cap of 128** — exceeding it does not fail the load, it calls
-`__fastfail` and kills the process (`0x1402624f9`, `cmp eax, 0x80` / `int 0x29`).
+`__fastfail` and kills the process (`0x140262501 cmp eax, 0x80` → `0x140262506 jbe` →
+`0x14026250a xor ecx,ecx; int 0x29`).
+<!-- [CORRECTED 2026-08-28] This cited 0x1402624f9, which is 8 bytes early and decodes as
+     `mov r15d, eax` — following it lands mid-instruction. The comparison is at
+     0x140262501. Cross-check: Waple `Sources/WapleCore/PuppetModel.swift:34-36` cites the
+     same 0x140262501. Note also that `int 0x29` is not rare in this parser — the covering
+     function 0x140261880 contains 30 `xor ecx,ecx; int 0x29` sites, so "the fastfail" is
+     not a single distinguishing landmark. -->
+
 
 Sub-chunk tag matching is not uniform, and a reimplementation has to copy it:
 
