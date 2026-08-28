@@ -86,7 +86,20 @@ def main():
             except Exception as e:
                 errors.append((folder, proj_path, f"project.json parse: {type(e).__name__}: {e}"))
 
-        pkg_path = os.path.join(fdir, "scene.pkg")
+        # [2026-08-28] gifscene.pkg 를 후보에 넣는다 — 종전엔 "scene.pkg" 만 열었다.
+        #
+        # 그래서 워크샵 162 씬 중 정확히 1건(`1612750231`)이 `has_scene_pkg=0` ·
+        # `wallpaper_type=unknown` 으로 떨어졌다. 그 폴더는 손상된 게 아니라 GIF 씬이라
+        # 컨테이너 이름이 `gifscene.pkg` 이고 안의 문서도 `gifscene.json` 이다.
+        # (Waple 리포 `spec/corpus/scene-schema.json` 의 byPackage 가
+        #  `{"scene.pkg/scene.json": 161, "gifscene.pkg/gifscene.json": 1}` 로 같은 분할을 싣는다.)
+        #
+        # 이름 글롭 하나로 모집단을 정의하면 이렇게 조용히 1건이 샌다.
+        pkg_path = next(
+            (p for p in (os.path.join(fdir, n) for n in ("scene.pkg", "gifscene.pkg"))
+             if os.path.isfile(p)),
+            os.path.join(fdir, "scene.pkg"),
+        )
         has_pkg = os.path.isfile(pkg_path)
         pkg_size = os.path.getsize(pkg_path) if has_pkg else 0
 

@@ -381,8 +381,7 @@ if (len == 8 && memcmp(name, "TEXV0005", 8) == 0) {
         ver = (len(sec) > 4) ? atoi(sec + 4) : 0;
         if      (_strnicmp(sec, "TEXI0001", 4) == 0) ok = ReadTEXI (ver, &cur, info);
         else if (_strnicmp(sec, "TEXB0004", 4) == 0) st = ReadTEXB (ver, &cur, ...);
-        else if (_strnicmp(sec, "TEXS0003", 4) == 0) break;      // 종료 섹션
-        else                                          ok = ReadFrames(ver, &cur, ...);
+        else if (_strnicmp(sec, "TEXS0003", 4) == 0) ok = ReadTEXS(ver, &cur, ...);  // 0x14015e1d0
     }
 } else if (len == 8 && memcmp(name, "TEXV0004", 8) == 0) {
     ReadTEXI(0, &cur, info);                  // v4 는 섹션 태그가 없다 — 암묵 레이아웃
@@ -393,6 +392,26 @@ if (len == 8 && memcmp(name, "TEXV0005", 8) == 0) {
 핵심은 비교 방식이다 — **`_strnicmp(…, 4)` 로 4글자 태그만 보고, 버전 4자리는
 `atoi(sec+4)` 로 숫자로 뽑아 하위 파서에 넘긴다.** 그래서 바이너리에는 `TEXB0004` 라는
 리터럴 하나만 있는데도 실물에는 `TEXB0001/0002/0003/0004` 가 모두 존재한다(§3.3).
+
+> **[2026-08-28 정정] 위 의사코드의 `TEXS0003` 팔이 정반대로 적혀 있었다.**
+> 종전 판은 `break; // 종료 섹션` 이었고 `0x14015e1d0` 을 "TEXI/TEXB/TEXS 아무것도 아닌
+> 태그가 가는 네 번째 핸들러(무엇을 파싱하는지 [미해결])" 로 적었다. 바이트가 반대다:
+>
+> ```
+> 0x14015e7e0  41 b8 04 00 00 00      mov  r8d, 4
+> 0x14015e7e6  48 8d 15 f3 d0 32 00   lea  rdx, [rip+0x32d0f3]  ; 0x14048B8E0 = "TEXS0003\0"
+> 0x14015e7f2  e8 ..                  call 0x1402c9e60          ; _strnicmp(tag, "TEXS0003", 4)
+> 0x14015e7f9  75 ..                  jnz  0x14015e86b          ; 불일치 → 빠져나간다
+> 0x14015e811  e8 ..                  call 0x14015e1d0          ; 일치   → 파싱한다
+> ```
+>
+> 즉 **빠져나가는 쪽이 불일치 팔**이고 **`0x14015e1d0` 을 부르는 쪽이 일치 팔**이다.
+> 그리고 `0x14015e1d0` 은 미상 핸들러가 아니라 **스프라이트시트 파서**다 — `i32 frameCount`
+> 뒤에 프레임 지오메트리가 오고 `v>=3` 이면 gif 폭·높이를 명시로 싣는다. 레이아웃 전문은
+> Waple 리포 `docs/re/tex-format.md` §1.3 에 있고, `Sources/WapleCore/TexImage.swift:866-868`
+> 이 같은 3분기를 같은 세 개의 `mov r8d, 4` 호출부와 함께 적어 뒀다.
+> **Swift 디코더가 옳고 이 문서가 틀렸다** — 반대로 맞추지 마라.
+> 같은 오기가 `corpus_scan/tex-format.md` §요약 에도 있었고 함께 고쳤다.
 
 **근거 ③(하위 파서와 LZ4).** 디스패치 대상 3개는 전부 인접 주소의 전용 파서다.
 

@@ -37,9 +37,24 @@ Format (little-endian), reverse-engineered from corpus bytes:
 
   DATA SECTION
     Concatenation of every blob, in index order, starting at file offset
-    (12 + sum over entries of (4 + name_len + 8)). data_offset values are
+    (16 + sum over entries of (4 + name_len + 8)). data_offset values are
     relative to this start. Contiguous: data_offset[i+1] == data_offset[i] +
     data_size[i] in all observed files (no padding).
+
+    [CORRECTION 2026-08-28] This said "12 + ...", which contradicted this very
+    docstring two blocks up (it states the entry COUNT sits at offset 0x0c = 12,
+    so the index cannot start before 16) and contradicted the code, which uses
+    `off = 4 + magic_len + 4` -> 16. The header is: u32 magic_len (4) + magic
+    (8) + u32 entry_count (4) = 16 bytes.
+
+  WHAT THIS SCRIPT DOES *NOT* ENFORCE
+    The version note above describes the *engine's* loader, which rejects
+    atoi(magic+4) > 24. **This parser never checks the version** -- `version_str`
+    is decoded at line ~194 and only ever printed. It also hard-gates
+    `magic_len == 8` (MAGIC_LEN_EXPECTED), so a container framed any other way is
+    reported as "not a pkg" rather than parsed. Both are fine for surveying this
+    corpus; neither is a model of the loader. Do not cite this script as evidence
+    for what the engine accepts.
 
 Exit codes:
   0  parsed ok
