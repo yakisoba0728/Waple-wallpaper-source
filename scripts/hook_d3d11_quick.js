@@ -28,18 +28,27 @@ const createDevice = Module.findExportByName('d3d11.dll', 'D3D11CreateDevice');
 if (createDevice) {
     Interceptor.attach(createDevice, {
         onEnter(args) {
-            // pFeatureLevels is arg[5], FeatureLevels arg[6], pFeatureLevel arg[9]
-            const numLevels = args[6].toInt32();
+            // pFeatureLevels is arg[4], FeatureLevels arg[5], Flags arg[3], pFeatureLevel arg[8]
+            // [정정 2026-08-30] 종전 "pFeatureLevels is arg[5], FeatureLevels arg[6],
+            // pFeatureLevel arg[9]" 이었고 코드도 args[6]/args[5]/args[7] 를 읽었다.
+            // 이는 아래 onEnter 의 args[9] 오류와 같은 원인 — 실재하지 않는 12인자 서명
+            // (D3D11_LAYER_DESC* 를 끼워넣은 것)을 전제로 한 인덱스 밀림이다.
+            // 실제 서명은 인자 10개(Wine d3d11.idl:4033-4034):
+            //   [0] pAdapter [1] DriverType [2] Software [3] Flags [4] pFeatureLevels
+            //   [5] FeatureLevels [6] SDKVersion [7] ppDevice [8] pFeatureLevel
+            //   [9] ppImmediateContext
+            // hook_d3d11_v17.js:24-27 이 같은 표를 처음부터 올바르게 적고 있다.
+            const numLevels = args[5].toInt32();
             console.log('\n[D3D11CreateDevice] FeatureLevels count=' + numLevels);
             if (numLevels > 0 && numLevels < 20) {
-                const levels = args[5].readByteArray(numLevels * 4);
+                const levels = args[4].readByteArray(numLevels * 4);
                 const view = new Int32Array(levels);
                 const levelNames = {0x9100:'9_1',0x9200:'9_2',0x9300:'9_3',0xa000:'10_0',0xa100:'10_1',0xb000:'11_0',0xb100:'11_1'};
                 const arr = [];
                 for (let i=0;i<view.length;i++) arr.push(levelNames[view[i]] || '0x'+view[i].toString(16));
                 console.log('  Requested feature levels: ' + arr.join(', '));
             }
-            console.log('  Flags=0x' + args[7].toString(16) + ' (0x20=debug, 0x2=bgra, 0x8000=11_1)');
+            console.log('  Flags=0x' + args[3].toString(16) + ' (0x20=debug, 0x2=bgra, 0x8000=11_1)');
         },
         onLeave(retval) {
             console.log('  -> HRESULT=0x' + retval.toString(16));
@@ -49,7 +58,10 @@ if (createDevice) {
 }
 
 // 2. CreateTexture2D — the TEX→DXGI format mapping
-//    We hook by scanning the device vtable. CreateTexture2D is vtable index 8.
+//    We hook by scanning the device vtable. CreateTexture2D is vtable index 5.
+//    [정정 2026-08-30] 종전 이 줄은 "vtable index 8" 이었다. 슬롯 8 은
+//    CreateUnorderedAccessView 이고 CreateTexture2D 는 슬롯 5 다. 근거는 아래
+//    deviceOffsets 표의 정정 주석에 적었다.
 //    Easier: hook the export, since it's also an export of d3d11.dll for some paths.
 const createTex = Module.findExportByName('d3d11.dll', 'D3D11CreateTexture2D');
 // Actually CreateTexture2D is a vtable method, not an export. We capture it via
@@ -58,15 +70,37 @@ const createTex = Module.findExportByName('d3d11.dll', 'D3D11CreateTexture2D');
 
 // Capture device vtable on D3D11CreateDevice return
 let deviceVtable = null;
+// [정정 2026-08-30] 이 표는 네 자리가 틀려 있었다. 종전 값과 무엇이 왜 틀렸는지:
+//   5: 'CreateBuffer'      → 슬롯 5 는 CreateTexture2D. CreateBuffer 는 슬롯 3.
+//   8: 'CreateTexture2D'   → 슬롯 8 은 CreateUnorderedAccessView. Texture2D 는 슬롯 5.
+//   9: 'CreateTexture3D'   → 슬롯 9 는 CreateRenderTargetView. Texture3D 는 슬롯 6.
+//   47: 'VSSetShader' / 48: 'PSSetShader'
+//        → 둘 다 ID3D11Device 의 메서드가 아니다(ID3D11DeviceContext 의 메서드다).
+//          게다가 ID3D11Device vtable 은 43항목(0..42)뿐이므로 47/48 은 표 끝을
+//          넘어 인접 힙을 읽는 좌표다. 그래서 삭제했다.
+// 실측 근거(1차 자료 2건, 서로 독립):
+//   mingw-w64 d3d11.h `struct ID3D11DeviceVtbl` — 함수 포인터 항목 43개(0..42),
+//     [0] QueryInterface [1] AddRef [2] Release [3] CreateBuffer [4] CreateTexture1D
+//     [5] CreateTexture2D [6] CreateTexture3D [7] CreateShaderResourceView
+//     [8] CreateUnorderedAccessView [9] CreateRenderTargetView [10] CreateDepthStencilView
+//     [11] CreateInputLayout [12] CreateVertexShader [15] CreatePixelShader
+//     [42] GetExceptionMode (마지막)
+//   Wine d3d11.idl `interface ID3D11Device : IUnknown` — 메서드 40개, 같은 순서
+//     (IUnknown 3개 + 40 = 43슬롯)
+// 리포 내부 교차확인: hook_d3d11_scan.js:125-131 · hook_d3d11_validate.js:28-50 이
+// 처음부터 올바른 표를 갖고 있었고, analysis/d3d_scan.log:297-298 의 실제 실행이
+// `hooked CreateBuffer (vt[3])` / `hooked CreateTexture2D (vt[5])` 를 기록한다.
+//
+// 주의: 이 상수는 선언만 되어 있고 어디서도 읽히지 않는다(dead code — 아래에서
+// 실제로 쓰이는 것은 deviceVtable 뿐이다). 그래서 이 정정은 문서상의 정정이고
+// 실행 경로를 바꾸지 않는다. 실행 경로의 슬롯은 아래 vtable.add(...) 자리에서 고쳤다.
 const deviceOffsets = {
-    5: 'CreateBuffer',
-    8: 'CreateTexture2D',
+    3: 'CreateBuffer',
+    5: 'CreateTexture2D',
+    6: 'CreateTexture3D',
     12: 'CreateVertexShader',
-    15: 'CreatePixelShader',
-    47: 'VSSetShader',
-    9: 'CreateTexture3D',
-    48: 'PSSetShader',
     13: 'CreateGeometryShader',
+    15: 'CreatePixelShader',
 };
 
 Interceptor.attach(createDevice, {
@@ -83,13 +117,25 @@ Interceptor.attach(createDevice, {
 let ppDevice = null;
 Interceptor.attach(createDevice, {
     onEnter(args) {
-        ppDevice = args[2]; // IDXGIAdapter* is arg0; ppDevice is arg[2]? Actually:
-        // HRESULT D3D11CreateDevice(IDXGIAdapter*, D3D_DRIVER_TYPE, HMODULE, UINT,
-        //   const D3D_FEATURE_LEVEL*, UINT, UINT, const D3D11_LAYER_DESC*, UINT,
-        //   ID3D11Device**, D3D_FEATURE_LEVEL*, ID3D11DeviceContext**)
-        // So ppDevice = arg[10] (0-indexed: 0 adapter,1 drivertype,2 software,3 flags,4 plevels,5 nlevels,6 sdkver,7 player,8 nlayer,9 ppDevice,...) — depends.
-        // Just save arg index 9 (10th arg) which is ppDevice.
-        this.ppDevice = args[9];
+        ppDevice = args[2]; // (dead assignment — this.ppDevice below is what onLeave reads)
+        // HRESULT WINAPI D3D11CreateDevice(IDXGIAdapter*, D3D_DRIVER_TYPE, HMODULE, UINT,
+        //   const D3D_FEATURE_LEVEL*, UINT, UINT, ID3D11Device**, D3D_FEATURE_LEVEL*,
+        //   ID3D11DeviceContext**)   — 10 args, so ppDevice is 0-based args[7].
+        // [정정 2026-08-30] 종전 이 자리는 12개 인자 서명을 적고
+        //   "const D3D11_LAYER_DESC*, UINT" 를 7·8번째 인자로 끼워넣은 뒤 args[9] 를 읽었다.
+        //   그 서명은 실재하지 않는다 — D3D11CreateDevice 의 어떤 오버로드에도
+        //   D3D11_LAYER_DESC* 인자는 없다(그 타입은 D3D10 계열의 것이다). 그래서
+        //   args[9] 는 실제로는 ppImmediateContext 이고, 그것을 ID3D11Device** 로
+        //   역참조하면 device 가 아닌 context 의 vtable 을 잡는다.
+        // 실측 근거: Wine d3d11.idl:4033-4034 cpp_quote 선언
+        //   `D3D11CreateDevice(IDXGIAdapter*,D3D_DRIVER_TYPE,HMODULE,UINT,
+        //    const D3D_FEATURE_LEVEL*,UINT,UINT,ID3D11Device**,D3D_FEATURE_LEVEL*,
+        //    ID3D11DeviceContext**)` — 인자 10개, ppDevice 는 0-based 7번.
+        //   mingw-w64 d3d11.h 의 PFN_D3D11_CREATE_DEVICE 도 같다.
+        // 리포 내부 교차확인: 나머지 훅 5종은 처음부터 args[7] 로 옳게 읽는다
+        //   (hook_d3d11_v17.js:27 · scan.js:13 · minimal.js:12 · validate.js:88 ·
+        //    late_attach.js:28). 즉 이것은 ABI 와 무관한 이 스크립트 한 곳의 전사 오류다.
+        this.ppDevice = args[7];
     },
     onLeave(retval) {
         if (retval.toInt32() !== 0) return;
@@ -99,8 +145,12 @@ Interceptor.attach(createDevice, {
             console.log('[+] Device @ ' + devPtr + ', vtable @ ' + vtable);
             deviceVtable = vtable;
 
-            // Hook CreateTexture2D (vtable index 8)
-            const createTexture2D = vtable.add(8 * Process.pointerSize).readPointer();
+            // Hook CreateTexture2D (vtable index 5)
+            // [정정 2026-08-30] 종전 `index 8` / add(8 * ...). 슬롯 8 은
+            // CreateUnorderedAccessView 이므로 아래 args[1] 은 D3D11_TEXTURE2D_DESC*
+            // 가 아니라 ID3D11Resource* 이고, width/height/fmt 출력이 전부 쓰레기가 된다.
+            // 근거는 위 deviceOffsets 표의 정정 주석 참조.
+            const createTexture2D = vtable.add(5 * Process.pointerSize).readPointer();
             Interceptor.attach(createTexture2D, {
                 onEnter(args) {
                     // args[0]=this(device), args[1]=D3D11_TEXTURE2D_DESC*, args[2]=initial data, args[3]=ppTexture
@@ -168,8 +218,9 @@ Interceptor.attach(createDevice, {
             });
             console.log('[+] Hooked CreateVertexShader / CreatePixelShader');
 
-            // Hook CreateBuffer (idx 5) — reveals constant/vertex/index buffer sizes
-            const createBuffer = vtable.add(5 * Process.pointerSize).readPointer();
+            // Hook CreateBuffer (idx 3) — reveals constant/vertex/index buffer sizes
+            // [정정 2026-08-30] 종전 `idx 5` / add(5 * ...). 슬롯 5 는 CreateTexture2D 다.
+            const createBuffer = vtable.add(3 * Process.pointerSize).readPointer();
             Interceptor.attach(createBuffer, {
                 onEnter(args) {
                     try {

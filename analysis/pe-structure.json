@@ -2043,7 +2043,7 @@
     "address_of_index_va": 5373835912,
     "address_of_callbacks_va": 5373062560,
     "size_of_zero_fill": 0,
-    "characteristics": 1,
+    "characteristics": 5242880,
     "callbacks": [
       "0x14028aeb0",
       "0x14028af90"

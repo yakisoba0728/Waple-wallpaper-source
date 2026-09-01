@@ -111,7 +111,7 @@ Each is the closure type for a lambda defined inside `<Class>::<Method>`:
 | `PropertySystem` | `LoadMediaIntegrationOnDemand` | 0x4e04c1 |
 | `PropertySystem` | `LoadShellThumbnailIntegrationOnDemand` | 0x4e0451 |
 | `SceneWallpaper` | `LoadSceneAndProperties` | 0x4e0021 |
-| `Texture` | `ReadTextureData` | 0x4e02d3 |
+| `Texture` | `ReadTextureData` | 0x4e02d3 (**0 xrefs — file offset of the descriptor's name text, not a code address; see §3 correction**) |
 | `VideoWallpaper` | `StartVideoWithNewPlayer` | 0x4dfe43 (+ 4 more at 0x4dfea3, 0x4dff03, 0x4dff61, 0x4dffc1) |
 | `WallpaperManager` | `Init` | 0x4df641, 0x4df691 |
 
@@ -173,7 +173,7 @@ The top-level package container uses chunk-id-tagged sections (`PROJECT`, `SHDV#
 ## 3. TEX texture decoder (DXT/BCn/LZ4) — **CONFIRMED**
 
 Texture chunk magics at file offset 0x48a6e0–0x48a730 (`analysis/strings/format-spec.txt`), each suffixed with a 4-digit version stamp:
-- **`TEXS0003`** @ 0x48a6e0 — surface/header chunk (v3)
+- **`TEXS0003`** @ 0x48a6e0 — ~~surface/header chunk (v3)~~ **sprite-sheet / frame-table section (v3)**, parsed by `0x14015e1d0` (`i32 frameCount` then per-frame geometry; `v>=3` carries explicit gif width/height). **[CORRECTED 2026-08-30]** — 61 of the 440 `.tex` files in this repository carry one; it is a peer of TEXI/TEXB in the section loop, not a header.
 - **`TEXB0004`** @ 0x48a6f0 — base/body chunk (v4)
 - **`TEXI0001`** @ 0x48a700 — info chunk (v1)
 - **`TEXV0005`** @ 0x48a710 — version/variant chunk (v5)
@@ -186,9 +186,39 @@ Texture chunk magics at file offset 0x48a6e0–0x48a730 (`analysis/strings/forma
 - **zlib (inflate 1.3.1)**: `inflate 1.3.1 Copyright` @ 0x451311 → zlib statically linked; `deflate` error strings elsewhere; used for PNG and possibly package decompression.
 - No DXT3/DXT5/BC4-7 name strings present (those are compressed by the offline `resourcecompiler64.exe` @ 0x491130 into shader-bytecode/texture blobs; the runtime just uploads them to the GPU).
 
-**RTTI**: **`Texture::ReadTextureData(unsigned char const*, TextureInfo&, TextureReadState&)`** (lambda RTTI @ 0x4e02d3) is the decode entry point; the lambda binder further reveals the return type is `RefBuffer<unsigned char>*` and parameters include `TextureInfo&` and `TextureReadState&`.
+**RTTI**: **`Texture::ReadTextureData(unsigned char const*, TextureInfo&, TextureReadState&)`** (lambda RTTI @ 0x4e02d3) ~~is the decode entry point~~; the lambda binder further reveals the return type is `RefBuffer<unsigned char>*` and parameters include `TextureInfo&` and `TextureReadState&`.
 
-**Code region**: chunk tables at 0x48a6e0–0x48ef28; LZ4 decoder code reachable from `Texture::ReadTextureData`.
+**Code region**: chunk tables at 0x48a6e0–0x48ef28; LZ4 decoder code reachable from ~~`Texture::ReadTextureData`~~ the TEXB body parser `0x14015c8d0`.
+
+> **[CORRECTED 2026-08-30 — the name is fine; the coordinate it is offered with is not a
+> Ghidra target, and the dispatch/LZ4 attribution now belongs to a pinned address.]**
+> Re-adjudicated 2026-08-27 in `analysis/reports/mdl-tex-decoders-2026-08-27.md` §3; that
+> pass did not touch this file, so these lines were left standing.
+>
+> 1. **`0x4e02d3` cannot be opened in Ghidra.** Per this document's stated convention it is
+>    a **file offset**, and it points into `.data` (VA `0x1404e22d3`) at the mangled name
+>    text of an MSVC `TypeDescriptor` whose header begins at file offset `0x4e02b0`
+>    (VA `0x1404e22b0`, vftable `0x140426e18`). That descriptor is for a **lambda declared
+>    inside** the method (`.?AV<lambda_1>@?BP@??ReadTextureData@Texture@@…`), and it is
+>    referenced **0 times** in the binary. Re-measured 2026-08-30 on the pristine
+>    `wallpaper_engine/wallpaper64.exe`: 0 as an 8-byte absolute, 0 as a 4-byte
+>    image-relative RVA. So this offset gives a reader **no path to any function** — it is
+>    the §7 stripped-RTTI situation, not a decode entry point coordinate.
+> 2. **The address that was actually pinned is `0x14015e580`** (1,155 B) — the TEX container
+>    walker: sole referent of all five TEX magics, dispatching on the 4-char tag to
+>    `0x14015c760` (TEXI), `0x14015c8d0` (TEXB), `0x14015e1d0` (TEXS sprite-sheet). It is
+>    present in `analysis/decompiled/manifest.json` and
+>    `analysis/decompiled/evidence-index.tsv` (`14015e580 … TEXB;TEXI;TEXV`), so it is a
+>    real, openable target. **`LZ4 error.`** (VA `0x1404863f8`) is referenced by only two
+>    functions, one of them the TEXB body parser `0x14015c8d0` (at `0x14015dd1f`) — that is
+>    where the LZ4 path actually is.
+> 3. **The name itself is not withdrawn.** `ReadTextureData` is a correct class/method name;
+>    what it lacks is an address. Whether `0x14015e580` *is* `Texture::ReadTextureData`
+>    remains **[미해결]** — there is an argument against it (the mangled signature returns
+>    `RefBuffer<unsigned char>*` while `0x14015e580` returns a bool both callers test with
+>    `!= 0`), so `0x14015e580` is more likely the container walker that `ReadTextureData`
+>    calls. **No name has been attached to the address.** Detail:
+>    `analysis/reports/mdl-tex-decoders-2026-08-27.md` §3.4.
 
 ---
 
@@ -332,7 +362,7 @@ Strong RTTI evidence of a class hierarchy rooted at a common wallpaper base, wit
 |---|---|---|---|
 | 1 | PKGV package parser | **CONFIRMED** (real magic vocabulary differs) | No `PKGV` (0 occurrences); instead `PLPV0005` @ 0x476eb8, `PROJECT` @ 0x485740, `MDLVS001` @ 0x483b80, plus `core_balloon_pkg_version_error` @ 0x473e98 and `.pkg` extension @ 0x476e88 |
 | 2 | scene.json / project.json loader | **CONFIRMED** | `project.json` @ 0x476e78; **jsoncpp** error strings (`Json::Value::duplicateAndPrefixStringValue` @ 0x477393, `Missing a name for object member.` @ 0x4757b8); **+ RapidJSON coexists** — 7 UTF-16LE source paths (`rapidjson\reader.h` @ 0x475f60 and others; corrected 2026-08-26); `SceneWallpaper::LoadSceneAndProperties` lambda RTTI @ 0x4e0021 |
-| 3 | TEX texture decoder (BCn/LZ4) | **CONFIRMED** | `TEXS0003`/`TEXB0004`/`TEXI0001`/`TEXV0005` @ 0x48a6e0–0x48a710; `LZ4 error.` @ 0x4851f8; `Texture::ReadTextureData` lambda RTTI @ 0x4e02d3 |
+| 3 | TEX texture decoder (BCn/LZ4) | **CONFIRMED** | `TEXS0003`/`TEXB0004`/`TEXI0001`/`TEXV0005` @ 0x48a6e0–0x48a710; `LZ4 error.` @ 0x4851f8; ~~`Texture::ReadTextureData` lambda RTTI @ 0x4e02d3~~ **container walker `0x14015e580`** (VA; re-adjudicated 2026-08-27 — the `0x4e02d3` descriptor has 0 xrefs, see the §3 correction) |
 | 4 | MDL mesh decoder | **CONFIRMED** | `MDLA0006`/`MDAT0001`/`MDMP0001`/`MDLE0002`/`MDLS0004`/`MDLV0023` @ 0x490ef0–0x491118; `Obj` class with `SharedMdlData*` binder |
 | 5 | Particle system | **CONFIRMED** | `ParticleVbo` class in P8 binder set; particle material bindings region 0x48e000–0x492000; `MaterialSystem::ReloadDirtyMaterials` RTTI @ 0x4e01fc |
 | 6 | D3D11 render pipeline | **CONFIRMED** | `d3d11.dll!D3D11CreateDevice` import + DXGI recovery strings @ 0x487f78–0x4881b0 |
@@ -355,7 +385,15 @@ Ranked by how much of the renderer they unlock per symbol resolved:
 
 1. **`SceneWallpaper::LoadSceneAndProperties`** (lambda RTTI @ 0x4e0021) — single function that owns the per-wallpaper scene-graph, material, and texture loading for the renderer (clean-room target).
 2. **`Main::LoadScene`** (lambda RTTI @ 0x4e053c) — top-level scene loader with `SceneStorageDBParams`; the entry from the package/DB layer into rendering.
-3. **`Texture::ReadTextureData`** (lambda RTTI @ 0x4e02d3) — decodes TEX chunk payloads (dispatches on TEXS/TEXB/TEXI/TEXV chunk types), calls LZ4.
+3. ~~**`Texture::ReadTextureData`** (lambda RTTI @ 0x4e02d3) — decodes TEX chunk payloads (dispatches on TEXS/TEXB/TEXI/TEXV chunk types), calls LZ4.~~
+   **DONE (2026-08-27) — and this entry pointed at an unusable coordinate.** The TEX decode
+   path was pinned by close-read to **`0x14015e580`** (container walker) →
+   `0x14015c760` (TEXI) / `0x14015c8d0` (TEXB, holds the `LZ4 error.` reference at
+   `0x14015dd1f`) / `0x14015e1d0` (TEXS sprite-sheet). The dispatch and LZ4 attribution
+   above therefore belong to those addresses, not to the name. `0x4e02d3` is a `.data`
+   string offset for a lambda `TypeDescriptor` with **0 references** and cannot be opened as
+   a function. See the §3 correction and
+   `analysis/reports/mdl-tex-decoders-2026-08-27.md` §3.
 4. **`MaterialSystem::ReloadDirtyMaterials`** (lambda RTTI @ 0x4e01fc) — central shader/material binding pipeline feeding D3D11 VSSetShader / PSSetShader / etc.
 5. **`AudioProcessor` (P8 binder @ 0x4dfd80) + `AudioEventHandler` (@ 0x4dfcb0)** — audio-reactivity entry points; resolving these may also reveal the unknown FFT/spectrum step.
 

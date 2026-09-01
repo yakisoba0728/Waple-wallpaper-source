@@ -10,6 +10,32 @@ All offsets below are **file offsets** unless suffixed `RVA` (relative virtual a
 
 > Note: this report supersedes an earlier `pe-structure.md` from a prior session whose parser had two offset bugs (it reported `e_lfanew=0x100` instead of `0x40`, and `Characteristics=0x0000` instead of `0x0022`). The values below were re-derived from a fresh parser and cross-checked by hand against raw byte dumps.
 
+> **[CORRECTED 2026-08-30] The Linker version cell in §4 read `14.0`. The bytes say `14.51`.**
+> `MajorLinkerVersion`/`MinorLinkerVersion` sit at optional-header `+2`/`+3`; in all three
+> copies of the binary present here (`wallpaper_engine/wallpaper64.exe`,
+> `binaries/wallpaper64.exe`, `wallpaper_engine/distribution/wallpaper64.exe`, each
+> 5,360,112 B, `e_lfanew` `0x40`, magic `0x20B`) those two bytes are `0e 33` = **14.51**.
+> `analysis/pe-structure.json` also records `linker_version = 14.51`, so the `.md` was
+> contradicting both the bytes and its own sibling JSON.
+>
+> **This was a hand-transcription slip, not a stale generator artifact — do not "fix" it by
+> re-running the parser.** `analysis/parse_pe.py` writes only the JSON (`:353-354`); it
+> contains no markdown writer, so re-running it will silently regenerate nothing. Nor is
+> the value fallout from the option-header off-by-one that `0bb963ed` repaired: that diff
+> changed `"<HBHIIIII"` → `"<HBBIIIII"`, `maj_link` was `B` in **both** versions, and both
+> structs yield `(14, 51)` against this binary — `git show c72aa42e:analysis/pe-structure.json`
+> already read `14.51` before the fix. Every optional-header field the bug *did* corrupt
+> (`SizeOfCode`, `BaseOfCode`, `SizeOfUninitializedData`, `SubsystemVersion`, …) is exact in
+> this file, consistent with the hand cross-check this note describes. Only the minor
+> version was dropped.
+>
+> Reproduce:
+> ```
+> python3 -c "import struct; d=open('wallpaper_engine/wallpaper64.exe','rb').read(); \
+>   lf=struct.unpack_from('<I',d,0x3c)[0]; o=lf+24; print('%d.%d'%(d[o+2],d[o+3]))"
+> # -> 14.51
+> ```
+
 ---
 
 ## 1. DOS Header
@@ -36,7 +62,7 @@ All offsets below are **file offsets** unless suffixed `RVA` (relative virtual a
 | Field | Value |
 |---|---|
 | Magic | 0x20B (PE32+) |
-| Linker version | 14.0 (MSVC 2015+ toolchain; compatible with VS 2015/2017/2019/2022) |
+| Linker version | ~~14.0~~ **14.51** (MSVC 2015+ toolchain — major 14 spans VS 2015-2022; minor 51 pins VS 2022 17.14+) — see the [CORRECTED 2026-08-30] note below |
 | SizeOfCode | 0x00424A00 |
 | SizeOfInitializedData | 0x000FB400 |
 | SizeOfUninitializedData | 0 |
@@ -79,7 +105,7 @@ All offsets below are **file offsets** unless suffixed `RVA` (relative virtual a
 | `.text` | 0x00001000 | 0x0042490C | 0x00000400 | 0x00424A00 | 0x60000020 | CODE, EXEC, READ — main code (~4.2 MB) |
 | `.rdata` | 0x00426000 | 0x000B51AC | 0x00424E00 | 0x000B5200 | 0x40000040 | READ-only data (string pool, import tables, RTTI/vtables) |
 | `.data` | 0x004DC000 | 0x0000DDBC | 0x004DA000 | 0x00007C00 | 0xC0000040 | READ+WRITE data (globals) |
-| `.pdata` | 0x004EA000 | 0x0002B560 | 0x004E1C00 | 0x0002B600 | 0x40000040 | Exception unwind tables (0x2B560 / 12 = **~14,752 functions**) |
+| `.pdata` | 0x004EA000 | 0x0002B560 | 0x004E1C00 | 0x0002B600 | 0x40000040 | Exception unwind tables (0x2B560 / 12 = ~~**~14,752 functions**~~ **exactly 14,792 `RUNTIME_FUNCTION` entries**, of which **6,824 are primary function starts**) |
 | `.fptable` | 0x00516000 | 0x00000100 | 0x0050D200 | 0x00000200 | 0xC0000040 | READ+WRITE — function-pointer table (256 bytes); **non-standard MSVC section name** |
 | `_RDATA` | 0x00517000 | 0x00000030 | 0x0050D400 | 0x00000200 | 0x40000040 | READ-only small data (LoadConfig extension) |
 | `.rsrc` | 0x00518000 | 0x000099B8 | 0x0050D600 | 0x00009A00 | 0x40000040 | Resource directory (icon, manifest, version info) |
@@ -88,7 +114,40 @@ All offsets below are **file offsets** unless suffixed `RVA` (relative virtual a
 Notes:
 - `.text` virtual size (0x42490C) ≈ raw size (0x424A00): tight binary, minimal padding.
 - The custom `.fptable` section is unusual — MSVC normally does not emit this. Worth targeted review in Ghidra: it is RW and small (256 bytes). A custom function-pointer table for a small dispatch layer is plausible (e.g. the per-wallpaper-type dispatch table, or a hook-detection trampoline).
-- `.pdata` size / 12 bytes per RUNTIME_FUNCTION → ~14,752 function entries. This is the authoritative count of *callable* functions identified by the unwind table (see Final Summary).
+- ~~`.pdata` size / 12 bytes per RUNTIME_FUNCTION → ~14,752 function entries. This is the authoritative count of *callable* functions identified by the unwind table (see Final Summary).~~
+  **[CORRECTED 2026-08-30 — both halves of this sentence were wrong, and the master doc's §6
+  records the exact failure it caused.]** `.pdata` size / 12 = **exactly 14,792** entries,
+  and **6,824** of them are function starts.
+  - *The arithmetic.* `0x2B560` = 177,504; `177504 / 12 = 14792` with remainder **0**.
+    `14752 × 12` = `0x2B380`, not `0x2B560` — a digit transposition. The `~` hedge does not
+    rescue it, because this line prints the division itself.
+  - *The substance.* An entry count is **not** a function count regardless of the digits:
+    **7,968** of the 14,792 entries carry `UNW_FLAG_CHAININFO` and are additional fragments
+    of a function already listed. Only **6,824** are primary starts.
+  - *Why "authoritative" is the dangerous word.* `WE-ENGINE-ANALYSIS-2026-07-27.md` §6
+    records that measuring the corpus against the entry count "understates it by half" and
+    that this mistake was made once during the 2026-08-27 regeneration. The regenerated
+    corpus holds **7,748** functions (`analysis/decompiled/manifest.json` → `total`) and
+    scores **6,824/6,824 = 100%** against the primary set; scored against 14,792 it looks
+    like 52%. **The oracle for a regenerated corpus is the 6,824 primary starts.**
+
+  Re-measured 2026-08-30 by walking each `RUNTIME_FUNCTION` in the pristine
+  `wallpaper_engine/wallpaper64.exe` (5,360,112 B, MD5 `438cb215f20a8f6c38f57fbc3d9da588`)
+  and resolving its `UNWIND_INFO` flags (`flags = info[0] >> 3`, test `& 0x4`):
+
+  ```
+  pdata VirtualSize 0x2b560  entries 14792  rem 0
+  inside .text 14792
+  primary 6824   chained 7968   sum 14792
+  ```
+
+  Three counts that are often conflated, and what each actually counts:
+
+  | Number | Counts | Source |
+  |---:|---|---|
+  | **14,792** | `.pdata` `RUNTIME_FUNCTION` **entries** (unwind records) | `.pdata` VirtualSize / 12 |
+  | **6,824** | **primary function starts** — the corpus oracle | entries without `UNW_FLAG_CHAININFO` |
+  | **7,748** | **functions in the regenerated decompilation corpus** (`.c` files) | `analysis/decompiled/manifest.json` → `total`; = 6,824 primary + 924 leaf/thunk functions with no unwind data |
 
 ## 6. Data Directories
 | Dir | RVA | Size | Notes |
@@ -103,7 +162,7 @@ Notes:
 | TLS | 0x497F80 | 0x28 | thread-local storage directory, see §10 |
 | LOAD_CONFIG | 0x4364B0 | 0x140 | MSVC load config |
 | IAT | 0x426000 | 0xAD8 | import address table |
-| DELAY_IMPORT | 0x4D87B0 | 0x80 | **delay-load imports present** — 0x80 / 0x20 = 4 descriptors |
+| DELAY_IMPORT | 0x4D87B0 | 0x80 | **delay-load imports present** — 0x80 / 0x20 = 4 slots, of which the last is the all-zero terminator → **3 DLLs**, see §11 |
 | CLR | 0 | 0 | no .NET |
 
 ## 7. Export Table
@@ -161,14 +220,68 @@ Ordinal #219 (path utility — exact function unresolvable without a version-spe
 | POGO (13) | Profile-guided optimization layout data (at 0x49C608). Indicates the binary was built with PGO. |
 
 ## 10. TLS Directory (present)
-- TLS directory RVA 0x497F80, size 0x28.
-- Raw data start/end VA: `0x14048A000`..`0x14048A030` (48 bytes of thread-local init data).
-- AddressOfIndex VA: 0x140493848.
-- **AddressOfCallbacks VA: 0x140492980** — array of TLS callbacks invoked before main().
-- Callbacks (2): `0x14028AEB0`, `0x14028AF90`. These run before the CRT entry point and are a **high-priority Ghidra target** — they often contain anti-debug, license, or one-time global initialization logic.
+> **[Corrected 2026-09-01] Every VA in this section was wrong, and so was one field.** The four
+> addresses below came from the rich-header-injected build, whose section RVAs were displaced;
+> the sibling generator output `analysis/pe-structure.json` (regenerated from
+> `binaries/wallpaper64.exe`, the pristine binary) disagreed with all of them. The values now
+> shown are the regenerated ones — cross-check with the reproduction command below rather than
+> trusting either document. The old values are kept struck through so that citations made
+> against the displaced coordinate space stay traceable.
 
-## 11. Delay-Load Imports (DELAY_IMPORT, 0x80 bytes = 4 descriptors)
-Not fully enumerated in v1 (each descriptor is 32 bytes). 0x80 / 0x20 = 4 delay-load DLLs. Likely candidates given the renderer profile: `d3dcompiler_47.dll`, possibly `dxcompiler.dll`, `pdh.dll`, `mmdevapi.dll`. The string `d3dcompiler_47.dll` is present in `.rdata` (see `analysis/strings/d3d-dxgi.txt` and the subsystems report §7), strongly implying it is one of the 4 delay-loads. Cross-reference against `analysis/strings/misc-notable.txt` to enumerate the rest.
+- TLS directory RVA 0x497F80, size 0x28 — `IMAGE_TLS_DIRECTORY64` is **6 fields / 40 bytes**
+  (`StartAddressOfRawData`, `EndAddressOfRawData`, `AddressOfIndex`, `AddressOfCallBacks`,
+  `SizeOfZeroFill`, `Characteristics`), which is exactly that 0x28.
+- Raw data start/end VA: `0x14049DD70`..`0x14049E0A8` (824 bytes of thread-local init data).
+  ~~`0x14048A000`..`0x14048A030` (48 bytes)~~
+- AddressOfIndex VA: **0x1404E3A88**. ~~0x140493848~~
+- **AddressOfCallbacks VA: 0x140426DA0** — array of TLS callbacks invoked before main().
+  ~~0x140492980~~
+- SizeOfZeroFill: 0. **Characteristics: 0x500000** (the alignment field, `IMAGE_SCN_ALIGN_16BYTES`
+  encoding). ~~1~~ — that `1` was a **parser bug**, not a displaced address: `analysis/parse_pe.py`
+  unpacked `<III` at `tls_off+32` and took the *third* word as Characteristics, but only two
+  4-byte fields live there, so it read past the end of the structure. Fixed 2026-09-01;
+  `analysis/pe_parse.py` had it right (`<QQQQII`) all along.
+- Callbacks (2): `0x14028AEB0`, `0x14028AF90`. These run before the CRT entry point and are a
+  **high-priority Ghidra target** — they often contain anti-debug, license, or one-time global
+  initialization logic. (These two were already correct — they are the only TLS values this
+  section shared with the generator output.)
+
+```bash
+python3 analysis/parse_pe.py binaries/wallpaper64.exe analysis   # regenerates pe-structure.json
+python3 -c "import json; print(json.load(open('analysis/pe-structure.json'))['tls'])"
+```
+
+## 11. Delay-Load Imports — **3 DLLs** (DELAY_IMPORT, 0x80 bytes = 4 slots incl. terminator)
+
+> **[Corrected 2026-09-01] The count was 4 because the null terminator was counted, and the
+> guessed DLL list was wrong.** They are enumerated now, so the guesses are gone. Note the
+> inconsistency this closes: the IMPORT row of the §6 table already excluded its terminator
+> (0x118 / 20 = 14 slots, reported as 13 DLLs) — only the DELAY_IMPORT row double-counted.
+
+Each descriptor is 32 bytes, so 0x80 / 0x20 = **4 slots**; the last is all-zero, the standard
+array terminator. The **3** real delay-load DLLs are:
+
+| # | DLL |
+|---|---|
+| 0 | `MF.dll` (Media Foundation) |
+| 1 | `MFPlat.DLL` (Media Foundation platform) |
+| 2 | `pdh.dll` (Performance Data Helper) |
+
+Two of the three are Media Foundation — consistent with video wallpaper playback being an
+optional path that must not fail to load on an N/KN edition of Windows without the Media
+Feature Pack. `pdh.dll` was one of the earlier guesses and is real; **`d3dcompiler_47.dll` and
+`dxcompiler.dll` were not** — the `d3dcompiler_47.dll` string in `.rdata` is loaded by another
+mechanism (runtime `LoadLibrary`), not by the delay-load table. That inference ("the string is
+in `.rdata`, so it is one of the delay-loads") is exactly the kind of guess this correction
+removes.
+
+```bash
+# DELAY_IMPORT [rva, size] → [5081008, 128] = [0x4D87B0, 0x80]
+python3 -c "import json; print(json.load(open('analysis/pe-structure.json'))['data_directories']['DELAY_IMPORT'])"
+# the 4 slots, last one all-zero:
+python3 -c "d=open('binaries/wallpaper64.exe','rb').read(); off=0x4d75b0; \
+  [print(i, d[off+i*0x20:off+i*0x20+0x20].hex()) for i in range(4)]"
+```
 
 ## 12. Resource Directory (.rsrc, RVA 0x518000, size 0x99B8)
 Contains the standard Win32 resources (RT_ICON, RT_GROUP_ICON, RT_MANIFEST, RT_VERSION). Not parsed field-by-field in v1; consult `analysis/strings/strings-*.txt` for embedded version strings.
@@ -182,6 +295,10 @@ Contains the standard Win32 resources (RT_ICON, RT_GROUP_ICON, RT_MANIFEST, RT_V
 - **Video pipeline uses Media Foundation Source Reader** (`MFCreateSourceReaderFromURL`, `MFCreateSourceReaderFromByteStream`). **CONFIRMED.**
 - **Text rendering uses DirectWrite** (`DWriteCreateFactory`). **CONFIRMED.**
 - **DWM integration present** (wallpaper-attach mechanism). **CONFIRMED.**
-- **~14,752 functions** identifiable from `.pdata` (authoritative count). TLS callbacks + entry point are the three earliest-execution targets.
+- ~~**~14,752 functions** identifiable from `.pdata` (authoritative count).~~ **[CORRECTED
+  2026-08-30]** `.pdata` holds **exactly 14,792** `RUNTIME_FUNCTION` entries, of which
+  **6,824 are primary function starts** (7,968 carry `UNW_FLAG_CHAININFO` and are fragments
+  of functions already counted). **6,824 is the oracle**, not 14,792 — see §5's note.
+  TLS callbacks + entry point are the three earliest-execution targets.
 - **Custom `.fptable` section** (256 bytes, RW) is non-standard and worth targeted review.
 - The binary has an **Authenticode signature** (SECURITY directory populated).

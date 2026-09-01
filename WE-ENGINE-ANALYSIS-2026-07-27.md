@@ -38,7 +38,7 @@
 |---|---|
 | PKGV/TEX/MDL/JSON formats fully decoded (446 scenes, 0 errors) | ✅ §2-4 |
 | 9/9 subsystems identified with byte-level evidence | ✅ §5 |
-| **7,748 functions decompiled to C pseudocode (45 MB)** | ✅ **REGENERATED 2026-08-27 — see §6.** 1차 함수 6,824/6,824 (100%) 일치. 종전 11,252개 판본은 변위 바이너리에서 나온 것이라 폐기했다 |
+| **7,748 manifest entries: 7,745 C bodies + 3 header-only failures (44 MB)** | ✅ **REGENERATED 2026-08-27 — see §6 and the §8 coverage limit.** 1차 함수 6,824/6,824 (100%) 일치. 종전 11,252개 판본은 변위 바이너리에서 나온 것이라 폐기했다 |
 | GLSL→HLSL shim table extracted (port directly to GLSL→MSL) | ✅ §5 |
 | TEX decoder pinned at **`0x14015e580`** (row 3 of §5 re-adjudicated 2026-08-27 — the old `FUN_140261950` was a copy-paste of the MDL row *and* a dead coordinate) | ✅ §5 |
 | MDL decoder entry point pinned at ~~`FUN_140261950`~~ **`0x140261880`** (corrected 2026-08-26; **재생성 코퍼스로 확증 2026-08-27** — `0x140261880` 은 새 코퍼스와 `.pdata` 1차 집합에 둘 다 있고, `0x140261950` 은 함수 시작으로 존재하지 않는다) | ✅ §4 |
@@ -62,8 +62,14 @@
 
 - Docker RE environment: Ubuntu 24.04 + Ghidra 12.1.2 + JDK 21 + radare2 + Python RE libs (`docker/Dockerfile.re`).
 - Binary import into Ghidra required **Rich Header injection** (see §6): WE binaries ship with `e_lfanew=0x40` (DOS stub + Rich Header stripped), which prevented MSVC recognition. **⚠️ The injection script used at the time was defective — see the §6 correction.**
-- ~~Full 11,252-function decompilation in `analysis/decompiled/all/` (45 MB C pseudocode).~~ **INVALID (2026-08-26, §6 correction)** — produced from a corrupted input. ~~Must be regenerated from a pristine original.~~ **Regenerated 2026-08-27 (§6 `✅ RESOLVED`): 7,748 functions, 6,824/6,824 primary starts matched.**
-- Evidence index in `analysis/decompiled/evidence-index.tsv` maps each function to referenced RTTI classes, format magics, imported APIs, filename strings.
+- ~~Full 11,252-function decompilation in `analysis/decompiled/all/` (45 MB C pseudocode).~~ **INVALID (2026-08-26, §6 correction)** — produced from a corrupted input. ~~Must be regenerated from a pristine original.~~ **Regenerated 2026-08-27 (§6 `✅ RESOLVED`): 7,748 manifest entries, 7,745 C bodies, 3 documented failures; 6,824/6,824 primary starts matched.**
+- Evidence index in `analysis/decompiled/evidence-index.tsv` maps each function to
+  ~~referenced RTTI classes,~~ format magics, imported APIs, filename strings.
+  **[CORRECTED 2026-08-30]** The `rtti_classes` column does not work — 4,735 of its 5,584
+  non-empty rows hold the row's own Ghidra label, and it contains **no** WE engine class
+  name. Read it as empty. The `format_magics` (14 rows), `api_calls` (44) and
+  `key_strings` (33) columns are sound and are what this audit's coordinates came from.
+  Detail and the generator bug: correction under §9 Tier 1 item 4.
 - Corpus format reverse-engineered across 446 workshop scenes (`corpus_scan/`).
 
 **Two pitfalls documented for anyone resuming this work:**
@@ -196,7 +202,33 @@ generated (§9 Tier 1 item 1).
 > `TEXB0003` 242, `TEXB0004` 127 - **four** versions, not the two listed above. The engine
 > compares only the 4-char tag (`_strnicmp(..., 4)`) and turns the 4 digits into a number
 > with `atoi`, which is why only the `TEXB0004` literal exists in the binary. A fifth
-> section tag, **`TEXS0003`**, exists and terminates the section loop.
+> section tag, **`TEXS0003`**, exists and ~~terminates the section loop~~.
+>
+> > **[CORRECTED 2026-08-30 — this had the TEXS dispatch exactly backwards.]**
+> > `TEXS0003` does **not** terminate the loop: it is **parsed**, by `0x14015e1d0`, and the
+> > loop continues afterwards. Both sibling artifacts were corrected on 2026-08-28
+> > (`corpus_scan/tex-format.md` §summary, `analysis/reports/mdl-tex-decoders-2026-08-27.md`
+> > §3) and this file was the last surviving copy of the refuted reading. The bytes,
+> > re-read from the pristine `wallpaper_engine/wallpaper64.exe`:
+> >
+> > ```
+> > 0x14015e7e0  41 b8 04 00 00 00      mov  r8d, 4
+> > 0x14015e7e6  48 8d 15 f3 d0 32 00   lea  rdx, [rip+0x32d0f3]  ; 0x14048B8E0 = "TEXS0003\0"
+> > 0x14015e7f2  e8 ..                  call 0x1402c9e60          ; _strnicmp(tag, "TEXS0003", 4)
+> > 0x14015e7f9  75 70                  jnz  0x14015e86b          ; MISMATCH -> leaves the loop
+> > 0x14015e811  e8 ba f9 ff ff         call 0x14015e1d0          ; MATCH    -> parses
+> > ```
+> >
+> > `_strnicmp` returns 0 on match, so the **taken** `jnz` is the mismatch arm and it is the
+> > arm that leaves. `0x14015e1d0` is reached only on a match, and it is the
+> > **sprite-sheet/frame-table parser** (`i32 frameCount`, then per-frame geometry, with
+> > `v>=3` carrying explicit gif width/height), not a catch-all. 61 of this repository's
+> > 440 `.tex` files carry a TEXS section; reading this paragraph as written drops every
+> > animated TEX to a single static frame.
+> >
+> > **No shipping code was wrong** — this is a doc-only defect. Waple's
+> > `Sources/WapleCore/TexImage.swift:859-880` already documents the correct three-way
+> > dispatch with these same three `mov r8d, 4` call sites. Fix the prose, not the decoder.
 
 **`format` enum** (size-math inferred):
 
@@ -316,24 +348,71 @@ generated (§9 Tier 1 item 1).
 > blendW4 = **stride 52**. Channel offsets accumulate in **table-index order**, not bit
 > order, so `a_BlendIndices` (idx 5) precedes `a_TexCoord` (idx 7) and `a_Color` is last.
 >
-> **Index width is u16.** The decoder hands the index blob on as pointer+length without
-> deciding the element width, but the real assets do: across 28 `.mdl` / 45 meshes every
+> ~~**Index width is u16.**~~ **Index width is per-mesh: `2 + 2*(gateWord & 1)` bytes.**
+>
+> > **[CORRECTED 2026-08-30 — this conflated a corpus correlation with the engine's rule.]**
+> > `corpus_scan/mdl-format.md:163-184` was corrected on 2026-08-28 (commit `0bb963ed`,
+> > *"인덱스 폭은 u16 고정이 아니라 메시별 플래그다"*) but that sweep did not touch this file,
+> > so §4 became the last place still asserting u16 as settled.
+> >
+> > The engine reads bit 0 of the per-mesh gate word at `[mesh + 0x18]` and derives the
+> > element width arithmetically. Bytes re-read from the pristine
+> > `wallpaper_engine/wallpaper64.exe`:
+> >
+> > ```
+> > 0x1401d784c  0f b6 4f 18            movzx ecx, byte [rdi+0x18]   ; gateWord
+> > 0x1401d7853  80 e1 01               and   cl, 1
+> > 0x1401d7870  46 8d 0c 55 02 00 00 00 lea  r9d, [r10*2+2]         ; width = 2 + 2*bit0
+> > 0x1401d7878  41 f7 f9               idiv  r9d
+> > 0x14009a98d  85 d2                  test  edx, edx               ; consumer site
+> > 0x14009a997  b9 39 00 00 00         mov   ecx, 0x39              ; DXGI_FORMAT_R16_UINT
+> > 0x14009a99c  b8 2a 00 00 00         mov   eax, 0x2a              ; DXGI_FORMAT_R32_UINT
+> > 0x14009a9a1  0f 44 c1               cmove eax, ecx
+> > ```
+> >
+> > **u32 meshes exist in the wild.** Waple's canon `spec/formats/mdl-deep.json` →
+> > `format.mdl.indexWidth` (status 확정) counts **u16 969 meshes / u32 17 meshes**, the
+> > smallest u32 case at **69,396 vertices**, over 451 `.mdl` files (workshop `scene.pkg`
+> > interiors plus the installed set) — and records `maxIndex == vertexCount-1` at 986/986
+> > under the flag rule. `Sources/WapleCore/Model3D.swift:752` implements
+> > `let iWidth = (gateWord & 1) == 0 ? 2 : 4`.
+> >
+> > **Why misreading this is silent.** Reading a u32 blob as u16 interleaves the high zero
+> > words and pins `maxIndex` at exactly `0xFFFF` (measured on all 17 u32 meshes). `0xFFFF`
+> > is *less* than every affected mesh's vertex count, so a `maxIndex < vertexCount` sanity
+> > check never fires — the triangles are scrambled with no error raised.
+> >
+> > **The measurement below stays true, as a corpus fact about these 28 files only.**
+> > The two rules coincide on the installed set because all 45 meshes there have
+> > `gateWord == 0` and a maximum of 10,995 vertices. Do not reimplement from the
+> > correlation.
+>
+> The corpus measurement, kept as evidence: across 28 `.mdl` / 45 meshes every
 > `indexBlobLen % 6 == 0`, and **5 meshes have `indexBlobLen % 12 != 0`**, which rules out
-> 32-bit indices. The smallest case is explicit — `audiophile/models/audiophile/glow.mdl`
-> has 4 vertices and a 12-byte index blob reading `00 00 01 00 02 00 | 00 00 02 00 03 00`
-> = u16 `0,1,2, 0,2,3`.
+> 32-bit indices **for those five**. The smallest case is explicit —
+> `audiophile/models/audiophile/glow.mdl` has 4 vertices and a 12-byte index blob reading
+> `00 00 01 00 02 00 | 00 00 02 00 03 00` = u16 `0,1,2, 0,2,3`.
 >
 > **Whole-file check.** Implementing the framing above parses **28/28 `.mdl` files to
 > exactly EOF** (0 bytes left over, 0 short) with `vertexBlobLen % stride == 0` in all 45
 > meshes. Observed flags: `0x09`→20 (19 meshes), `0x0b`→32 (10), `0x0f`→48 (10),
 > `0x27`→56 (6).
 >
-> **Waple already had this.** `/home/user/Waple/Sources/WapleCore/Model3D.swift`
+> **Waple already had this.** `<WAPLE>/Sources/WapleCore/Model3D.swift`
 > (`vertexLayoutTable`) and `Model3DFormat.swift` (version gates) carry the same 26 entries
 > and the same gates; all 26 mask/size pairs match what this audit dumped, as do the version
 > gates (AABB v≥17, per-mesh flag v≥15, trailer v≥21, sections v≥13, bone cap 128). **What
 > is stale is this repository's `corpus_scan/mdl-format.md`, which §9 item 1 tells Waple to
 > adopt as canonical — it has been corrected in the same pass.**
+>
+> > **[CORRECTED 2026-08-30 — the direction of authority reversed after this was written.]**
+> > As of 2026-08-28, `corpus_scan/mdl-format.md:163-184` is the **corrected** document and
+> > **§4 was the stale one** — it kept `Index width is u16` for two more days after the
+> > sibling retracted it (see the index-width correction above). The precedence rule this
+> > document sets for itself (`:55` and §9 item 1: adopt `corpus_scan/*.md` as canonical)
+> > therefore still points the right way; what is wrong is this paragraph's assumption that
+> > §4 is the fresher of the two. When the two disagree, check the dated correction blocks in
+> > both before deciding which is current.
 
 ---
 
@@ -408,9 +487,25 @@ generated (§9 Tier 1 item 1).
 > 2. **Its body is the container walker.** Validates `TEXV0005` with `memcmp(...,8)`, then
 >    loops: read a NUL-terminated section tag, `atoi(tag+4)` for the version, and dispatch
 >    on the **4-character prefix** via `_strnicmp(tag, "…", 4)` (`0x1402c9e60`) — TEXI to
->    `0x14015c760`, TEXB to `0x14015c8d0`, TEXS terminates the loop, anything else to
->    `0x14015e1d0`. A `TEXV0004` fallback calls the TEXI and TEXB parsers with version 0 and
->    no section tags.
+>    `0x14015c760`, TEXB to `0x14015c8d0`, ~~TEXS terminates the loop, anything else to
+>    `0x14015e1d0`~~ **TEXS to `0x14015e1d0`**. A `TEXV0004` fallback calls the TEXI and
+>    TEXB parsers with version 0 and no section tags.
+>
+>    > **[CORRECTED 2026-08-30 — the TEXS arm and the fall-through were both wrong.]**
+>    > `TEXS0003` is a **peer of TEXI/TEXB**, dispatched to `0x14015e1d0`, which is the
+>    > **sprite-sheet parser** — not an "anything else" catch-all. And there is no fourth
+>    > handler at all: a tag matching none of TEXI/TEXB/TEXS takes the `jnz` at
+>    > `0x14015e7f9` to `0x14015e86b` and **leaves the loop**. Bytes re-read from the
+>    > pristine binary: `0x14015e7f9 75 70` (jnz → `0x14015e86b`, the mismatch arm, since
+>    > `_strnicmp` returns 0 on match) and `0x14015e811 e8 ba f9 ff ff`
+>    > (call → `0x14015e1d0`, on the match arm). All three comparisons pass length 4
+>    > (`41 b8 04 00 00 00` = `mov r8d, 4` at `0x14015e755` / `0x14015e78c` / `0x14015e7e0`),
+>    > each followed by the `lea` that loads its tag literal — TEXI `0x14015e75b`
+>    > → `0x14048b900`, TEXB `0x14015e792` → `0x14048b8f0`, TEXS `0x14015e7e6`
+>    > → `0x14048b8e0`. Verified by re-reading those bytes.
+>    > Sibling corrections: `corpus_scan/tex-format.md` §summary and
+>    > `analysis/reports/mdl-tex-decoders-2026-08-27.md` §3 (both 2026-08-28).
+>    > Waple's `Sources/WapleCore/TexImage.swift:859-880` already has it right.
 > 3. **LZ4 sits exactly where it should.** `LZ4 error.` (VA `0x1404863f8`) is referenced by
 >    only two functions, one of which is the TEXB body parser `0x14015c8d0` (at
 >    `0x14015dd1f`). That is the "LZ4 reachable from the TEX decoder" claim, now with a path.
@@ -590,7 +685,15 @@ A complete compatibility shim is **statically embedded** in the binary (UTF-16/A
 **Verified**: Only 11 standard TypeDescriptors exist (`.?AVtype_info@@`, `.?AUIUnknown@@`, IDWrite interfaces) — these are from linked libraries. The class-name strings Agent A found (`SceneWallpaper`, `VideoWallpaper`, etc.) are **lambda-closure / `type_info::name()` debug strings**, NOT RTTI TypeDescriptors. The TDs that exist are referenced **0 times** in the binary.
 
 **Conclusion**: Wallpaper Engine is built with **standard RTTI vtables stripped** (likely `/GR-` or a post-build strip). Virtual function → class mapping cannot be auto-recovered via RTTI. Function identification must use:
-1. Reference-based evidence index (`evidence-index.tsv`): 2,538 functions reference class-name debug strings.
+1. ~~Reference-based evidence index (`evidence-index.tsv`): 2,538 functions reference class-name debug strings.~~
+   **[CORRECTED 2026-08-30 — not derivable from the regenerated index, and the premise is wrong.]**
+   No column of `analysis/decompiled/evidence-index.tsv` yields 2,538 by any reading
+   (`rtti_classes` non-empty 5,584, of which 4,735 are the row's own `FUN_…` label and 849
+   are non-self-referential CRT/DWrite noise; `api_calls` 44; `key_strings` 33). More
+   fundamentally, **no function in this binary references an engine class-name debug
+   string** — the lambda TypeDescriptors have 0 xrefs, which is the very §7 limitation this
+   section is about. The usable routes are the magic / import / literal columns; see the
+   correction under §9 Tier 1 item 4.
 2. Decompilation body content (RTTI string xrefs, magic refs, API calls).
 3. Dynamic analysis (instrument the live engine) for definitive mapping.
 
@@ -601,13 +704,13 @@ A complete compatibility shim is **statically embedded** in the binary (UTF-16/A
 ```
 <REPO>\                                     <- repository root (was a personal absolute path; substituted 2026-08-26)
 ├── WE-ENGINE-ANALYSIS-2026-07-27.md        ← this file (start here)
-├── binaries\                                ← working copies (not originals; 56 MB)
+├── binaries\                                ← working copies (not originals; 55 MB)
 │   ├── wallpaper64.exe                       ✅ restored 2026-08-27: md5 438cb215f20a8f6c38f57fbc3d9da588 = pristine
 │   ├── wallpaper64_rich.exe                  ✅ rebuilt with the fixed injector (md5 0705a76c632314519220136b36b56290)
 │   │                                          -> the Ghidra input; pristine original is wallpaper_engine\wallpaper64.exe
 │   ├── wallpaper32.exe / wallpaperui.exe / scenescript64.dll / webwallpaper64.exe
 ├── docker\Dockerfile.re                     ← reproducible RE env (Ubuntu+Ghidra 12.1.2+JDK21+radare2)
-├── scripts\                                  ← all RE/instrumentation tools (160 KB)
+├── scripts\                                  ← all RE/instrumentation tools (224 KB)
 │   ├── inject_rich_header.py                 ← MANDATORY pre-Ghidra: fixes MSVC recognition
 │   │                                            (fixed 2026-08-26: corrects section file offsets; CLI arguments)
 │   ├── ghidra_analyze.sh                     ← import+analyze pipeline
@@ -620,22 +723,36 @@ A complete compatibility shim is **statically embedded** in the binary (UTF-16/A
 │   │                                            re-validates MDL/TEX framing on the 28 .mdl
 │   │                                            + 440 .tex assets in this repo (exit 0 = pass)
 │   └── hook_d3d11_*.js, identify_device_vtable.js, diag.js  ← frida dynamic (§10)
-├── analysis\                                  ← 48 MB
+├── analysis\                                  ← 50 MB
 │   ├── pe-structure.{json,md}                ← PE facts (§1)
-│   ├── reports\
+│   ├── parse_pe.py / pe_parse.py             ← PE parser (writes the .json only, not the .md)
+│   ├── extract_strings.py / categorize_strings.py
+│   ├── reports\                              ← 76 KB
 │   │   ├── entry-point.md
 │   │   ├── subsystems-identified.md          ← 9/9 subsystem detail (§5)
 │   │   └── mdl-tex-decoders-2026-08-27.md    ← NEW: MDL 0x140261880 + TEX 0x14015e580
 │   │                                            close-read; vertex-format table; TEXI fix
-│   ├── strings\*.txt                          ← categorized string dump (8 themed files)
-│   ├── decompiled\
-│   │   ├── all\ (7,748 .c files, 45 MB)       ← full C pseudocode, regenerated 2026-08-27 (§6)
-│   │   ├── manifest.json                      ← function index
-│   │   ├── evidence-index.tsv                 ← RTTI/magic/API per function (§7)
+│   ├── strings\*.txt                          ← categorized string dump (8 themed files; 620 KB)
+│   ├── decompiled\                            ← 46 MB
+│   │   ├── all\ (7,748 .c files, 44 MB)       ← 7,745 C bodies + 3 header-only failures (below)
+│   │   ├── manifest.json                      ← function index (7,748 entries; `decompiled` is authoritative)
+│   │   ├── evidence-index.tsv                 ← magic/API/string per function; the
+│   │   │                                        rtti_classes column is unusable (§9 item 4)
 │   │   └── xref-index.tsv
-│   ├── rtti-vtables.json / rtti-references.json
+│   ├── ghidra_logs\                           ← 3.8 MB, added 2026-08-27 — analyze/decompile
+│   │                                            run logs (analyze_scenescript64.log alone is
+│   │                                            3.7 MB / 32,180 lines)
+│   ├── scenescript\                            ← 84 KB, added 2026-08-27 — 3 decompiled
+│   │                                            scenescript64.dll functions + manifest.txt
+│   ├── rtti-vtables.json / rtti-references.json  ← §7 limit: every engine-class array is empty
 │   └── d3d_*.log, diag.log                    ← dynamic analysis captures (§10)
-├── corpus_scan\                              ← PKGV/TEX/MDL/schema decoded (§§2-4)
+├── spec\                                      ← added 2026-08-27
+│   └── engine\playback-policy.json            ← ⚠️ its own `generatedBy` names
+│                                                 `scripts/spec/measure_playback_policy.py`,
+│                                                 which does NOT exist in this repository —
+│                                                 the generator lives in the Waple repo at
+│                                                 that path. See the note below the tree.
+├── corpus_scan\                              ← PKGV/TEX/MDL/schema decoded (§§2-4); 560 KB
 │   ├── pkgv_parse.py / pkgv_census.py        ← reference parser + corpus walker
 │   ├── tex-format.md / mdl-format.md         ← chunk format specs
 │   ├── scene-json-schema.md / project-json-schema.md
@@ -643,9 +760,86 @@ A complete compatibility shim is **statically embedded** in the binary (UTF-16/A
 │   ├── entry-name-frequency.tsv (11,338 paths)
 │   ├── scenes-index.tsv (446 scenes classified)
 │   └── parse-errors.tsv (empty — 0 errors across 19,777 chunks)
-└── ghidra_proj\                              ← reusable Ghidra project (38 MB)
-    └── we_analysis.gpr / we_analysis.rep     ← re-open in Ghidra GUI for interactive work
+├── ghidra_proj\                              ← reusable Ghidra project (**492 MB**)
+│   └── we_analysis.gpr / we_analysis.rep     ← re-open in Ghidra GUI for interactive work
+└── wallpaper_engine\                         ← **1.1 GB** — the pristine WE 2.8.42 install
+    ├── wallpaper64.exe                        ← the pristine original (md5 438cb215…);
+    │                                             every byte quoted in this document
+    ├── distribution\wallpaper64.exe           ← second pristine copy, byte-identical
+    ├── bin\assimp-vc143-mt64.dll              ← the Rich-Header donor (§6, A.2)
+    └── projects\defaultprojects\              ← the 28 .mdl / 440 .tex verification corpus
 ```
+
+### Decompilation coverage limit (3 functions)
+
+`all/` contains one file per manifest entry, but a file's presence does **not** mean Ghidra produced
+pseudocode. `analysis/decompiled/manifest.json` records three `decompiled:false` entries; their `.c`
+files contain only the generated header:
+
+| function | manifest size | role / consequence |
+|---|---:|---|
+| `FUN_1401c5490` | 49,248 | particle-system JSON parser factory (`0x1401c5490`–`0x1401d152c`; Waple citations 1,277 / 38 files) |
+| `FUN_14023fbc0` | 542 | particle operator VM dispatcher (`0x14023fbc0`–`0x14024be38`; Waple citations 1,001 / 28 files) |
+| `FUN_140300680` | 422 | not yet named |
+
+> **[Corrected 2026-09-01] The VM dispatcher's end address was `0x14024bace`, 874 bytes short.**
+> That address is the end of only the **second** of the function's four chained `.pdata`
+> fragments. `UNW_FLAG_CHAININFO` links all four —
+> `0x14023fbc0–0x14023fccd`, `0x14023fccd–0x14024bace`, `0x14024bace–0x14024bae3`,
+> `0x14024bae3–0x14024be38` — so the whole function ends at `0x14024be38`
+> (`0x14024be38 − 0x14024bace = 874`). Waple's canon uses the full range consistently
+> (`docs/re/particle-operator-vm.md` §1.2 and elsewhere); this table was the outlier.
+> Every `case` body does live inside fragment 2, which is why the truncated range looked
+> right for so long — but a reader mapping the *function* would have stopped 874 bytes early.
+
+The first two are core particle paths: together they account for 2,278 Waple address citations in
+66 distinct files. For those ranges,
+`analysis/decompiled/all/` is **not evidence**; verify instructions in the original binary instead.
+The reproducible route used by the Waple audit is `pefile` section-table VA→file-offset mapping plus
+`capstone` disassembly (`imagebase = 0x140000000`). Keep the manifest flag with any citation so a
+header-only file is never mistaken for a successful decompile. This limitation affects 3/7,748
+entries; it does not invalidate the remaining 7,745 bodies.
+
+> **[CORRECTED 2026-08-30 — three defects in the tree above: one stale size, three missing
+> rows, one dangling citation.]**
+>
+> **`ghidra_proj\` was listed as 38 MB. It is 492 MB — over 13x.** 38 MB was true at
+> `c72aa42e` (`db.8.gbf` = 39,288,832 B); the directory grew at `fc9c7b1c` (`db.2.gbf`
+> 0 → 82,296,832) and `9ad6de09` (`db.3.gbf` +414 MB), and this row was never updated —
+> `3aa6a95d` updated the sibling `all\` row four lines up while leaving this one. Sizes
+> re-measured 2026-08-30, all from the repository root:
+>
+> ```
+> du -sh ghidra_proj analysis analysis/decompiled analysis/decompiled/all \
+>        analysis/ghidra_logs analysis/scenescript analysis/reports analysis/strings \
+>        scripts binaries corpus_scan wallpaper_engine
+> #  492M ghidra_proj · 50M analysis · 46M analysis/decompiled · 44M .../all
+> #  3.8M analysis/ghidra_logs · 84K analysis/scenescript · 76K analysis/reports
+> #  620K analysis/strings · 224K scripts · 55M binaries · 560K corpus_scan · 1.1G wallpaper_engine
+> ```
+>
+> **Clone-size caveat the tree never mentioned: this repository uses git-LFS.**
+> `.gitattributes` tracks `ghidra_proj/we_analysis.rep/idata/00/~00000001.db/db.3.gbf`
+> (433,733,632 B) through LFS, so a clone on a machine without git-lfs fetches a ~130-byte
+> pointer for it. The other 79 MB (`db.2.gbf`) is plain git content, so **any** clone still
+> exceeds the stated 38 MB by more than 2x. Total worktree is 2.6 GB
+> (`wallpaper_engine` 1.1 GB, `.git` 967 MB), not 1.6 GB.
+>
+> **Rows that were missing entirely:** `analysis/ghidra_logs/`, `analysis/scenescript/` and
+> `spec/` — all three added by commit `9ad6de09`, which never touched this document.
+> The `scripts\` row's 160 KB is also stale; measured 224 KB.
+>
+> **Dangling citation.** `spec/engine/playback-policy.json` declares
+> `"generatedBy": "scripts/spec/measure_playback_policy.py"`, but `scripts/spec/` does not
+> exist here (`ls scripts/spec` → No such file or directory) and `scripts/` holds no
+> `measure_*.py`. The generator is in the Waple repo at exactly that path, and the two
+> repositories' copies of the JSON are byte-identical. **Do not "fix" this by decorating the
+> `generatedBy` string**: Waple's `scripts/spec/check_canon_generator_keys.py:113,119`
+> matches it exactly against `f"scripts/spec/{gen.name}"` and *skips* a doc whose value
+> differs, so an edited string that propagated back into Waple would silently disable that
+> gate rather than fail it. Either vendor the generator into this repository or add a
+> separate provenance field (e.g. `generatedByRepo`) and leave `generatedBy` byte-stable.
+> Left unfixed here — `spec/` is outside this pass's scope.
 
 ---
 
@@ -665,11 +859,99 @@ Ranked by Waple-defect impact × ease. Items 1-3 use only the static artifacts a
    - ~~**PKGV gotcha** (§2): the 4 ASCII digits after `PKGV` are a per-file serial, not a version. The `entry_count` field at offset 0x0c is authoritative. Fix Waple's parser if it gates on the suffix.~~ **WITHDRAWN (2026-08-27) — do not run this step.** The suffix is a version: the loader does `atoi(magic+4)` and rejects `> 24` (`0x14027695f`/`0x140276964`, bytes quoted in §2). Waple had already disproved this note twice from its own side (`Sources/WapleCore/ScenePackage.swift:129`, first by corpus magic distribution 2026-07-27, then by the same disassembly plus the writer-side literal 2026-08-21) and deliberately kept its parser as-is with that reasoning recorded. **Acting on this item would have reverted a measured fact.** `entry_count` at 0x0c remains authoritative for the index.
    - **TEX gotcha** (§3): `alloc_width/height` (GPU-padded power-of-two) ≠ `orig_width/height` (source). Allocate `alloc_dim`, place `orig_dim` content.
 
-2. **Port the §5 GLSL→HLSL shim to GLSL→MSL.** The aliasing philosophy (`vec2`→`float4`, `mix`→`lerp`, `gl_FragColor`→output) transfers directly; MSL shares HLSL's `float4`/`SamplerState` vocabulary. This is the highest-leverage fix for Waple's compile-rate deficit cases.
+2. ~~**Port the §5 GLSL→HLSL shim to GLSL→MSL.** The aliasing philosophy (`vec2`→`float4`, `mix`→`lerp`, `gl_FragColor`→output) transfers directly; MSL shares HLSL's `float4`/`SamplerState` vocabulary. This is the highest-leverage fix for Waple's compile-rate deficit cases.~~
+   **DONE (2026-08-30), and the alias was wrong as written.** Two things:
+   - **`vec2`→`float2`, not `float4`.** §5:437 in this same document says `float2`, the §5
+     row-7 evidence cell says `#define vec2 float2`, and so do the embedded shim bytes.
+     Re-read from the pristine `wallpaper_engine/wallpaper64.exe` at file offset `0x486b10`:
+     `#define vec2 float2` / `#define vec3 float3` / `#define vec4 float4` /
+     `#define uvec4 uint4` / `#define mat4 float4x4` / `#define mat4x3 float4x3` /
+     `#define mat3 float3x3` / `#define mat2 float2x2`. This line was the only place in the
+     document mapping `vec2` to a 4-component type.
+   - **The port already exists**, so the "highest-leverage fix for Waple's compile-rate
+     deficit cases" framing is stale in the same way item 3 was before it was marked DONE.
+     `Sources/WapleCore/GLSLTranslator.swift:1783` carries the alias table with
+     `"vec2": "float2"`, and `Tests/WapleCoreTests/GLSLTranslatorTests.swift` pins it.
+     Anyone who had acted on `vec2`→`float4` would have been caught by that suite
+     immediately — which is why this is a doc defect, not a shipped bug.
 
 3. ~~**Pin MDL decoder against `FUN_140261950` (RVA 0x260950).** Read its decompilation in `analysis/decompiled/all/0000000140261950__FUN_140261950.c` and match Waple's MDL parser field-by-field.~~ **CORRECTION (2026-08-26): do not run this step as written.** That `.c` file is a displaced-corpus artifact, so its contents are not the real function (§6). ~~**UPDATE (2026-08-27): the corpus has been regenerated, so this step is now runnable as written below.**~~ **DONE (2026-08-27).** `analysis/decompiled/all/0000000140261880__FUN_140261880.c` was read end-to-end and matched field-by-field against Waple's parser (`Sources/WapleCore/Model3DFormat.swift`, `Model3D.swift`). **The vertex-format-flag question (§4) is fully resolved**, not "for most cases": the per-bit mapping is a 26-entry table in `.rdata` and all 26 mask/size pairs agree with Waple's `vertexLayoutTable`, as do all six version gates and the 128-bone cap. **Nothing to change on Waple's side was found.** What did need changing was `corpus_scan/mdl-format.md` (see item 1). Report: `analysis/reports/mdl-tex-decoders-2026-08-27.md`.
 
-4. **Drive the 12 defect clusters from `evidence-index.tsv`.** For each cluster's class name (e.g. `SceneWallpaper`, `MaterialSystem`), grep the evidence index → get the functions that reference it → read those decompilations. This is how to convert `FUN_*` pseudocode into role-identified engine logic without RTTI.
+4. ~~**Drive the 12 defect clusters from `evidence-index.tsv`.** For each cluster's class name (e.g. `SceneWallpaper`, `MaterialSystem`), grep the evidence index → get the functions that reference it → read those decompilations. This is how to convert `FUN_*` pseudocode into role-identified engine logic without RTTI.~~
+
+   > **⚠️ [CORRECTED 2026-08-30 — do not run this step. The workflow is not possible with
+   > the artifacts in this repository, and no other artifact here can substitute.]**
+   >
+   > **The prescribed grep returns 0 rows.** Measured against
+   > `analysis/decompiled/evidence-index.tsv` (7,748 data rows, regenerated 2026-08-27):
+   >
+   > ```
+   > grep -cE "SceneWallpaper|MaterialSystem|VideoWallpaper|CEFWallpaper|WallpaperManager|ParticleVbo|AudioProcessor|AudioEventHandler|ImageLayer|PropertySystem|DataCache" \
+   >     analysis/decompiled/evidence-index.tsv        # -> 0
+   > ```
+   >
+   > **Why.** The `rtti_classes` column is self-referential noise. `BuildEvidenceIndex.java:72-81`
+   > extracts a "class" from any symbol containing `::` by backtracking over identifier
+   > characters, and Ghidra's own synthetic labels satisfy that test, so most rows are
+   > populated with the row's own function label:
+   >
+   > ```
+   > awk -F'\t' 'NR>1 && $4!=""{n++; if($4==$2) s++} END{print n, s}' \
+   >     analysis/decompiled/evidence-index.tsv        # -> 5584 nonempty, 4735 self-referential
+   > ```
+   >
+   > Stripping the `FUN_`/`LAB_`/`switchD_`/`caseD_`/`s_` label prefixes from what remains
+   > leaves only CRT and DWrite names (`DLL` 558, `setlocale`, `memcpy_s`, `isxdigit`,
+   > `DWriteFontFileLoader`, `GeometrySink`, …) — **zero WE engine classes.**
+   >
+   > **Nothing else here answers it either.** Three candidate substitutes were measured and
+   > all three fail:
+   > - `xref-index.tsv` — same grep, also **0**; its `rtti_classes` column has 4 non-empty
+   >   rows out of 7,748. (Its `format_magics` column is fine, but so is
+   >   `evidence-index.tsv`'s — both carry the same 14 magic rows, so there is no contrast
+   >   to redirect toward.)
+   > - `analysis/rtti-references.json` — holds all 11 engine class names as keys and every
+   >   array is **empty** (`"SceneWallpaper": []`, `"MaterialSystem": []`, …); only
+   >   `DWriteFontFileLoader` has an entry.
+   > - `analysis/reports/subsystems-identified.md` — gives `.data` **string offsets** for the
+   >   lambda TypeDescriptors (`SceneWallpaper::LoadSceneAndProperties` @ `0x4e0021`,
+   >   `MaterialSystem::ReloadDirtyMaterials` @ `0x4e01fc`, …), but those descriptors are
+   >   referenced **0 times** in the binary. Re-measured on the pristine original for six of
+   >   them (`SceneWallpaper`, `MaterialSystem`, `Texture::ReadTextureData`, `DataCache`,
+   >   `AudioProcessor`, `CEFWallpaper`): 0 as an 8-byte absolute and 0 as a 4-byte
+   >   image-relative RVA in every case. The one apparent RVA hit for the `SceneWallpaper`
+   >   descriptor lands in `.reloc`, i.e. it is a base-relocation record for the descriptor's
+   >   own vftable field, not a reference to it. **A string offset with no xrefs gives the
+   >   reader no path to a function.** Grepping the decompiled corpus directly is equally
+   >   empty: `grep -rl` over `analysis/decompiled/all/` returns 0 files for each of
+   >   `SceneWallpaper`, `MaterialSystem`, `CEFWallpaper`, `WallpaperManager`, `ParticleVbo`,
+   >   `AudioProcessor`, `DataCache`. The only `VideoWallpaper` hits are the Win32 window
+   >   class literal `L"WPEVideoWallpaper"`, not the C++ class.
+   >
+   > **This is §7 restated, not a tooling gap.** WE ships with standard RTTI stripped, so
+   > there is no name→function edge to index in the first place. Any workflow phrased as
+   > "grep a class name, get its functions" is unavailable in this repository by
+   > construction; the honest statement is that it needs dynamic instrumentation (§9 Tier 2)
+   > or manual decompilation reading.
+   >
+   > **What the indices *can* actually drive** (measured, non-empty columns):
+   >
+   > | Artifact · column | Rows | Use |
+   > |---|---:|---|
+   > | `evidence-index.tsv` · `format_magics` | 14 | container/format entry points — this is how `14015e580 TEXB;TEXI;TEXV` and `140261880 MDAT;MDLA;MDLE;MDLS;MDMP` were pinned (§4, §5 row 3) |
+   > | `evidence-index.tsv` · `api_calls` | 44 | reach a subsystem through its Win32/D3D imports |
+   > | `evidence-index.tsv` · `key_strings` | 33 | reach a subsystem through its literals (the `LZ4 error.` route in §5 row 3) |
+   > | `xref-index.tsv` · `imported_apis` | 66 | same, wider coverage |
+   > | `xref-index.tsv` · `filename_strings` | 46 | source-path leaks → file-level attribution |
+   >
+   > Every coordinate this audit actually pinned came from the magic / string / import
+   > columns, never from `rtti_classes`. That is the working method; use it instead.
+   >
+   > **Generator fix, not done in this pass.** `BuildEvidenceIndex.java` should reject
+   > Ghidra's synthetic label prefixes generally (`FUN_`, `LAB_`, `switchD_`, `caseD_`,
+   > `s_`, `j_`, `thunk_`, and bare `DLL`), not merely the case where the extracted name
+   > equals the enclosing function label — the data above shows all of those forms present.
+   > Until then the `rtti_classes` column should be read as empty.
 
 ### Tier 2 — resume dynamic analysis on the Windows host (§10)
 
@@ -881,7 +1163,17 @@ Rich-Header injection — and:
   `D3D11_INPUT_ELEMENT_DESC`) and checks every `size[i]` against its `DXGI_FORMAT`;
 - re-parses the 28 `.mdl` assets in `wallpaper_engine/projects/defaultprojects/`
   (45 meshes) and asserts each lands on exactly EOF with
-  `vertexBlobLen % stride == 0` and u16-sized index blobs;
+  `vertexBlobLen % stride == 0` and ~~u16-sized index blobs~~ **`indexBlobLen % 6 == 0`**;
+
+  > **[CORRECTED 2026-08-30 — the script does not assert what this line claimed.]**
+  > `scripts/verify_mdl_tex.py:221-222` gates on `ilen % 6`, whose failure message reads
+  > `"not u16-triangles"`. That test **cannot distinguish u16 from u32**: a u32 triangle
+  > list has `ilen = 12*T` and `12*T % 6 == 0` for every `T`, so a legitimate u32 mesh
+  > passes it. What the script checks is that these 28 files' index blobs are a whole
+  > number of 6-byte (u16) triangles — a corpus property of this asset set, not the
+  > engine's rule. The engine picks the width per mesh as `2 + 2*(gateWord & 1)`; see the
+  > §4 correction. The script already parses and stores that gate word (`:129`, `:150`),
+  > so gating on `mesh["gate"] & 1` would be a strict improvement — not done in this pass.
 - re-parses all 440 `.tex` assets and asserts the corrected TEXI framing lands on a
   valid `TEX?000N` tag every time.
 

@@ -50,8 +50,29 @@ Interceptor.attach(createDevice, {
             const levelNames = {0xa000:'10_0',0xa100:'10_1',0xb000:'11_0',0xb100:'11_1'};
             console.log('[+] Device @ ' + devPtr + ' vtable @ ' + vtable + ' featureLevel=' + (levelNames[actualLevel]||'0x'+actualLevel.toString(16)));
 
-            // --- Hook CreateTexture2D (vtable idx 8) ---
-            const createTexture2D = vtable.add(8 * Process.pointerSize).readPointer();
+            // --- Hook CreateTexture2D (vtable idx 5) ---
+            // [정정 2026-08-30] 종전 이 자리는 `idx 8` 로 적혀 있었고 vtable.add(8 * ...) 를 읽었다.
+            // 슬롯 8 은 CreateUnorderedAccessView 다. 그 훅의 args[1] 은 D3D11_TEXTURE2D_DESC*
+            // 가 아니라 ID3D11Resource* (pResource) 이므로, 아래 desc.readU32() 계열은 COM
+            // 객체의 vtable 포인터 워드와 힙 필드를 width/height/format 으로 출력하게 된다.
+            // 실측 근거(1차 자료 2건, 서로 독립):
+            //   mingw-w64 d3d11.h `struct ID3D11DeviceVtbl` — 항목 43개(0..42),
+            //     [3] CreateBuffer [4] CreateTexture1D [5] CreateTexture2D [6] CreateTexture3D
+            //     [7] CreateShaderResourceView [8] CreateUnorderedAccessView [12] CreateVertexShader
+            //     [15] CreatePixelShader [42] GetExceptionMode
+            //   Wine d3d11.idl `interface ID3D11Device : IUnknown` (메서드 40개) — 같은 순서
+            // 리포 내부 교차확인: hook_d3d11_scan.js:125-131 · hook_d3d11_validate.js:28-50 이
+            // 처음부터 올바른 표를 갖고 있었고, analysis/d3d_scan.log:298 의 실제 실행이
+            // `[+] hooked CreateTexture2D (vt[5] @ 0x63a71770)` 을 기록한다.
+            //
+            // 이 결함은 잠재 결함이었고 쓰레기 로그를 낸 적은 없다. v17.js 의 유일한 실행인
+            // analysis/d3d_spawn.log 는 D3D11CreateDevice 마다 이 아래 :45/:47
+            // (devPtr/pFeatureLevel 역참조)에서 "access violation accessing 0x0" 으로 중단됐고,
+            // 제어가 이 훅 설치 줄까지 도달한 적이 없다. 그래서 지금 리포에 슬롯 8 이 만든
+            // [CreateTexture2D] 줄은 한 줄도 없다(`grep -rn "\[CreateTexture2D" analysis/` → 0건).
+            // 별건으로 남은 문제: pFeatureLevel 이 NULL 인 호출에 대한 가드가 없다 — 슬롯을
+            // 고친 것만으로 v17.js 가 캡처를 시작하지는 않는다.
+            const createTexture2D = vtable.add(5 * Process.pointerSize).readPointer();
             let texCount = 0;
             Interceptor.attach(createTexture2D, {
                 onEnter(args) {
@@ -117,8 +138,10 @@ Interceptor.attach(createDevice, {
                 }
             });
 
-            // --- Hook CreateBuffer (idx 5) — cbuffer/VB/IB sizes ---
-            const createBuffer = vtable.add(5 * Process.pointerSize).readPointer();
+            // --- Hook CreateBuffer (idx 3) — cbuffer/VB/IB sizes ---
+            // [정정 2026-08-30] 종전 `idx 5` / vtable.add(5 * ...). 슬롯 5 는 CreateTexture2D 다.
+            // CreateBuffer 는 슬롯 3 이다(위 CreateTexture2D 주석의 1차 자료 2건 참조).
+            const createBuffer = vtable.add(3 * Process.pointerSize).readPointer();
             let bufCount = 0;
             Interceptor.attach(createBuffer, {
                 onEnter(args) {

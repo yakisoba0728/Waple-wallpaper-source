@@ -234,9 +234,18 @@ if tls_rva:
     tls["size"] = tls_size
     tls_off = rva_to_file(tls_rva)
     if tls_off:
-        # PE32+ TLS: raw_start(8) raw_end(8) index_addr(8) callbacks(8) zs(4) sz(4) char(4)
-        (raw_start, raw_end, index_addr, callbacks) = struct.unpack_from("<QQQQ", data, tls_off)
-        (zero_fill, sz_of_sz, char_tls) = struct.unpack_from("<III", data, tls_off+32)
+        # PE32+ IMAGE_TLS_DIRECTORY64 은 **6필드 40바이트**다:
+        #   StartAddressOfRawData(8) EndAddressOfRawData(8) AddressOfIndex(8)
+        #   AddressOfCallBacks(8) SizeOfZeroFill(4) Characteristics(4)
+        # DataDirectory[TLS].Size 도 0x28 = 40 으로 이것과 일치한다.
+        #
+        # [회귀 정정 2026-09-01] 종전 이 자리는 `<III`(4바이트 3개)로 읽고 **세 번째**를
+        # Characteristics 로 썼다. 그 자리(tls_off+40)는 구조체 밖이라 뒤따르는 다른 데이터를
+        # 읽은 것이고, 그래서 커밋된 `pe-structure.json` 이 characteristics=1 을 담고 있었다.
+        # 실제 값은 0x500000(= IMAGE_SCN_ALIGN_16BYTES 인코딩의 Alignment 필드)이다.
+        # 같은 리포의 `analysis/pe_parse.py` 는 처음부터 `<QQQQII` 로 옳게 읽는다 — 이쪽만 어긋났다.
+        (raw_start, raw_end, index_addr, callbacks,
+         zero_fill, char_tls) = struct.unpack_from("<QQQQII", data, tls_off)
         tls.update({
             "raw_data_start_va": raw_start, "raw_data_end_va": raw_end,
             "address_of_index_va": index_addr, "address_of_callbacks_va": callbacks,
