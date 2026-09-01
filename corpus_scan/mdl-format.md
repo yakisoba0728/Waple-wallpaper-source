@@ -69,7 +69,7 @@ u32 + bytes         vertex_buffer    LENGTH IS IN BYTES, not vertices
 u32 + bytes         index_buffer     LENGTH IS IN BYTES; elements are u16
 u8 gate -> u32 + (u32+bytes)          only if version >= 21
 u8 gate -> (u32+bytes)                only if version >= 21
-u32 n -> n × bone-binding record       only if version >= 23
+u32 n -> n × morph/mask record         only if version >= 23
 ```
 
 After all meshes, **if version >= 13**, a sub-chunk section loop runs: read a
@@ -86,11 +86,26 @@ on the last index byte.
 | AABB `float[6]` | `version >= 17` | `0x1402619a6 cmp edi,0x11` |
 | per-mesh `format_flag` | `version >= 15` | `0x140261a19 cmp edi,0xf` |
 | mesh trailer (2 gated blobs) | `version >= 21` | decompiled `:327` |
-| v23 bone-binding records | `version >= 23` | decompiled `:345` |
+| v23 morph/mask records | `version >= 23` | decompiled `:345` |
 | sub-chunk section loop | `version >= 13` | decompiled `:694` |
 
 For `version < 15` the engine reloads the **header** `format_flag` at every mesh
 (`0x140261a33 mov [rbp+0xa8], r10d`) — there is no per-mesh read at all.
+
+### v23 morph/mask record — ✅ RESOLVED FROM THE WIDER WORKSHOP CORPUS
+
+The record body is:
+
+```
+u64 id | cstr name | u32 flags | u32 count_A | count_A × u32 |
+u32 count_B | count_B × u32
+```
+
+The 28 installed `.mdl` files in this repository still have record count 0, so they validate only
+the gate and framing. Waple's wider workshop corpus exercises the body in 12 files; every observed
+name is `masks/clipping_mask_*`. Waple therefore models this as a preserved morph/mask record
+(`Model3D.MorphTarget`), with synthetic byte tests locking the exact field order. Rendering the
+morph data remains out of scope, but the format and semantic family are no longer unresolved.
 
 ## Vertex format flag word (offset 0x09, one u32) — ✅ DECODED
 
@@ -281,7 +296,7 @@ account for every byte in the file.
    measured. (Waple's `Model3DFormat.swift` reports having byte-checked them against
    a wider workshop corpus.)
 6. **[UNRESOLVED]** Sub-chunk length semantics and record interiors (see above).
-7. **[UNRESOLVED]** The v23 bone-binding record body: the framing
-   `{u64; cstr; u32; u32 k -> k×u32; u32 m -> m×u32}` makes all 28 files land exactly
-   on EOF, but the record count is 0 in every one of them, so the body has never
-   actually been exercised.
+7. ~~The v23 record body.~~ ✅ **RESOLVED from Waple's wider workshop corpus** — it is the
+   morph/mask record documented above, not a skinning/bone-binding block. This repository's 28
+   installed files still all use count 0; they confirm framing only, while the 12 wider-corpus files
+   exercise the record body.

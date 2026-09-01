@@ -24,6 +24,26 @@ Corpus: `Z:\SteamLibrary\steamapps\workshop\content\431960`
 
 ## Extension census
 
+> **[2026-09-01] Read the population before comparing this `.tex` row to anything.** Three
+> different totals for "all the `.tex` files" circulate across the two repositories and **all
+> three are correct for their own population** — they are not a contradiction to reconcile:
+>
+> | value | population | where |
+> |---:|---|---|
+> | **4,679** | workshop `scene.pkg` **entries only**, 446 folders (this file's corpus, see header) — nothing from the WE install tree | this table · `WE-ENGINE-ANALYSIS-2026-07-27.md` §chunk census |
+> | **4,991** | workshop `scene.pkg` + install `assets/` | `Waple/spec/formats/tex-embedded-mips.json` |
+> | **5,120** | workshop `scene.pkg` + install `assets/` **+ `projects/`** (the `projects/defaultprojects/**` add adds 129) | `Waple/spec/formats/tex-deep.json` |
+>
+> So 4,991 − 4,679 = 312 loose `.tex` under install `assets/`, and 5,120 − 4,991 = 129 under
+> install `projects/`. This file counts **pkg entries**, which is also why its `.mp3` row (338)
+> differs from the detected-type row above (336): the census by magic bytes and the census by
+> filename extension do not have to agree.
+>
+> The 4,991 label in `tex-embedded-mips.json` is the one that is actually *stale* — its
+> generator (`scripts/spec/measure_embedded_mips.py`) already walks `projects/` and says so in
+> its own comments; the committed JSON just has not been regenerated on a machine with the
+> workshop corpus. That is a Waple-side item, not a defect in this table.
+
 | extension | total entries |
 |---|---:|
 | `.json` | 10467 |

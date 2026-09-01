@@ -1,4 +1,23 @@
 # Ghidra headless PostScript/Python: decompile target functions + all functions
+#
+# ⚠️ [2026-09-01] **이 스크립트는 정본 생성기가 아니다 — 커밋된 산출물을 만든 것은
+# `scripts/DecompileAll.java` 다.** 세 생성기가 같은 `analysis/decompiled/manifest.json`
+# 경로에 쓰는데 스키마가 서로 다르다:
+#
+#   · `DecompileAll.java`      → {"program", "total",           "functions":[{addr,name,full,size,decompiled}]}
+#   · `DecompileTargets.java`  → {"program", "total_functions", ...}
+#   · 이 파일                   → {"program", "total_functions", "total_targets", "functions"}
+#
+# **커밋된 `analysis/decompiled/manifest.json` 의 최상위 키는 `total` 이다** → 즉 현재
+# 산출물의 출처는 `DecompileAll.java` 다. 이 스크립트를 그 위에 돌리면 키 이름이 바뀌어
+# `total` 을 읽는 소비자(정본 `spec/engine/decompilation-provenance.json` 의
+# `decompiledFunctionCount` 세는 법 포함)가 조용히 깨진다.
+#
+#   python3 -c "import json; print(list(json.load(open('analysis/decompiled/manifest.json'))))"
+#   # → ['program', 'total', 'functions']   ← 'total' 이면 DecompileAll.java 산출물이다
+#
+# 재생성이 필요하면 `DecompileAll.java` 를 써라. 이 파일은 그 이전 세대이며 참고용으로 남긴다.
+#
 # Outputs:
 #   /work/analysis/decompiled/targets/   — named target functions (priority)
 #   /work/analysis/decompiled/all/       — every function (JSON manifest + individual .c)

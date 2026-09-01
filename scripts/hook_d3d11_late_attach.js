@@ -108,11 +108,21 @@ if (found === 0) {
 
 function hookDeviceVtable(vtable, ctxPtr) {
     try {
-        // ID3D11Device vtable indices (from IUnknown: QI=0,AddRef=1,Release=2,
-        // GetDevice=3? no — ID3D11Device: CreateBuffer=5, CreateTexture2D=8,
-        // CreateVertexShader=12, CreatePixelShader=15)
-        const createTexture2D = vtable.add(8 * Process.pointerSize).readPointer();
-        const createBuffer = vtable.add(5 * Process.pointerSize).readPointer();
+        // ID3D11Device vtable indices (from IUnknown: QI=0,AddRef=1,Release=2):
+        //   CreateBuffer=3, CreateTexture2D=5, CreateVertexShader=12, CreatePixelShader=15
+        // [정정 2026-08-30] 종전 이 주석은 "GetDevice=3? no — CreateBuffer=5, CreateTexture2D=8"
+        // 이라는 추측을 그대로 남겼고, 코드도 add(8*...)/add(5*...) 로 그 추측을 따랐다.
+        // 실제 슬롯 8 은 CreateUnorderedAccessView, 슬롯 5 는 CreateTexture2D 다.
+        // 실측 근거(1차 자료 2건, 서로 독립): mingw-w64 d3d11.h `struct ID3D11DeviceVtbl`
+        // 은 항목 43개(0..42)로 [3] CreateBuffer [5] CreateTexture2D [8] CreateUAV
+        // [12] CreateVertexShader [15] CreatePixelShader; Wine d3d11.idl 의
+        // `interface ID3D11Device : IUnknown`(메서드 40개)도 같은 순서다.
+        // 리포 내부 교차확인: hook_d3d11_scan.js:125-131 · hook_d3d11_validate.js:28-50 이
+        // 올바른 표를 갖고 있고, analysis/d3d_scan.log:297-298 의 실제 실행이
+        // `hooked CreateBuffer (vt[3])` / `hooked CreateTexture2D (vt[5])` 를 기록한다.
+        // 12/15 (VS/PS) 는 원래부터 옳았으므로 손대지 않는다.
+        const createTexture2D = vtable.add(5 * Process.pointerSize).readPointer();
+        const createBuffer = vtable.add(3 * Process.pointerSize).readPointer();
         const createVS = vtable.add(12 * Process.pointerSize).readPointer();
         const createPS = vtable.add(15 * Process.pointerSize).readPointer();
         let texN=0, bufN=0, vsN=0, psN=0;
